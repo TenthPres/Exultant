@@ -1,0 +1,312 @@
+@sectionPadding: 15pt;
+@corsetPadding: 1.2*@sectionPadding;
+
+
+@maxCorsetWidth: 1000px;
+@maxWideWidth: 1048px;
+
+@narrowHide: 600px;
+@thickHeader: 1050px;
+
+@iconicNavThreshold: 835px;
+
+div#wpadminbar {
+  display:none;
+}
+
+a:not([href*='tenth.org']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
+  content: ' ↗';
+  opacity:0.7;
+}
+
+//// Header Bar
+
+@linkHeight : 2em;
+@linkWidth: 70px;
+@headerHeight: 110px;
+
+header[role="banner"], header[role="banner"]::before {
+  width:100%;
+  margin-top:0;
+  height: @headerHeight;
+  @media (max-width:@thickHeader) {
+    height: (@headerHeight + @linkHeight);
+  }
+}
+
+header[role="banner"]::before {
+  transition: height 0.3s;
+  content: ' ';
+  display:block;
+  background-color:red;
+  position: fixed;
+}
+
+header[role="banner"] {
+  & {
+    top: 0;
+    position: absolute;
+  }
+  &.static {
+    top: 0;
+    position: fixed;
+    height: @linkHeight + 4px;
+    z-index: 1000;
+
+    div#pageLogo {
+      @logoHeight: @linkHeight;
+      a#pageLogoMark {
+        height:@logoHeight;
+        width: @logoHeight;
+        bottom: 0;
+      }
+
+      a#pageLogoText {
+        height:@logoHeight;
+        width: @logoHeight*2309/865;
+        bottom: 0;
+      }
+    }
+  }
+
+  & {
+    div#pageLogo {
+      display: block;
+      background-size: 300px @linkHeight;
+      //width: 300px;
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      height: auto;
+      bottom: 2px;
+      z-index: 2000;
+      //transition-delay: 2s;
+
+      a#pageLogoText,
+      a#pageLogoMark {
+        position: absolute;
+        bottom: 0;
+        @media (max-width:@thickHeader) {
+          bottom: @linkHeight;
+        }
+        left: 0;
+        transition: background 2s, rotation 0.6s, transform 0.6s, height 0.2s, width 0.2s;
+      }
+
+      @logoHeight: 105px;
+      a#pageLogoMark {
+        height:@logoHeight;
+        width: @logoHeight;
+      }
+
+      a#pageLogoText {
+        height:@logoHeight;
+        width: @logoHeight*2309/865;
+      }
+    }
+  }
+
+  //// Top Nav
+  nav {
+    & {
+      position: absolute;
+      top:0;
+      right: @corsetPadding*.5;
+      left: @corsetPadding*.5;
+      text-align: right;
+      padding: 0;
+      margin: 0;
+      z-index: 1500;
+    }
+
+    * {
+      transition: color 0.2s, background 0.2s;
+    }
+
+    div, li {
+      /* All lis in Nav */
+      text-align: center;
+      list-style-type: none;
+      vertical-align: middle;
+      display:inline-block;
+    }
+    a, span, input {
+      /* All links in Nav */
+      margin: 0;
+      text-decoration: none;
+      display: block;
+    }
+    @media (min-width:@iconicNavThreshold) { /* non-iconic nav */
+      & > div > a {
+        /* first level links (menu, user, etc) */
+        display: none;
+      }
+
+      & > div > ul {
+        /* second level sub-lists (home, about) */
+        padding: 0;
+        margin: 0;
+      }
+
+      & > div > ul > li {
+        /* second level list item (about) */
+        float:left;
+        overflow:hidden;
+        position: relative;
+      }
+
+      & > div > ul > li:hover {
+        /* second level list item (about) */
+        overflow:visible;
+        background-color:#fff;
+      }
+
+      & > div > ul > li > a {
+        /* second level link (about) */
+        display: inline-block;
+        padding: 1em;
+      }
+
+      & > div > ul > li > div {
+        /* third level grouping (box that descends) */
+        position:absolute;
+        display:flex;
+        padding:0 .5em .3em;
+        transform: translateX(-50%);
+        left:50%;
+        white-space: nowrap;
+        background: #fff;
+      }
+
+      & > div > ul > li > div > ul {
+        padding: 0 .4em;
+      }
+      & > div > ul > li > div * {
+        text-align: left;
+      }
+      & > div > ul > li > div > ul li {
+        display: block;
+      }
+      & > div > ul > li > div > ul li > * {
+        line-height: 1.5em;
+      }
+      & > div > ul > li > div > ul ul {
+        padding-bottom:.2em;
+      }
+      & > div > ul > li > div > ul > li > a,
+      & > div > ul > li > div > ul > li > span {
+        font-weight: 600;
+      }
+      & > div li li li {
+        font-size: 0.9em;
+        padding-left: 1em;
+      }
+      & > div li small {
+        font-size: 0.7em;
+        opacity:0.7;
+      }
+    }
+
+    @media (max-width: @iconicNavThreshold) { /* iconic nav mode */
+
+      a, input {
+        /* All links in Nav */
+        margin: 0;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        //transition: color 0.2s, background 0.2s;
+      }
+
+      & ul a {
+        padding: 2px 0;
+      }
+
+
+      & > div > a {
+        /* first level links (menu, user, etc) */
+        display: block;
+        width: @linkHeight;
+        overflow: hidden;
+      }
+
+      & > div > ul {
+        /* first level sub-lists (basic row) */
+        display: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        position: absolute;
+        text-align: right;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      & > div:hover > ul,
+      & > div.navOpen > ul,
+      & > div:focus > ul {
+        /* first level sub-lists (basic row) */
+        width: 100%;
+        display: block;
+      }
+
+      & > div > ul > li {
+        /* second level list */
+        display: block;
+        width: 50%;
+        margin-left:50%;
+      }
+
+      & > div > ul > li > a {
+        /* second level links */
+        // yup.  An empty block
+      }
+
+      & > div > ul > li > ul {
+        /* second level sub-lists */
+        display: none;
+      }
+
+      & > div > ul > li:hover > ul {
+        /* second level sub-lists */
+        display: block;
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        //top: @linkHeight;
+        //right: @linkWidth;
+        width: 50%;
+        //float: right;
+        padding: 0;
+        margin: 0;
+        //display: none;
+      }
+
+      & > div > ul > li > ul > li {
+        /* third level sub-lists */
+        display: block;
+        padding: 0;
+        margin: 0;
+      }
+
+      & > div > ul > li > ul > li > a {
+        /* third level links */
+        height: auto;
+        min-height: @linkHeight;
+        width:100%;
+      }
+    }
+
+    input {
+      border: none;
+      background-color: transparent;
+      height: @linkHeight + 4px;
+      width: @linkWidth + 16px;
+      font-family: Cabin, 'Segoe UI', sans-serif;
+      font-size: 1em;
+      text-align: center;
+    }
+  }
+}

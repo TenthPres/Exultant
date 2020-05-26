@@ -30,20 +30,26 @@
                 <h1>Tenth Presbyterian Church</h1>
             </a>
 			<?php if ( get_theme_mod( 'enable_header_nav', true ) && has_nav_menu( 'primary' ) ) { ?>
-                <nav aria-label="<?php esc_attr_e( 'Main Menu', 'tenthtemplate' ); ?>" role="navigation">
+                <nav aria-label="<?php esc_attr_e( 'Main Menu', 'tenthtemplate' ); ?>" role="navigation" oncontextmenu="return true;">
+                    <div>
+                        <!-- TODO mobile hamburger -->
 	                <?php wp_nav_menu( [
 			                'menu'         => 'primary',
 			                'menu_id'      => 'menu-primary',
 			                'container'    => false,
 			                'fallback_cb'  => false,
 			                'depth'        => 5,
-			                'item_spacing' => 'Zdiscard', // remove to add newlines and spaces to nav html
+			                'item_spacing' => 'discard', // remove to add newlines and spaces to nav html
                             'walker' => new TenthHeaderMenuWalker()
 		                ] );
 
 	                ?>
+                    </div>
                     <div>
-	                    <?php _e( 'Search', 'tenthtemplate' ); ?><!-- TODO -->
+	                    <a><?php _e( 'Search', 'tenthtemplate' ); ?><!-- TODO --></a>
+                        <div>
+                            Search bar...
+                        </div>
                     </div>
                 </nav>
             <?php } ?>
@@ -55,7 +61,7 @@
                             'container'    => false,
                             'fallback_cb'  => false,
                             'depth'        => 1,
-                            'item_spacing' => 'discard'
+                            'item_spacing' => 'discard' // remove to add newlines and spaces to nav html
                         ] ); ?>
                 </div>
             <?php } ?>
