@@ -10,13 +10,17 @@
 
 @iconicNavThreshold: 835px;
 
+@import (reference) "_mixins";
+
 div#wpadminbar {
   display:none;
 }
 
 a:not([href*='tenth.org']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
-  content: ' ↗';
+  content: '\f35d';
+  .icons;
   opacity:0.7;
+  padding-left: .25em;
 }
 
 //// Header Bar
@@ -38,7 +42,7 @@ header[role="banner"]::before {
   transition: height 0.3s;
   content: ' ';
   display:block;
-  background-color:red;
+  background-color:#f7f7f7;
   position: fixed;
 }
 
@@ -116,7 +120,7 @@ header[role="banner"] {
       text-align: right;
       padding: 0;
       margin: 0;
-      z-index: 1500;
+      z-index: 100;
     }
 
     * {
@@ -153,12 +157,19 @@ header[role="banner"] {
         float:left;
         overflow:hidden;
         position: relative;
+        background-color:#ffffff00;
       }
 
-      & > div > ul > li:hover {
+      & > div > ul > li:hover, & > div > ul > li.current-item:hover {
         /* second level list item (about) */
         overflow:visible;
-        background-color:#fff;
+        background-color:#ffffffff;
+      }
+      & > div > ul > li.current-item {
+        /* second level list item (about) */
+        background-color:#ffffff99;
+        border-bottom: solid 2px @tenthGreen;
+        border-radius: 0 0 2px 2px;
       }
 
       & > div > ul > li > a {
@@ -171,8 +182,9 @@ header[role="banner"] {
         /* third level grouping (box that descends) */
         position:absolute;
         display:flex;
-        padding:0 .5em .3em;
+        padding:.3em .5em;
         transform: translateX(-50%);
+        z-index: 110;
         left:50%;
         white-space: nowrap;
         background: #fff;
