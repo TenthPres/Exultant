@@ -207,11 +207,11 @@ header[role="banner"] {
       }
       & > div > ul > li > div > ul > li > a,
       & > div > ul > li > div > ul > li > span {
-        font-weight: 600;
+        font-weight: 700;
       }
-      & > div li li li {
+      & > div li li li li {
         font-size: 0.9em;
-        padding-left: 1em;
+        padding-left: 1.2em;
       }
       & > div li small {
         font-size: 0.7em;
@@ -227,7 +227,6 @@ header[role="banner"] {
         text-decoration: none;
         font-weight: bold;
         display: block;
-        //transition: color 0.2s, background 0.2s;
       }
 
       & ul a {
@@ -240,9 +239,19 @@ header[role="banner"] {
         display: block;
         width: @linkHeight;
         overflow: hidden;
+        height: @linkHeight - 1em;
+        padding: 1em 0.5em;
       }
 
-      & > div > ul {
+      & > div:hover > a,
+      & > div.navOpen > a,
+      & > div:focus > a {
+        background-color: @tenthGreen;
+        color: #fff;
+      }
+
+      & > div > ul,
+      & > div > div {
         /* first level sub-lists (basic row) */
         display: none;
         padding: 0;
@@ -257,10 +266,14 @@ header[role="banner"] {
 
       & > div:hover > ul,
       & > div.navOpen > ul,
-      & > div:focus > ul {
+      & > div:focus > ul,
+      & > div:hover > div,
+      & > div.navOpen > div,
+      & > div:focus > div {
         /* first level sub-lists (basic row) */
         width: 100%;
         display: block;
+        background: #fff;
       }
 
       & > div > ul > li {
@@ -287,13 +300,9 @@ header[role="banner"] {
         top:0;
         bottom:0;
         left:0;
-        //top: @linkHeight;
-        //right: @linkWidth;
         width: 50%;
-        //float: right;
         padding: 0;
         margin: 0;
-        //display: none;
       }
 
       & > div > ul > li > ul > li {

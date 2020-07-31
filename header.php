@@ -32,7 +32,8 @@
 			<?php if ( get_theme_mod( 'enable_header_nav', true ) && has_nav_menu( 'primary' ) ) { ?>
                 <nav aria-label="<?php esc_attr_e( 'Main Menu', 'tenthtemplate' ); ?>" role="navigation" oncontextmenu="return true;">
                     <div>
-                        <!-- TODO mobile hamburger -->
+                        <a href="#" class="las la-bars"></a>
+                        <!-- TODO make hamburger do something -->
 	                <?php wp_nav_menu( [
 			                'menu'         => 'primary',
 			                'menu_id'      => 'menu-primary',
@@ -46,9 +47,15 @@
 	                ?>
                     </div>
                     <div>
-	                    <a><?php _e( 'Search', 'tenthtemplate' ); ?><!-- TODO --></a>
+	                    <a href="#" class="las la-search"><!-- TODO --></a>
                         <div>
                             Search bar...
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#" class="las la-user"><!-- TODO --></a>
+                        <div>
+                            Username...
                         </div>
                     </div>
                 </nav>
