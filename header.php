@@ -32,7 +32,7 @@
 			<?php if ( get_theme_mod( 'enable_header_nav', true ) && has_nav_menu( 'primary' ) ) { ?>
                 <nav aria-label="<?php esc_attr_e( 'Main Menu', 'tenthtemplate' ); ?>" role="navigation" oncontextmenu="return true;">
                     <div>
-                        <a href="#" class="las la-bars"></a>
+                        <label class="las la-bars"></label>
                         <!-- TODO make hamburger do something -->
 	                <?php wp_nav_menu( [
 			                'menu'         => 'primary',
@@ -47,16 +47,19 @@
 	                ?>
                     </div>
                     <div>
-	                    <a href="#" class="las la-search"><!-- TODO --></a>
+                        <label class="las la-search"><!-- TODO --></label>
                         <div>
-                            Search bar...
+	                    <?php
+	                    get_search_form(
+		                    [
+			                    'label' => __( 'Search for:', 'tenthtemplate' ),
+		                    ]
+	                    );
+	                    ?>
                         </div>
                     </div>
                     <div>
-                        <a href="#" class="las la-user"><!-- TODO --></a>
-                        <div>
-                            Username...
-                        </div>
+                        <?php get_template_part( 'template-parts/user-menu' ); ?>
                     </div>
                 </nav>
             <?php } ?>
@@ -72,7 +75,4 @@
                         ] ); ?>
                 </div>
             <?php } ?>
-            <?php if ( get_theme_mod( 'enable_header_nav', true )) {
-                get_template_part( 'template-parts/modal-search' );
-            } ?>
         </header>

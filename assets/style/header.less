@@ -234,18 +234,33 @@ header[role="banner"] {
       }
 
 
-      & > div > a {
-        /* first level links (menu, user, etc) */
+      & > div > label {
+        /* first level links (icons: menu, user, etc) */
         display: block;
-        width: @linkHeight;
+        width: @linkHeight * 1.4;
+        box-sizing: border-box;
         overflow: hidden;
-        height: @linkHeight - 1em;
-        padding: 1em 0.5em;
+        height: @linkHeight * 1.4;
+        padding: 0;
+        cursor: pointer;
+      }
+      & > div > label::before {
+        /* first level icons */
+        margin: @linkHeight * 0.4;
+        display:block;
       }
 
-      & > div:hover > a,
-      & > div.navOpen > a,
-      & > div:focus > a {
+      & > div > label > img {
+        /* user pic */
+        display: inline-block;
+        width: @linkHeight;
+        height: @linkHeight;
+        margin: @linkHeight * 0.2;
+      }
+
+      & > div:hover > label,
+      & > div.navOpen > label,
+      & > div:focus > label {
         background-color: @tenthGreen;
         color: #fff;
       }
@@ -318,16 +333,6 @@ header[role="banner"] {
         min-height: @linkHeight;
         width:100%;
       }
-    }
-
-    input {
-      border: none;
-      background-color: transparent;
-      height: @linkHeight + 4px;
-      width: @linkWidth + 16px;
-      font-family: Cabin, 'Segoe UI', sans-serif;
-      font-size: 1em;
-      text-align: center;
     }
   }
 }
