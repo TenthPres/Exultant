@@ -16,7 +16,8 @@ div#wpadminbar {
   display:none;
 }
 
-a:not([href*='tenth.org']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
+//// External Link decoration
+a:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
   content: '\f35d';
   .icons;
   opacity:0.7;
@@ -28,18 +29,20 @@ a:not([href*='tenth.org']):not([href*='localhost']):not([href^='#']):not([href^=
 @linkHeight : 2em;
 @linkWidth: 70px;
 @headerHeight: 110px;
+@headerLinkFontSize: inherit;
 
-header[role="banner"], header[role="banner"]::before {
+header[role="banner"],
+header[role="banner"]::before {
   width:100%;
   margin-top:0;
   height: @headerHeight;
-  @media (max-width:@thickHeader) {
+  transition: height 0.3s;
+  @media (max-width: @thickHeader) {
     height: (@headerHeight + @linkHeight);
   }
 }
 
 header[role="banner"]::before {
-  transition: height 0.3s;
   content: ' ';
   display:block;
   background-color:#f7f7f7;
@@ -139,9 +142,23 @@ header[role="banner"] {
       margin: 0;
       text-decoration: none;
       display: block;
+      font-size: @headerLinkFontSize;
+    }
+    input[type='submit'] {
+      display: none;
+    }
+    input[type='search'] {
+      border: none;
+      background: transparent;
+      padding: 1em 0 1em 1em;
+      width: 5em;
+    }
+    a, label {
+      /* Links and Icons */
+      color: @tenthGreen;
     }
     @media (min-width:@iconicNavThreshold) { /* non-iconic nav */
-      & > div > a {
+      & > div > label {
         /* first level links (menu, user, etc) */
         display: none;
       }
@@ -160,12 +177,15 @@ header[role="banner"] {
         background-color:#ffffff00;
       }
 
-      & > div > ul > li:hover, & > div > ul > li.current-item:hover {
+      & > div > ul > li:hover,
+      & > div input[type='search']:hover,
+      & > div > ul > li.current-item:hover {
         /* second level list item (about) */
         overflow:visible;
         background-color:#ffffffff;
       }
-      & > div > ul > li.current-item {
+      & > div > ul > li.current-item,
+      & > div > ul > li.current-ancestor {
         /* second level list item (about) */
         background-color:#ffffff99;
         border-bottom: solid 2px @tenthGreen;

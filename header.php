@@ -44,18 +44,25 @@
                             'walker' => new TenthHeaderMenuWalker()
 		                ] );
 
+	                $searchId = template_unique_id( 'search-form-' );
+	                $searchResultsId = template_unique_id( 'search-list-' );
 	                ?>
                     </div>
                     <div>
-                        <label class="las la-search"><!-- TODO --></label>
+                        <label class="las la-search" for="<?php echo $searchId ?>"><!-- TODO --></label>
                         <div>
 	                    <?php
 	                    get_search_form(
 		                    [
-			                    'label' => __( 'Search for:', 'tenthtemplate' ),
+			                    'placeholder' => __( 'Search', 'tenthtemplate' ),
+                                'id' => $searchId,
+                                'resultsId' => $searchResultsId
 		                    ]
 	                    );
 	                    ?>
+                            <div id="<?php echo $searchResultsId ?>">
+                                <span><?php _e("Start Typing...", "tenthtemplate") ?></span>
+                            </div>
                         </div>
                     </div>
                     <div>
