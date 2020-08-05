@@ -21,6 +21,7 @@ $submit = $args['submit'] ?? esc_attr_x( 'Search', 'submit button', 'tenthtempla
     <?php if (!empty($args['label'])) { ?>
         <label for="<?php echo esc_attr($search_elt_id); ?>"><?php echo esc_html($args['label']) ?></label>
     <?php } ?>
-    <input type="search" id="<?php echo esc_attr( $search_elt_id ); ?>" placeholder="<?php echo $placeholder ?>" value="<?php echo get_search_query(); ?>" name="s" />
+    <input type="search" id="<?php echo esc_attr( $search_elt_id ); ?>" placeholder="<?php echo $placeholder ?>"
+           value="<?php echo get_search_query(); ?>" name="s" autocomplete="off" />
 	<input type="submit" value="<?php echo $submit; ?>" />
 </form>

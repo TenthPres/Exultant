@@ -50,18 +50,22 @@
                     </div>
                     <div>
                         <label class="las la-search" for="<?php echo $searchId ?>"><!-- TODO --></label>
-                        <div>
-	                    <?php
-	                    get_search_form(
-		                    [
-			                    'placeholder' => __( 'Search', 'tenthtemplate' ),
-                                'id' => $searchId,
-                                'resultsId' => $searchResultsId
-		                    ]
-	                    );
-	                    ?>
-                            <div id="<?php echo $searchResultsId ?>">
-                                <span><?php _e("Start Typing...", "tenthtemplate") ?></span>
+                        <div><!-- equiv to ul -->
+                            <div><!-- equiv to li -->
+                                <?php
+                                get_search_form(
+                                    [
+                                        'placeholder' => __( 'Search', 'tenthtemplate' ),
+                                        'id' => $searchId,
+                                        'resultsId' => $searchResultsId
+                                    ]
+                                );
+                                ?>
+                                <div>
+                                    <ul id="<?php echo $searchResultsId ?>">
+                                        <li><span><?php _e("Start Typing...", "tenthtemplate") ?></span></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

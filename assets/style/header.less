@@ -1,14 +1,4 @@
-@sectionPadding: 15pt;
-@corsetPadding: 1.2*@sectionPadding;
 
-
-@maxCorsetWidth: 1000px;
-@maxWideWidth: 1048px;
-
-@narrowHide: 600px;
-@thickHeader: 1050px;
-
-@iconicNavThreshold: 835px;
 
 @import (reference) "_mixins";
 
@@ -28,7 +18,8 @@ a:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*='localhost'
 
 @linkHeight : 2em;
 @linkWidth: 70px;
-@headerHeight: 110px;
+@headerHeight: 6em;
+@headerHeight_reallyNarrow: 3em;
 @headerLinkFontSize: inherit;
 
 header[role="banner"],
@@ -37,8 +28,9 @@ header[role="banner"]::before {
   margin-top:0;
   height: @headerHeight;
   transition: height 0.3s;
-  @media (max-width: @thickHeader) {
-    height: (@headerHeight + @linkHeight);
+
+  @media (max-width:@reallyNarrow) {
+    height: @headerHeight_reallyNarrow;
   }
 }
 
@@ -93,9 +85,6 @@ header[role="banner"] {
       a#pageLogoMark {
         position: absolute;
         bottom: 0;
-        @media (max-width:@thickHeader) {
-          bottom: @linkHeight;
-        }
         left: 0;
         transition: background 2s, rotation 0.6s, transform 0.6s, height 0.2s, width 0.2s;
       }
@@ -116,7 +105,7 @@ header[role="banner"] {
   //// Top Nav
   nav {
     & {
-      position: absolute;
+      position: fixed;
       top:0;
       right: @corsetPadding*.5;
       left: @corsetPadding*.5;
@@ -134,7 +123,6 @@ header[role="banner"] {
       /* All lis in Nav */
       text-align: center;
       list-style-type: none;
-      vertical-align: middle;
       display:inline-block;
     }
     a, span, input {
@@ -144,32 +132,47 @@ header[role="banner"] {
       display: block;
       font-size: @headerLinkFontSize;
     }
+    a, label {
+      /* Links and Icons */
+      color: @tenthGreen;
+    }
+    & > div li small { /* captions & clarifiers */
+      font-size: 0.7em;
+      opacity:0.7;
+    }
+
+
+    //// SEARCH
+    input:focus{
+      outline: none;
+    }
     input[type='submit'] {
       display: none;
     }
     input[type='search'] {
       border: none;
       background: transparent;
-      padding: 1em 0 1em 1em;
+      padding: @sectionPadding 0 @sectionPadding @sectionPadding;
       width: 5em;
     }
-    a, label {
-      /* Links and Icons */
-      color: @tenthGreen;
-    }
+
+
+
     @media (min-width:@iconicNavThreshold) { /* non-iconic nav */
       & > div > label {
         /* first level links (menu, user, etc) */
         display: none;
       }
 
-      & > div > ul {
+      & > div > ul,
+      & > div > div {
         /* second level sub-lists (home, about) */
         padding: 0;
         margin: 0;
       }
 
-      & > div > ul > li {
+      & > div > ul > li,
+      & > div > div > div {
         /* second level list item (about) */
         float:left;
         overflow:hidden;
@@ -178,27 +181,34 @@ header[role="banner"] {
       }
 
       & > div > ul > li:hover,
-      & > div input[type='search']:hover,
-      & > div > ul > li.current-item:hover {
+      & > div > div > div:hover,
+      & > div > ul > li.current-item:hover,
+      & > div > div > div.current-item:hover {
         /* second level list item (about) */
         overflow:visible;
         background-color:#ffffffff;
       }
       & > div > ul > li.current-item,
-      & > div > ul > li.current-ancestor {
+      & > div > div > div.current-item,
+      & > div > ul > li.current-ancestor,
+      & > div > div > div.current-ancestor {
         /* second level list item (about) */
         background-color:#ffffff99;
         border-bottom: solid 2px @tenthGreen;
         border-radius: 0 0 2px 2px;
       }
 
-      & > div > ul > li > a {
+      & > div > ul > li > a,
+      & > div > ul > li > span,
+      & > div > div > div > a,
+      & > div > div > div > span {
         /* second level link (about) */
         display: inline-block;
-        padding: 1em;
+        padding: @sectionPadding;
       }
 
-      & > div > ul > li > div {
+      & > div > ul > li > div,
+      & > div > div > div > div {
         /* third level grouping (box that descends) */
         position:absolute;
         display:flex;
@@ -210,32 +220,35 @@ header[role="banner"] {
         background: #fff;
       }
 
-      & > div > ul > li > div > ul {
+      & > div > ul > li > div > ul,
+      & > div > div > div > div > ul {
         padding: 0 .4em;
       }
-      & > div > ul > li > div * {
+      & > div > ul > li > div *,
+      & > div > div > div > div * {
         text-align: left;
       }
-      & > div > ul > li > div > ul li {
+      & > div > ul > li > div > ul li,
+      & > div > div > div > div > ul li {
         display: block;
       }
-      & > div > ul > li > div > ul li > * {
+      & > div > ul > li > div > ul li > *,
+      & > div > div > div > div > ul li > * {
         line-height: 1.5em;
       }
-      & > div > ul > li > div > ul ul {
+      & > div > ul > li > div > ul ul,
+      & > div > div > div > div > ul ul {
         padding-bottom:.2em;
       }
       & > div > ul > li > div > ul > li > a,
-      & > div > ul > li > div > ul > li > span {
+      & > div > ul > li > div > ul > li > span,
+      & > div > div > div > div > ul > li > a,
+      & > div > div > div > div > ul > li > span {
         font-weight: 700;
       }
       & > div li li li li {
         font-size: 0.9em;
         padding-left: 1.2em;
-      }
-      & > div li small {
-        font-size: 0.7em;
-        opacity:0.7;
       }
     }
 
@@ -281,22 +294,22 @@ header[role="banner"] {
       & > div:hover > label,
       & > div.navOpen > label,
       & > div:focus > label {
-        background-color: @tenthGreen;
-        color: #fff;
+        background-color: #fff;
+        color: @tenthGreen;
       }
 
       & > div > ul,
       & > div > div {
         /* first level sub-lists (basic row) */
-        display: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
         position: absolute;
-        text-align: right;
-        left: 0;
+        display:none;
         right: 0;
         overflow: hidden;
+        margin-left:@sectionPadding;
+        max-width:@reallyNarrow + 2em;
+        @media (min-width:@reallyNarrow) {
+          max-width:@reallyNarrow/2;
+        }
       }
 
       & > div:hover > ul,
@@ -309,50 +322,28 @@ header[role="banner"] {
         width: 100%;
         display: block;
         background: #fff;
+        max-height: 85vh;
+        overflow-y: auto;
       }
 
       & > div > ul > li {
         /* second level list */
         display: block;
-        width: 50%;
-        margin-left:50%;
+        width: 100%;
+        margin-left:0;
       }
 
-      & > div > ul > li > a {
-        /* second level links */
-        // yup.  An empty block
-      }
-
-      & > div > ul > li > ul {
-        /* second level sub-lists */
-        display: none;
-      }
-
-      & > div > ul > li:hover > ul {
-        /* second level sub-lists */
-        display: block;
-        position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
-        width: 50%;
-        padding: 0;
-        margin: 0;
-      }
-
-      & > div > ul > li > ul > li {
-        /* third level sub-lists */
-        display: block;
-        padding: 0;
-        margin: 0;
-      }
-
-      & > div > ul > li > ul > li > a {
-        /* third level links */
-        height: auto;
-        min-height: @linkHeight;
+      div li {
         width:100%;
+        text-align:left;
+        padding-left:@sectionPadding;
       }
+
+      div div div,
+      div div li {
+        display: block;
+      }
+
     }
   }
 }
