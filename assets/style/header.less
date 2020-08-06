@@ -41,7 +41,6 @@ header[role="banner"]::before {
 header[role="banner"] {
   & {
     top: 0;
-    position: absolute;
   }
   &.static {
     top: 0;
@@ -215,6 +214,11 @@ header[role="banner"] {
         left:50%;
         white-space: nowrap;
         background: #fff;
+        &#userMenu {
+          transform:none;
+          left:auto;
+          right:0;
+        }
       }
 
       & > div > ul > li > div > ul,

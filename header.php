@@ -40,7 +40,7 @@
 			                'container'    => false,
 			                'fallback_cb'  => false,
 			                'depth'        => 5,
-			                'item_spacing' => 'discard', // remove to add newlines and spaces to nav html
+//			                'item_spacing' => 'discard', // remove to add newlines and spaces to nav html
                             'walker' => new TenthHeaderMenuWalker()
 		                ] );
 
@@ -82,7 +82,7 @@
                             'container'    => false,
                             'fallback_cb'  => false,
                             'depth'        => 1,
-                            'item_spacing' => 'discard' // remove to add newlines and spaces to nav html
+//                            'item_spacing' => 'discard' // remove to add newlines and spaces to nav html
                         ] ); ?>
                 </div>
             <?php } ?>
