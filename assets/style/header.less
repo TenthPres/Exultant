@@ -2,12 +2,9 @@
 
 @import (reference) "_mixins";
 
-div#wpadminbar {
-  display:none;
-}
 
 //// External Link decoration
-a:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
+a[href*="//"]:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
   content: '\f35d';
   .icons;
   opacity:0.7;
