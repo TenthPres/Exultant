@@ -11,6 +11,10 @@ While you are welcome to adapt this for your own use, note that it is **very** c
 In theory, this template does not require any of the many plugins we use.  However, it does interact with them 
 extensively.
 
+The structure of this template is substantially borrowed from 
+[TwentyTwenty by Wordpress.org](https://wordpress.org/themes/twentytwenty/), which is itself derived from the Chaplin 
+Theme, by Anders Norén.  Chaplin Theme and TwentyTwenty are both distributed under the terms of the GNU GPL version 2.0.
+
 ## Noteworthy Features
 
 - The default Admin Bar that comes with WordPress is replaced by links in the user menu of the header nav.  Most links 
