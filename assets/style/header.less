@@ -105,15 +105,21 @@ header[role="banner"] {
       position: fixed;
       top: 0;
       right: @corsetPadding*.5;
-      left: @corsetPadding*.5;
       text-align: right;
-      padding: 0;
+      padding: 0 0 0 @corsetPadding*.5;
       margin: 0;
       z-index: 100;
+      display:flex;
     }
 
     * {
-      transition: color 0.2s, background 0.2s;
+      box-sizing: border-box;
+      transition:
+              color 0.2s,
+              background 0.2s,
+              width 0.2s,
+              height 0.2s,
+              margin 0.2s;
     }
 
     div, li {
@@ -143,8 +149,9 @@ header[role="banner"] {
 
 
     //// SEARCH
-    input:focus {
+    input[type='search']:focus {
       outline: none;
+      width:50vw;
     }
 
     input[type='submit'] {
@@ -173,6 +180,11 @@ header[role="banner"] {
         margin: 0;
       }
 
+      & > div > div:focus-within {
+        /* second level sub-lists (home, about) */
+        margin-left:calc(~"-50vw + 5em");
+      }
+
       & > div > ul > li,
       & > div > div > div {
         /* second level list item (about) */
@@ -184,8 +196,9 @@ header[role="banner"] {
 
       & > div > ul > li:hover,
       & > div > div > div:hover,
-      & > div > ul > li.current-item:hover,
-      & > div > div > div.current-item:hover {
+      & > div > ul > li:hover,
+      & > div > div > div:hover,
+      & > div > div > div:focus-within {
         /* second level list item (about) */
         overflow: visible;
         background-color: #ffffffff;
@@ -227,6 +240,13 @@ header[role="banner"] {
           left: auto;
           right: 0;
         }
+      }
+
+      & > div > div > div:focus-within > div {
+        /* third level grouping (box that descends -- in this case, for Search) */
+      left: 0;
+      right: 0;
+      transform: none;
       }
 
       & > div > ul > li > div > ul,
@@ -335,7 +355,7 @@ header[role="banner"] {
       & > div.navOpen > div,
       & > div:focus > div {
         /* first level sub-lists (basic row) */
-        width: 100%;
+        width: calc(~"100vw - " @corsetPadding);
         display: block;
         background: #fff;
         max-height: 85vh;
