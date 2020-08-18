@@ -1,14 +1,6 @@
 @import (reference) "_mixins";
 
 
-//// External Link decoration
-a[href*="//"]:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
-  content: '\f35d';
-  .icons;
-  opacity: 0.7;
-  padding-left: .25em;
-}
-
 //// Header Bar
 
 @linkHeight: 2em;
@@ -17,33 +9,33 @@ a[href*="//"]:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*
 @headerHeight_reallyNarrow: 3em;
 @headerLinkFontSize: inherit;
 
-header[role="banner"],
-header[role="banner"]::before {
-  width: 100%;
-  margin-top: 0;
-  height: @headerHeight;
-  transition: height @transitionTime;
-  box-sizing: border-box;
-
-  @media (max-width: @reallyNarrow) {
-    height: @headerHeight_reallyNarrow;
-  }
-}
-
-header[role="banner"]::before {
-  content: ' ';
-  display: block;
-  background-color: #f7f7f7f7;
-  border-bottom: #eee solid 0.08em;
-  width: 200%;
-  margin-left: -50%;
-}
-
 header[role="banner"] {
+  &,
+  &::before {
+    width: 100%;
+    margin-top: 0;
+    height: @headerHeight;
+    transition: height @transitionTime;
+    box-sizing: border-box;
+
+    @media (max-width: @reallyNarrow) {
+      height: @headerHeight_reallyNarrow;
+    }
+  }
+
+  &::before {
+    content: ' ';
+    display: block;
+    background-color: #f7f7f7f7;
+    border-bottom: #eee solid 0.08em;
+    width: 200%;
+    margin-left: -50%;
+  }
+
   & {
     z-index: 1;
     top: 0;
-    max-width: @pageMaxWidth;
+    max-width: @headerMaxWidth;
     position: fixed;
     left:50%;
     transform: translateX(-50%);
@@ -56,12 +48,13 @@ header[role="banner"] {
   }
 
   //// Logo
-  & > a.logo {
+  & > h1 > a.logo {
     background-image: data-uri("image/svg+xml;charset=UTF-8", @logoImg);
     background-repeat: no-repeat;
     background-position: top left;
     transition: height @transitionTime, width @transitionTime;
     @logoHeight: @headerHeight - (@sectionPadding * 1.5);
+    color: #00000000;
 
     position:absolute;
     height:@logoHeight;
@@ -76,12 +69,6 @@ header[role="banner"] {
       height: @logoHeight_reallyNarrow;
       width: 4.6 * @logoHeight_reallyNarrow;
     }
-
-    @media screen {
-      h1 {
-        display:none;
-      }
-    }
   }
 
   //// Page Progress bar
@@ -92,7 +79,7 @@ header[role="banner"] {
     width:100%;
     height: 0.08em;
 
-    & > span {
+    & > div {
       height:inherit;
       display:block;
       background-color:@tenthGreen;

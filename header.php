@@ -22,9 +22,7 @@
 <?php wp_body_open(); ?>
 
 <header role="banner">
-    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
-        <h1>Tenth Presbyterian Church</h1>
-    </a>
+    <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">Tenth Presbyterian Church</a></h1>
     <?php
     if (get_theme_mod('enable_header_nav', true) && has_nav_menu('primary')) { ?>
         <nav aria-label="<?php esc_attr_e('Main Menu', 'tenthtemplate'); ?>" role="navigation" oncontextmenu="return true;">
