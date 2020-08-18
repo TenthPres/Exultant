@@ -22,40 +22,33 @@
 <?php wp_body_open(); ?>
 
 <header role="banner">
-    <a href="/" class="logo">
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
         <h1>Tenth Presbyterian Church</h1>
     </a>
     <?php
-    if (get_theme_mod('enable_header_nav', true)) { ?>
-        <nav aria-label="<?php
-        esc_attr_e('Main Menu', 'tenthtemplate'); ?>" role="navigation" oncontextmenu="return true;">
-            <?php
-            if (has_nav_menu('primary')) { ?>
-                <div>
-                    <label class="las la-bars"></label>
-                    <!-- TODO make hamburger do something -->
-                    <?php
-                    wp_nav_menu(
-                        [
-                            'menu'        => 'primary',
-                            'menu_id'     => 'menu-primary',
-                            'container'   => false,
-                            'fallback_cb' => false,
-                            'depth'       => 5,
-//			                'item_spacing' => 'discard', // remove to add newlines and spaces to nav html
-                            'walker'      => new TenthHeaderMenuWalker()
-                        ]
-                    );
-
-                    $searchId        = template_unique_id('search-form-');
-                    $searchResultsId = template_unique_id('search-list-');
-                    ?>
-                </div>
-            <?php
-            } ?>
+    if (get_theme_mod('enable_header_nav', true) && has_nav_menu('primary')) { ?>
+        <nav aria-label="<?php esc_attr_e('Main Menu', 'tenthtemplate'); ?>" role="navigation" oncontextmenu="return true;">
             <div>
-                <label class="las la-search" for="<?php
-                echo $searchId ?>"><!-- TODO --></label>
+                <label class="las la-bars"></label>
+                <?php
+                wp_nav_menu(
+                    [
+                        'menu'        => 'primary',
+                        'menu_id'     => 'menu-primary',
+                        'container'   => false,
+                        'fallback_cb' => false,
+                        'depth'       => 5,
+//                        'item_spacing' => 'discard', // remove to add newlines and spaces to nav html
+                        'walker'      => new TenthHeaderMenuWalker()
+                    ]
+                );
+
+                $searchId        = template_unique_id('search-form-');
+                $searchResultsId = template_unique_id('search-list-');
+                ?>
+            </div>
+            <div>
+                <label class="las la-search" for="<?php echo $searchId ?>"></label>
                 <div><!-- equiv to ul -->
                     <div><!-- equiv to li -->
                         <?php
@@ -70,16 +63,14 @@
                         <div>
                             <ul id="<?php
                             echo $searchResultsId ?>">
-                                <li><span><?php
-                                        _e("Start Typing...", "tenthtemplate") ?></span></li>
+                                <li><span><?php _e("Start Typing...", "tenthtemplate") ?></span></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-                <?php
-                get_template_part('template-parts/user-menu'); ?>
+                <?php get_template_part('template-parts/user-menu'); ?>
             </div>
         </nav>
     <?php
@@ -95,10 +86,11 @@
                     'container'   => false,
                     'fallback_cb' => false,
                     'depth'       => 1,
-//                            'item_spacing' => 'discard' // remove to add newlines and spaces to nav html
+//                    'item_spacing' => 'discard' // remove to add newlines and spaces to nav html
                 ]
             ); ?>
         </div>
     <?php
     } ?>
+    <div id="pageProgressBar"><span style="width:30%"></span></div>
 </header>

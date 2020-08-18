@@ -13,7 +13,7 @@ a[href*="//"]:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*
 
 @linkHeight: 2em;
 @linkWidth: 70px;
-@headerHeight: 6em;
+@headerHeight: 5.5em;
 @headerHeight_reallyNarrow: 3em;
 @headerLinkFontSize: inherit;
 
@@ -22,7 +22,8 @@ header[role="banner"]::before {
   width: 100%;
   margin-top: 0;
   height: @headerHeight;
-  transition: height 0.3s;
+  transition: height @transitionTime;
+  box-sizing: border-box;
 
   @media (max-width: @reallyNarrow) {
     height: @headerHeight_reallyNarrow;
@@ -32,81 +33,81 @@ header[role="banner"]::before {
 header[role="banner"]::before {
   content: ' ';
   display: block;
-  background-color: #f7f7f7;
-  position: fixed;
+  background-color: #f7f7f7f7;
+  border-bottom: #eee solid 0.08em;
+  width: 200%;
+  margin-left: -50%;
 }
 
 header[role="banner"] {
   & {
+    z-index: 1;
     top: 0;
+    max-width: @pageMaxWidth;
+    position: fixed;
+    left:50%;
+    transform: translateX(-50%);
   }
 
   &.static {
     top: 0;
     position: fixed;
     height: @linkHeight + 4px;
-    z-index: 1000;
+  }
 
-    div#pageLogo {
-      @logoHeight: @linkHeight;
+  //// Logo
+  & > a.logo {
+    background-image: data-uri("image/svg+xml;charset=UTF-8", @logoImg);
+    background-repeat: no-repeat;
+    background-position: top left;
+    transition: height @transitionTime, width @transitionTime;
+    @logoHeight: @headerHeight - (@sectionPadding * 1.5);
 
-      a#pageLogoMark {
-        height: @logoHeight;
-        width: @logoHeight;
-        bottom: 0;
-      }
+    position:absolute;
+    height:@logoHeight;
+    top:@sectionPadding * 0.75;
+    left:@sectionPadding * 0.75;
+    width: 4.6 * @logoHeight;
 
-      a#pageLogoText {
-        height: @logoHeight;
-        width: @logoHeight*2309/865;
-        bottom: 0;
+    @media (max-width: @reallyNarrow) {
+      @logoHeight_reallyNarrow: @headerHeight_reallyNarrow - (@sectionPadding * 0.8);
+      top:@sectionPadding * 0.4;
+      left:@sectionPadding;
+      height: @logoHeight_reallyNarrow;
+      width: 4.6 * @logoHeight_reallyNarrow;
+    }
+
+    @media screen {
+      h1 {
+        display:none;
       }
     }
   }
 
-  & {
-    div#pageLogo {
-      display: block;
-      background-size: 300px @linkHeight;
-      //width: 300px;
-      position: absolute;
-      top: 2px;
-      left: 4px;
-      height: auto;
-      bottom: 2px;
-      z-index: 2000;
-      //transition-delay: 2s;
+  //// Page Progress bar
+  div#pageProgressBar {
+    position:absolute;
+    bottom:0;
+    background-color:#ddd;
+    width:100%;
+    height: 0.08em;
 
-      a#pageLogoText,
-      a#pageLogoMark {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transition: background 2s, rotation 0.6s, transform 0.6s, height 0.2s, width 0.2s;
-      }
-
-      @logoHeight: 105px;
-
-      a#pageLogoMark {
-        height: @logoHeight;
-        width: @logoHeight;
-      }
-
-      a#pageLogoText {
-        height: @logoHeight;
-        width: @logoHeight*2309/865;
-      }
+    & > span {
+      height:inherit;
+      display:block;
+      background-color:@tenthGreen;
     }
+
   }
 
   //// Top Nav
   nav {
     & {
-      position: fixed;
+      position: absolute;
       top: 0;
-      right: @corsetPadding*.5;
+      right: @sectionPadding;
       text-align: right;
-      padding: 0 0 0 @corsetPadding*.5;
+      padding: 0 0 0 @sectionPadding*.5;
       margin: 0;
       z-index: 100;
       display:flex;
@@ -115,11 +116,11 @@ header[role="banner"] {
     * {
       box-sizing: border-box;
       transition:
-              color 0.2s,
-              background 0.2s,
-              width 0.2s,
-              height 0.2s,
-              margin 0.2s;
+              color @transitionTime,
+              background @transitionTime,
+              width @transitionTime,
+              height @transitionTime,
+              margin @transitionTime;
     }
 
     div, li {
@@ -161,8 +162,8 @@ header[role="banner"] {
     input[type='search'] {
       border: none;
       background: transparent;
-      padding: @sectionPadding 0 @sectionPadding @sectionPadding;
-      width: 5em;
+      padding: 0.8*@sectionPadding 0 0.8*@sectionPadding 0.8*@sectionPadding;
+      width: 3em + 1.6*@sectionPadding;
     }
 
 
@@ -220,7 +221,7 @@ header[role="banner"] {
       & > div > div > div > span {
         /* second level link (about) */
         display: inline-block;
-        padding: @sectionPadding;
+        padding: 0.8 * @sectionPadding;
       }
 
       & > div > ul > li > div,
@@ -355,7 +356,7 @@ header[role="banner"] {
       & > div.navOpen > div,
       & > div:focus > div {
         /* first level sub-lists (basic row) */
-        width: calc(~"100vw - " @corsetPadding);
+        width: calc(~"100vw - " (@sectionPadding * 2) + 1em);
         display: block;
         background: #fff;
         max-height: 85vh;
