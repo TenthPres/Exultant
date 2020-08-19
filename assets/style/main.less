@@ -1,0 +1,48 @@
+@import (reference) "header";
+@import (reference) "_mixins";
+
+body {
+  margin: @headerHeight 0 0;
+  background-color: #f1f1f1;
+
+  transition: margin @transitionTime;
+
+  @media (max-width: @reallyNarrow) {
+    margin-top: @headerHeight_reallyNarrow;
+  }
+}
+
+nav ul {
+  padding:0;
+  margin:0;
+}
+
+main#site-content {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  max-width: @contentMaxWidth;
+  width: 100%;
+  position: relative;
+  padding: 0 @sectionPadding;
+  box-sizing: border-box;
+  min-height: calc(~"100vh - " 10em);
+
+  & > * {
+    background: #fafafa;
+    padding: @sectionPadding;
+    box-shadow: #ddd 0 0 @corsetPadding 0;
+    margin-bottom: @sectionPadding * 3;
+  }
+
+}
+
+
+//// External Link decoration
+a[href*="//"]:not([href*='tenth.org']):not([href*='tenth.tpsdb.com']):not([href*='localhost']):not([href^='#']):not([href^='/']):after {
+  content: '\f35d';
+  .icons;
+  opacity: 0.7;
+  padding-left: .25em;
+}
+
+

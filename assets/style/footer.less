@@ -1,0 +1,120 @@
+@import (reference) "_mixins";
+
+div#site-footer {
+  display: flex;
+  flex-direction: row;
+  width:100%;
+  background-color: #333;
+  justify-content: center;
+  border-top: 1px solid @tenthGreen;
+  margin-top: 2em;
+
+  footer {
+    & {
+      font-size: 0.9em;
+      max-width: @footerMaxWidth;
+      background-color: #ffffff06;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      line-height: 1.8em;
+      padding-bottom: @corsetPadding;
+    }
+
+    &,
+    a,
+    a:visited {
+      color: #aaa;
+      text-decoration: none;
+      transition: color @transitionTime;
+    }
+    a:hover {
+      color: #ddd;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    & > nav#footer-nav {
+      flex: 3;
+
+      a {
+        display: block;
+      }
+
+      & > ul {
+        display: flex;
+      }
+      & > ul > li {
+        flex: 1;
+        padding: (@sectionPadding * 0.4) @sectionPadding;
+      }
+      & > ul > li > a {
+        font-variant: small-caps;
+        border-bottom: dotted 1px #aaa;
+        font-weight: 600;
+      }
+
+      @media (max-width: @iconicNavThreshold) {
+        display:none;
+      }
+
+    }
+
+    & > div {
+      flex: 1;
+
+      & > * {
+        padding: (@sectionPadding * 0.4) @sectionPadding;
+      }
+
+      & > nav.footer-social {
+        ul {
+          display: flex;
+          flex-direction: row;
+          text-align:center;
+        }
+        li {
+          display:inline-block;
+          flex:1;
+        }
+        a {
+          font-size:0;
+          visibility: hidden;
+          display: inherit;
+        }
+        a:before {
+          .iconsB;
+          visibility: visible;
+          width: 100%;
+          font-size:24px;
+          line-height:1.5em;
+          display: inherit;
+        }
+        a[href*='facebook.com']:before {
+          content: '\f09a';
+        }
+        a[href*='twitter.com']:before {
+          content: '\f099';
+        }
+        a[href*='vimeo.com']:before {
+          content: '\f40a';
+        }
+        a[href*='youtube.com']:before {
+          content: '\f167';
+        }
+        a[href*='instagram.com']:before {
+          content: '\f16d';
+        }
+        a:after {
+          content: '';
+        }
+      }
+    }
+
+    div.footer-credits {
+      text-align: center;
+    }
+  }
+}
