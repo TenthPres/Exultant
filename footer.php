@@ -10,13 +10,23 @@
         <footer>
 
 <?php
-$has_footer_menu = has_nav_menu( 'footer' );
-$has_social_menu = has_nav_menu( 'social' );
+$hasFooterMenu = has_nav_menu('footer');
+$hasSocialMenu = has_nav_menu('social');
 
-if ($has_footer_menu) {
+if ($hasFooterMenu) {
+    // get footer menu items based on 'footer' menu location.
+    $footerMenuItems = wp_get_nav_menu_items(get_term(get_nav_menu_locations()['footer'], 'nav_menu')->name);
+
+    $footerColumnCount = 0;
+    foreach($footerMenuItems as $key => $itm) {
+        if ($itm->menu_item_parent === '0' || $itm->menu_item_parent === 0) {
+            $footerColumnCount++;
+        };
+    }
+
 
     ?>
-    <nav id="footer-nav">
+    <nav id="footer-nav" style="flex: <?php echo $footerColumnCount; ?>;">
         <ul>
             <?php
             wp_nav_menu(
@@ -38,7 +48,7 @@ if ($has_footer_menu) {
 ?>
             <div>
             <?php
-if ( $has_social_menu ) {
+if ( $hasSocialMenu ) {
     ?>
                 <nav aria-label="<?php esc_attr_e( 'Social links', 'tenthtemplate' ); ?>" class="footer-social">
                     <ul class="footer-social">
