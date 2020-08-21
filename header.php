@@ -90,5 +90,5 @@
         </div>
     <?php
     } ?>
-    <div id="pageProgressBar"><span style="width:30%"></span></div>
+    <div id="pageProgressBar"><div style="width:30%"></div></div>
 </header>

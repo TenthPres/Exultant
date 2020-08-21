@@ -1,14 +1,25 @@
-.icons {
-  font-weight: 900;
-  font-family: 'Line Awesome Free', monospace;
-}
-.iconsB {
-  font-family: 'Line Awesome Brands', monospace;
-}
-.headingFont {
-  font-family: adobe-garamond-pro, serif;
-  font-style: normal;
-  font-weight: 400;
+#fonts() {
+  .icons() {
+    font-weight: 900;
+    font-family: 'Line Awesome Free', monospace;
+  }
+  .iconsB() {
+    font-family: 'Line Awesome Brands', monospace;
+  }
+  .headingFont() {
+    font-family: adobe-garamond-pro, serif;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .headerFormat() {
+    #fonts.headingFont;
+    font-size: 2.3em;
+    padding: 0 0 .5em;
+
+    @media (min-width: @iconicNavThreshold) {
+      font-size:3em;
+    }
+  }
 }
 
 @tenthGreen: #49917b;

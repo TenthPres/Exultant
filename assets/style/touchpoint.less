@@ -48,14 +48,7 @@ body.touchpoint-template-default {
     max-width: @contentMaxWidth;
 
     div > h2, article > h2, h3, .regform > h4:first-child, .regform > form > h4:first-child {
-      .headingFont;
-      font-size: 2em;
-      padding: 0 0 .5em;
-
-      @media (min-width: @iconicNavThreshold) {
-        font-size:3em;
-      }
-
+      #fonts.headerFormat;
     }
     h4:not(:first-child) {
       margin-top: 2em;

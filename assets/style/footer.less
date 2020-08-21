@@ -1,5 +1,7 @@
 @import (reference) "_mixins";
 
+@footerMinHeight: 5em;
+
 div#site-footer {
   display: flex;
   flex-direction: row;
@@ -8,6 +10,7 @@ div#site-footer {
   justify-content: center;
   border-top: 1px solid @tenthGreen;
   margin-top: 2em;
+  min-height: @footerMinHeight;
 
   & > footer {
     & {
@@ -83,7 +86,7 @@ div#site-footer {
           display: inherit;
         }
         a:before {
-          .iconsB;
+          #fonts.iconsB;
           visibility: visible;
           width: 100%;
           font-size:24px;
