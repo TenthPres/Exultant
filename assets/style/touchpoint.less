@@ -45,9 +45,11 @@ body.touchpoint-template-default {
   }
 
   main#site-content {
-    max-width: @contentMaxWidth;
+    &:not(.error) {
+      max-width: @contentMaxWidth;
+    }
 
-    div > h2, article > h2, h3, .regform > h4:first-child, .regform > form > h4:first-child {
+    div > h2, article > h2, h3:not(.passcode-title):not(.alert), .regform > h4:first-child, .regform > form > h4:first-child {
       #fonts.headerFormat;
     }
     h4:not(:first-child) {
@@ -62,15 +64,20 @@ body.touchpoint-template-default {
 
     a.btn:not(.btn-mini),
     input.btn,
+    button,
     input[type='submit'] {
       font-size: 0.95em;
-      background-color: #aaa;
-      color: #fff;
+      background-color: @secondaryBtnBgColor;
+      color: @secondaryBtnFgColor;
       text-decoration: none;
       padding: 0.3em 0.6em 0.4em;
       margin: .5em 1em .5em 0;
       display: inline-block;
-      border: 1px solid darken(#aaa, 5%);
+      border: 1px solid darken(@secondaryBtnBgColor, 5%);
+
+      &.btn-block {
+        width:100%;
+      }
 
       &.btn-xs.pull-right {
         float:right;
@@ -78,7 +85,7 @@ body.touchpoint-template-default {
 
 
       &:hover {
-        background-color: lighten(#aaa, 10%);
+        background-color: lighten(@secondaryBtnBgColor, 10%);
         color: #fff;
       }
 
@@ -104,10 +111,11 @@ body.touchpoint-template-default {
 
     input[type='text'],
     input[type='password'],
+    input[inputmode='numeric'],
     select {
       border-radius: 0;
       border: 0;
-      border-bottom: 1px solid #999;
+      border-bottom: 1px solid @secondaryBtnBgColor;
       width: 100%;
       background-color:#fff;
       &[disabled] {
@@ -143,7 +151,7 @@ body.touchpoint-template-default {
       padding:.4em;
     }
 
-    .form-group {
+    .form-group:not(.text-center) {
       padding: 0.75em 0 0;
       border-top: 1px solid #eee;
       margin: 0.75em 0 0;
@@ -196,5 +204,74 @@ body.touchpoint-template-default {
       font-size: 0.8em;
     }
 
+    //// login page stuff
+    .loginHeader {
+      position: relative;
+      z-index:1;
+      padding: 21% 1em 0;
+      max-width:250px;
+      background-size: contain;
+      background-image: url('https://c4265878.ssl.cf2.rackcdn.com/brett.2002051701.TP-logo-blue-no-slogan-300x62.png');
+      background-repeat: no-repeat;
+      background-position:center;
+      margin: 0 auto;
+    }
+
+    .form-group.passcode {
+      &,
+      & > .passcode-title {
+        margin-bottom: 2em;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .hidden-xs {
+        display:none;
+      }
+
+    }
+
+    .account {
+      .panel {
+        a.forgot {
+          right: 0;
+          border-radius: 0;
+          color: @secondaryBtnFgColor;
+          background-color: @secondaryBtnBgColor;
+          top: unset;
+          font-size: 0.8em;
+          line-height: 1.7em;
+        }
+      }
+
+      .form-header {
+        font-size: 1.7em;
+      }
+
+      .alert {
+        background-color: fade(@validationErrorColor, 20%);
+        color: @validationErrorColor;
+        border: @validationErrorColor 1px dotted;
+        max-width: 360px;
+        width:auto;
+        font-size: 0.85em;
+        padding: 1em;
+        margin-bottom:0;
+
+        button {
+          display: none;
+        }
+      }
+
+      .no-header {
+        display:none;
+      }
+
+      .signin-with {
+        padding: 0 1em;
+      }
+    }
   }
 }
