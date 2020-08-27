@@ -9,6 +9,9 @@
 @headerHeight_reallyNarrow: 3em;
 @headerLinkFontSize: inherit;
 
+@reallyReallyNarrowAnimationTime: 1.2s;
+@reallyReallyNarrowAnimationDelay: 3s;
+
 header[role="banner"] {
   &,
   &::before {
@@ -55,6 +58,7 @@ header[role="banner"] {
     transition: height @transitionTime, width @transitionTime;
     @logoHeight: @headerHeight - (@sectionPadding * 1.5);
     color: #00000000;
+    box-sizing: border-box;
 
     position:absolute;
     height:@logoHeight;
@@ -62,12 +66,19 @@ header[role="banner"] {
     left:@sectionPadding * 0.75;
     width: 4.6 * @logoHeight;
 
+    @logoHeight_reallyNarrow: @headerHeight_reallyNarrow - (@sectionPadding * 0.8);
+
     @media (max-width: @reallyNarrow) {
-      @logoHeight_reallyNarrow: @headerHeight_reallyNarrow - (@sectionPadding * 0.8);
       top:@sectionPadding * 0.4;
       left:@sectionPadding;
       height: @logoHeight_reallyNarrow;
       width: 4.6 * @logoHeight_reallyNarrow;
+      background-size: (4.6 * @logoHeight_reallyNarrow) @logoHeight_reallyNarrow ;
+    }
+
+    @media (max-width: @reallyReallyNarrow) {
+      animation: @reallyReallyNarrowAnimationTime ease @reallyReallyNarrowAnimationDelay forwards logoNarrowing;
+      @keyframes logoNarrowing { from { width: 4.6 * @logoHeight_reallyNarrow } to { width: @logoHeight_reallyNarrow }  }
     }
   }
 
@@ -287,6 +298,19 @@ header[role="banner"] {
 
       & ul a {
         padding: 2px 0;
+      }
+
+      @media (max-width: @reallyReallyNarrow) {
+        opacity: 0;
+        animation: @reallyReallyNarrowAnimationTime ease @reallyReallyNarrowAnimationDelay forwards MenuRevealing;
+        @keyframes MenuRevealing {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
       }
 
 
