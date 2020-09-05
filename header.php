@@ -41,8 +41,8 @@
                     ]
                 );
 
-                $searchId        = template_unique_id('search-form-');
-                $searchResultsId = template_unique_id('search-list-');
+                $searchId        = wp_unique_id('search-form-');
+                $searchResultsId = wp_unique_id('search-list-');
                 ?>
             </div>
             <div>
