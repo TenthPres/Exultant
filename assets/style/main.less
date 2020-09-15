@@ -2,9 +2,13 @@
 @import (reference) "footer";
 @import (reference) "_mixins";
 
+body, input {
+  #fonts.bodyFont()
+}
+
 body {
   margin: @headerHeight 0 0;
-  background-color: #f1f1f1;
+  background-color: @bodyBackgroundColor;
 
   transition: margin @transitionTime;
 
@@ -34,7 +38,7 @@ main#site-content {
   transition:min-height @transitionTime;
 
   & > * {
-    background: #fafafa;
+    background: @contentBackgroundColor;
     padding: @sectionPadding;
     box-shadow: #ddd 0 0 @corsetPadding 0;
     margin-bottom: @sectionPadding * 3;
