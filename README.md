@@ -20,11 +20,15 @@ Theme, by Anders Norén.  Chaplin Theme and TwentyTwenty are both distributed un
 - The default Admin Bar that comes with WordPress is replaced by links in the user menu of the header nav.  Most links 
  from the admin bar will appear there.  
 - Custom header nav layout.  Nearly all of the layout is handled in CSS, including the expansion of expanding menus. 
+- Most template files are written in [Twig](https://twig.symfony.com/).
 
 ### Possible Gotchas
 If you aren't expecting them, there are a few features that might be a surprise:
 - The WordPress admin bar will disappear from public-facing pages, and its functionality is moved to the user menu of 
 the header.  As a result, a page that does not have a nav also does not have these functions. 
+- You will need Timber to parse [Twig](https://twig.symfony.com/).  If you're using Composer, 
+[Timber](https://packagist.org/packages/timber/timber) will be installed as a requirement.  If you aren't using 
+composer, you will need to install [the Timber Wordpress Plugin](https://wordpress.org/plugins/timber-library/). 
 
 ## Copyright & Licensing
 
@@ -38,4 +42,3 @@ are able to benefit from your improvements.
 Please note that logos and other branding content belonging to Tenth Presbyterian Church are not themselves included in 
 this template, and are not available under the same license.  The brand identity of Tenth remains exclusively the 
 proprietary property of Tenth.
-
