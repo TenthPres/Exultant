@@ -1,0 +1,21 @@
+<h1><a href="{{ site.url }}" class="logo">{{ site.name }}</a></h1>
+{% if function('get_theme_mod', 'enable_header_nav', true) and menus.primary %}
+<nav aria-label="{{  _e('Main Menu', 'TenthTemplate') }}" role="navigation" oncontextmenu="return true;">
+    <div>
+        <label class="las la-bars"></label>
+        {{ menus.primary }}
+    </div>
+    <div>
+        {{ function('get_template_part', 'template-parts/search-menu') }}
+    </div>
+    <div>
+        {{ function('get_template_part', 'template-parts/user-menu') }}
+    </div>
+</nav>
+{% endif %}
+{% if function('get_theme_mod', 'enable_header_nav', true) and menus.quick %}
+<div>
+    {{ menus.quick }}
+</div>
+{% endif %}
+<div id="pageProgressBar"><div style="width:30%"></div></div>

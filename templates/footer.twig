@@ -1,0 +1,21 @@
+{% if menus.footer %}
+    <nav id="footer-nav" style="flex: {{ menus.footer.columns }}">
+        <ul>
+            {{ menus.footer }}
+        </ul>
+    </nav>
+{% endif %}
+<div>
+    {% if menus.social %}
+        <nav aria-label="{{ _e("Social Links", "TenthTemplate") }}" class="footer-social">
+            <ul class="footer-social">
+                {{ menus.social }}
+            </ul>
+        </nav>
+    {% endif %}
+    <div class="footer-credits">
+        <p class="footer-copyright">&copy; {{ "now"|date('Y') }}
+            <a href="{{ site.url }}">{{ site.name }}</a>
+        </p>
+    </div>
+</div>

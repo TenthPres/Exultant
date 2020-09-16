@@ -1,7 +1,9 @@
 <?php
 
+namespace tp\TenthTemplate;
 
-class TenthHeaderMenuWalker extends Walker_Nav_Menu {
+
+class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 
 	/**
 	 * Starts the list before the elements are added.

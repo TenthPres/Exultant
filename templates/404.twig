@@ -1,0 +1,10 @@
+{% extends "base.twig" %}
+
+{% set main_class = 'error' %}
+
+{% block corset %}
+    <div>
+        <h1>{{ _e( 'Not Found', 'TenthTemplate') }}</h1>
+        <div><p>{{ _e( "We couldn't find what you're looking for.", 'TenthTemplate' ) }}</p></div>
+    </div>
+{% endblock %}
