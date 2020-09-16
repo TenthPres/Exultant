@@ -1,0 +1,23 @@
+{
+    "name": "tenthpres/webtemplate",
+    "description": "A WordPress theme created for tenth.org",
+    "license": "AGPL-3.0-or-later",
+    "type": "wordpress-theme",
+    "keywords": [
+        "wordpress", "wp", "Presbyterian", "Church"
+    ],
+    "authors": [
+        {
+            "name": "James K.",
+            "email": "jkrrv@jkrrv.org"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/TenthPres/WebTemplate"
+    },
+    "require": {
+        "php": ">=7.4.0",
+        "composer/installers": "~1.0",
+        "timber/timber": "^1.18"
+    }
+}
