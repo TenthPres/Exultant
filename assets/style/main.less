@@ -40,7 +40,7 @@ main#site-content {
   & > * {
     background: @contentBackgroundColor;
     padding: @sectionPadding;
-    box-shadow: #ddd 0 0 @corsetPadding 0;
+    box-shadow: #d9d9d9 0 0 @corsetPadding*2 0;
     margin-bottom: @sectionPadding * 3;
   }
 
@@ -66,10 +66,19 @@ main#site-content {
     }
   }
 
+  @import "body";
 
   //// Headers
   h1 {
     #fonts.headerFormat;
+    margin:0;
+  }
+
+  h2 {
+    #fonts.headingFont;
+    font-size: 1.8em;
+    padding: .5em 0 0;
+    margin:0;
   }
 
 }

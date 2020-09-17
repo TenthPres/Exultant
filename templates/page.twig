@@ -2,8 +2,15 @@
 
 {% block corset %}
 	<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+		{% if post.thumbnail %}
+			<header style="background-image:url('{{ post.thumbnail.src }}');">
+				<h1>{{ post.title }}</h1>
+			</header>
+		{% endif %}
 		<section class="article-content">
-			<h1>{{ post.title }}</h1>
+			{% if not post.thumbnail %}
+				<h1>{{ post.title }}</h1>
+			{% endif %}
 			{{ post.content }}
 		</section>
 	</article>
