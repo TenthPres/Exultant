@@ -15,7 +15,6 @@
 header[role="banner"] {
   &,
   &::before {
-    width: 100%;
     margin-top: 0;
     height: @headerHeight;
     transition: height @transitionTime;
@@ -31,12 +30,13 @@ header[role="banner"] {
     display: block;
     background-color: #f7f7f7f7;
     border-bottom: #eee solid 0.08em;
-    width: 200%;
-    margin-left: -50%;
+    width: 150vw;
+    margin-left: -50vw;
   }
 
   & {
     z-index: 1;
+    width: 100%;
     top: 0;
     max-width: @headerMaxWidth;
     position: fixed;

@@ -15,6 +15,8 @@ body {
   @media (max-width: @reallyNarrow) {
     margin-top: @headerHeight_reallyNarrow;
   }
+
+  overflow-x: hidden;
 }
 
 nav ul {
@@ -25,9 +27,8 @@ nav ul {
 main#site-content {
   margin-left: 50%;
   transform: translateX(-50%);
-  max-width: @contentMaxWidth;
+  max-width: @mainMaxWidth;
   width: 100%;
-  position: relative;
   padding: 0 @sectionPadding;
   box-sizing: border-box;
 
@@ -42,6 +43,7 @@ main#site-content {
     padding: @sectionPadding;
     box-shadow: #d9d9d9 0 0 @corsetPadding*2 0;
     margin-bottom: @sectionPadding * 3;
+    max-width: @articleMaxWidth;
   }
 
   // 404, etc.
@@ -79,6 +81,44 @@ main#site-content {
     font-size: 1.8em;
     padding: .5em 0 0;
     margin:0;
+  }
+
+  header {
+    background-size: cover;
+    background-position: center center;
+    width: 100vw;
+    max-width: @mainMaxWidth;
+    padding: 25% @sectionPadding*2 0;
+    box-sizing: border-box;
+    margin: 0 -@sectionPadding;
+    position: relative;
+
+    &::after {
+      content: ' ';
+      background: inherit;
+      width: 150vw;
+      height: ~"calc(100% + " @headerHeight ~" + 1em)";
+      position: absolute;
+      z-index: -1;
+      filter: blur(1em);
+      opacity: 0.6;
+      left: -50vw;
+      top: -@headerHeight;
+
+    }
+
+    color: #fff;
+    text-stroke: 0.05em black;
+    @blackIsh: fade(black, 50%);
+    text-shadow:
+              -1px -1px 0 @blackIsh,
+              0 -1px 0 @blackIsh,
+              1px -1px 0 @blackIsh,
+              1px 0 0 @blackIsh,
+              1px 1px 0 @blackIsh,
+              0 1px 0 @blackIsh,
+              -1px 1px 0 @blackIsh,
+              -1px 0 0 @blackIsh;
   }
 
 }

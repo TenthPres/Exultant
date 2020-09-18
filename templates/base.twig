@@ -15,17 +15,23 @@
 		{% endblock %}
 
 		<main id="site-content" role="main"{% if main_class %} class="{{ main_class }}"{% endif %}>
-			{% if title %}<h1>{{ title }}</h1>{% endif %}
-				{% block corset %}
-					<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
-						<section class="article-content">
-							<h1 class="article-h1">{{ _e( 'Not Found', 'TenthTemplate') }}</h1>
-							<div class="article-body">
-								<p>{{ _e( 'No Content to Display', 'TenthTemplate') }}</p>
-							</div>
-						</section>
-					</article>
-				{% endblock %}
+			{% block header %}
+				{% if post.thumbnail %}
+					<header style="background-image:url('{{ post.thumbnail.src }}');">
+						<h1>{{ post.title }}</h1>
+					</header>
+				{% endif %}
+			{% endblock %}
+			{% block corset %}
+				<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+					<section class="article-content">
+						<h1 class="article-h1">{{ _e( 'Not Found', 'TenthTemplate') }}</h1>
+						<div class="article-body">
+							<p>{{ _e( 'No Content to Display', 'TenthTemplate') }}</p>
+						</div>
+					</section>
+				</article>
+			{% endblock %}
 		</main>
 
 		{% if sidebar %}

@@ -8,30 +8,6 @@ section > * {
   margin-bottom:1em;
 }
 
-article > header {
-  margin: -@sectionPadding ~"calc(" -@sectionPadding ~"-" calc((@headerMaxWidth - @contentMaxWidth) / 2) ~")" 0;
-  background-size: cover;
-  background-position: center center;
-  /* margin-left: -216px; */
-  /* width: 1051px; */
-  max-width: ~"min(" 100vw, @contentHeadMaxWidth ~")";
-  padding: 18%;
-  position: relative;
-
-  &::after {
-    content: ' ';
-    background: inherit;
-    width: 100vw;
-    height: ~"calc(100% + 200px + 1em)";
-    position: absolute;
-    left: -50%;
-    z-index: -1;
-    filter: blur(1em);
-    top: -200px;
-    opacity: 0.6;
-  }
-}
-
 blockquote {
   background-color: @barelyGreen;
   border: @tenthGreen dotted;
