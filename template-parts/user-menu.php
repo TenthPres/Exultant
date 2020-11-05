@@ -15,7 +15,7 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
         } else {
             $current_user = wp_get_current_user();
             if ($current_user->first_name . $current_user->last_name === "") {
-                echo "<span>" . $current_user->user_nicename . "</span>";
+                echo "<span>" . $current_user->user_nicename . "</span>"; // TODO should this span be a link to the profile?
             } else {
                 echo "<span>" . $current_user->first_name . " " . $current_user->last_name . "</span>";
             }
@@ -27,9 +27,9 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
 
             ?>
             <ul>
-                <li><span><?php
-                        _e("My Profile", "tenthtemplate"); ?></span></li> <?php
-                // TODO get profile link from TouchPoint ?>
+                <li><a href="<?php
+                    echo get_edit_profile_url(); ?>"><?php
+                        _e("My Profile", "tenthtemplate"); ?></a></li>
                 <li><a href="<?php
                     echo wp_logout_url(get_permalink()); ?>"><?php
                         _e("Logout", "tenthtemplate"); ?></a></li>
