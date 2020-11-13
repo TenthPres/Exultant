@@ -74,11 +74,27 @@ body.touchpoint-template-default {
       display: inline-block;
     }
 
+    .btn-group {
+      display: flex;
+      width:100%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+
+      .btn {
+        flex: 1;
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+    }
+
 
     a.btn:not(.btn-mini),
     input.btn,
     a#login-here,
-    button,
+    button:not(.btn-link),
     input[type='submit'] {
       -webkit-appearance: none;
       border-radius: 0;
@@ -123,19 +139,26 @@ body.touchpoint-template-default {
       }
     }
 
-    a {
+    a,
+    button.btn-link {
       color: @tenthGreen;
       text-decoration: none;
       transition: color @transitionTime, background-color @transitionTime;
     }
-    a:hover {
+    a:hover,
+    button.btn-link:hover {
       color: lighten(@tenthGreen, 15%);
       text-decoration: none;
+    }
+
+    small.text-danger {
+      color: @validationErrorColor;
     }
 
     input[type='text'],
     input[type='password'],
     input[inputmode='numeric'],
+    input[type='tel'],
     select {
       border-radius: 0;
       border: 0;
@@ -263,18 +286,46 @@ body.touchpoint-template-default {
       margin: 0 auto;
     }
 
+    .form-group .text-center {
+      text-align: center;
+    }
+
     .form-group.passcode {
       &,
       & > .passcode-title {
         margin-bottom: 2em;
       }
 
-      .text-center {
-        text-align: center;
-      }
+
 
       .hidden-xs {
         display:none;
+      }
+
+    }
+
+    div.gift, div.payment-container {
+      padding:1em;
+      border: #999 solid 1px;
+      border-radius: 0;
+      margin-bottom: -1px;
+      transition: height 1s;
+
+      button.close {
+        background-color: #fff;
+        color:@validationErrorColor;
+        border: 0;
+      }
+
+      .tp-input.filled .control-label,
+      .tp-input.focus .control-label {
+        top: -3px;
+        left: 1em;
+      }
+
+      h4 {
+        #fonts.headingFont;
+        padding:1em 0;
       }
 
     }
