@@ -86,6 +86,7 @@ body.touchpoint-template-default {
         text-align: center;
         margin-left: 0;
         margin-right: 0;
+        padding: 0.5em;
       }
 
     }
@@ -94,18 +95,48 @@ body.touchpoint-template-default {
     a.btn:not(.btn-mini),
     input.btn,
     a#login-here,
-    button:not(.btn-link),
-    input[type='submit'] {
-      -webkit-appearance: none;
-      border-radius: 0;
-      font-size: 0.95em;
-      background-color: @secondaryBtnBgColor;
-      color: @secondaryBtnFgColor;
-      text-decoration: none;
-      padding: 0.3em 0.6em 0.4em;
-      margin: .5em 1em .5em 0;
-      display: inline-block;
-      border: 1px solid darken(@secondaryBtnBgColor, 5%);
+    button,
+    input[type='submit'] { // TODO much of this should be moved to the main style sheets.
+
+      cursor: pointer;
+
+      &:not(.btn-link) {
+        -webkit-appearance: none;
+        border-radius: 0;
+        font-size: 0.95em;
+        background-color: @secondaryBtnBgColor;
+        color: @secondaryBtnFgColor;
+        text-decoration: none;
+        padding: 0.3em 0.6em 0.4em;
+        margin: .5em 1em .5em 0;
+        display: inline-block;
+        border: 1px solid darken(@secondaryBtnBgColor, 5%);
+
+        &.btn-primary:not(#register-another), &.btn-success {
+          background-color: @tenthGreen;
+          border: 1px solid darken(@tenthGreen, 5%);
+
+          &:hover {
+            background-color: lighten(@tenthGreen, 10%);
+            color: #fff;
+          }
+        }
+
+        &:hover {
+          background-color: lighten(@secondaryBtnBgColor, 10%);
+          color: #fff;
+        }
+
+        &:focus { // TODO move to apply to literally anything that has focus.
+          outline: 1px solid darken(@tenthGreen, 20%);
+          z-index: 1;
+        }
+
+      }
+
+      &.btn-link {
+        background-color: transparent;
+      }
 
       &[href^="/OnlineReg/Cancel/"] { // "Cancel this person" button
         font-size: 0.8em;
@@ -122,28 +153,17 @@ body.touchpoint-template-default {
         text-align: center;
       }
 
-
-      &:hover {
-        background-color: lighten(@secondaryBtnBgColor, 10%);
-        color: #fff;
-      }
-
-      &.btn-primary:not(#register-another), &.btn-success {
-        background-color: @tenthGreen;
-        border: 1px solid darken(@tenthGreen, 5%);
-
-        &:hover {
-          background-color: lighten(@tenthGreen, 10%);
-          color: #fff;
-        }
-      }
     }
 
     a,
+    a:not(.btn):not(.dropdown-item),
     button.btn-link {
       color: @tenthGreen;
       text-decoration: none;
       transition: color @transitionTime, background-color @transitionTime;
+      border-radius: 0;
+      padding: 0;
+      border-color: @tenthGreen;
     }
     a:hover,
     button.btn-link:hover {
@@ -218,7 +238,8 @@ body.touchpoint-template-default {
       }
     }
 
-    .form-group:not(.text-center) {
+    .form-group:not(.text-center),
+    .list-group {
       padding: 0.75em 0 0;
       border-top: 1px solid #eee;
       margin: 0.75em 0 0;
@@ -290,7 +311,7 @@ body.touchpoint-template-default {
       text-align: center;
     }
 
-    .form-group.passcode {
+    .form-group.passcode { // 2FA??
       &,
       & > .passcode-title {
         margin-bottom: 2em;
@@ -300,32 +321,6 @@ body.touchpoint-template-default {
 
       .hidden-xs {
         display:none;
-      }
-
-    }
-
-    div.gift, div.payment-container {
-      padding:1em;
-      border: #999 solid 1px;
-      border-radius: 0;
-      margin-bottom: -1px;
-      transition: height 1s;
-
-      button.close {
-        background-color: #fff;
-        color:@validationErrorColor;
-        border: 0;
-      }
-
-      .tp-input.filled .control-label,
-      .tp-input.focus .control-label {
-        top: -3px;
-        left: 1em;
-      }
-
-      h4 {
-        #fonts.headingFont;
-        padding:1em 0;
       }
 
     }
@@ -368,6 +363,94 @@ body.touchpoint-template-default {
 
       .signin-with {
         padding: 0 1em;
+      }
+    }
+
+    // GIVING PAGE
+    div#main.giving {
+      select {
+        max-width:20em;
+        margin:0 auto;
+        text-align: center;
+        text-align-last: center;
+      }
+
+      div.col-sm-8.col-sm-offset-2 {
+        text-align: center;
+      }
+
+      div.gift, div.payment-container {
+        padding:1em;
+        border: #999 solid 1px;
+        border-radius: 0;
+        margin-bottom: -1px;
+        transition: all 1s;
+
+        &.recurring.well {
+          padding-bottom: 3em;
+
+          .text-center {
+            text-align: center;
+            float: left;
+            width:100%;
+            display:block;
+            position: relative;
+
+            &.col-xs-12 { // recurrence sentence
+              width:100%;
+              position: absolute;
+              float:left;
+              left: 0;
+            }
+
+            & > div.popover { // date picker
+              float: none;
+              width: auto;
+              z-index: 1000;
+              margin-top: -10px;
+
+              .datepicker table tr td.active.active {
+                background: @tenthGreen;
+              }
+
+              div.control-group.form-group {
+                margin:0;
+                padding:0;
+              }
+
+            }
+
+            @import "TouchPoint/bootstrap/popovers";
+
+          }
+
+          div.form-group {
+            border-top:0;
+            padding-bottom:1em;
+          }
+        }
+
+        button.close {
+          background-color: #fff;
+          color:@validationErrorColor;
+          border: 1px solid @validationErrorColor
+        }
+
+        .tp-input.filled .control-label,
+        .tp-input.focus .control-label {
+          top: -3px;
+          left: 1em;
+        }
+
+        h4 {
+          #fonts.headingFont;
+          padding:1em 0;
+        }
+
+        & > h4 { // TODO make equivalent to h2 formatting
+          font-size: 1.6em;
+          padding-top:0;
+        }
       }
     }
   }
