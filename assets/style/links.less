@@ -1,0 +1,76 @@
+@import (reference) "_mixins";
+
+a.btn:not(.btn-mini),
+input.btn,
+a#login-here,
+button,
+input[type='submit'] { // TODO much of this should be moved to the main style sheets.
+
+  cursor: pointer;
+
+  &:not(.btn-link) {
+    -webkit-appearance: none;
+    border-radius: 0;
+    font-size: 0.95em;
+    background-color: @secondaryBtnBgColor;
+    color: @secondaryBtnFgColor;
+    text-decoration: none;
+    padding: 0.3em 0.6em 0.4em;
+    margin: -.5em 0 .5em 0;
+    display: inline-block;
+    border: 1px solid darken(@secondaryBtnBgColor, 5%);
+
+    &.btn-primary:not(#register-another),
+    &.btn-success {
+      background-color: @tenthGreen;
+      border: 1px solid darken(@tenthGreen, 5%);
+
+      &:hover {
+        background-color: lighten(@tenthGreen, 10%);
+        color: #fff;
+      }
+    }
+
+    &.btn-lg {
+      padding: 0.7em 1.3em 0.6em;
+    }
+
+    &:hover {
+      background-color: lighten(@secondaryBtnBgColor, 10%);
+      color: #fff;
+    }
+
+  }
+
+  &.btn-link {
+    background-color: transparent;
+  }
+
+}
+
+#fonts() {
+  .a() {
+
+    color: @tenthGreen;
+    text-decoration: none;
+    transition: color @transitionTime, background-color @transitionTime;
+    border-radius: 0;
+    padding: 0;
+    border-color: @tenthGreen;
+  }
+
+  .a-hov {
+    color: lighten(@tenthGreen, 15%);
+    text-decoration: none;
+  }
+}
+a,
+a:not(.btn),
+button.btn-link {
+  #fonts.a;
+}
+a:hover,
+button.btn-link:hover {
+  #fonts.a-hov
+}
+

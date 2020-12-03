@@ -1,4 +1,5 @@
 @import (reference) '_mixins';
+@import (reference) 'links';
 
 
 // App Nav Bar  ("Return to App")
@@ -27,6 +28,21 @@ div.navbar-header.hidden-xs a {
 
 body.touchpoint-template-default {
 
+  // Compensate for TouchPoint styles
+  margin: 5.5em 0 0;
+  #fonts.bodyFont;
+  font-size: initial;
+  line-height: normal;
+  background-color: @bodyBackgroundColor;
+
+  .h1, .h2, .h3, h1, h2, h3 {
+    font-size: initial;
+  }
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -46,7 +62,10 @@ body.touchpoint-template-default {
 
   .text-right {
     text-align: right;
-    margin-right: -0.9em;
+    //margin-right: -0.9em;
+  }
+  .text-left {
+    text-align: left;
   }
 
   header[role="banner"] {
@@ -98,46 +117,6 @@ body.touchpoint-template-default {
     button,
     input[type='submit'] { // TODO much of this should be moved to the main style sheets.
 
-      cursor: pointer;
-
-      &:not(.btn-link) {
-        -webkit-appearance: none;
-        border-radius: 0;
-        font-size: 0.95em;
-        background-color: @secondaryBtnBgColor;
-        color: @secondaryBtnFgColor;
-        text-decoration: none;
-        padding: 0.3em 0.6em 0.4em;
-        margin: .5em 1em .5em 0;
-        display: inline-block;
-        border: 1px solid darken(@secondaryBtnBgColor, 5%);
-
-        &.btn-primary:not(#register-another), &.btn-success {
-          background-color: @tenthGreen;
-          border: 1px solid darken(@tenthGreen, 5%);
-
-          &:hover {
-            background-color: lighten(@tenthGreen, 10%);
-            color: #fff;
-          }
-        }
-
-        &:hover {
-          background-color: lighten(@secondaryBtnBgColor, 10%);
-          color: #fff;
-        }
-
-        &:focus { // TODO move to apply to literally anything that has focus.
-          outline: 1px solid darken(@tenthGreen, 20%);
-          z-index: 1;
-        }
-
-      }
-
-      &.btn-link {
-        background-color: transparent;
-      }
-
       &[href^="/OnlineReg/Cancel/"] { // "Cancel this person" button
         font-size: 0.8em;
         font-weight: normal;
@@ -155,24 +134,30 @@ body.touchpoint-template-default {
 
     }
 
-    a,
-    a:not(.btn):not(.dropdown-item),
-    button.btn-link {
-      color: @tenthGreen;
-      text-decoration: none;
-      transition: color @transitionTime, background-color @transitionTime;
-      border-radius: 0;
-      padding: 0;
-      border-color: @tenthGreen;
-    }
-    a:hover,
-    button.btn-link:hover {
-      color: lighten(@tenthGreen, 15%);
-      text-decoration: none;
+
+    //// LINKS
+    article #main div a:not(.btn):not(.dropdown-item),
+    article #main div .btn-link,
+    article #main div a.btn.btn-sm.btn-link {
+      #fonts.a;
+
+      :hover {
+        #fonts.a-hov;
+      }
     }
 
     small.text-danger {
       color: @validationErrorColor;
+    }
+
+    small.text-primary {
+      color: @tenthGreen;
+      font-size: 0.8em;
+    }
+    .row .row small,
+    .row .tp-input small {
+      left: 1em;
+      position: relative;
     }
 
     input[type='text'],
@@ -193,6 +178,9 @@ body.touchpoint-template-default {
       &.input-validation-error {
         border-bottom: 1px solid @validationErrorColor;
       }
+    }
+    .money-input:before {
+      background-color: @tenthGreen;
     }
 
     span.field-validation-error {
@@ -248,44 +236,85 @@ body.touchpoint-template-default {
         margin-right: 0;
       }
 
-      .col-sm-1 {
+      .col-sm-1,
+      .col-xs-1 {
         flex:1;
+        min-width: calc(100%/12);
       }
-      .col-sm-2 {
+      .col-sm-2,
+      .col-xs-2 {
         flex:2;
+        min-width: calc(200%/12);
       }
-      .col-sm-3 {
+      .col-sm-3,
+      .col-xs-3 {
         flex:3;
+        min-width: calc(300%/12);
       }
-      .col-sm-4 {
+      .col-sm-4,
+      .col-xs-4 {
         flex:4;
+        min-width: calc(400%/12);
       }
-      .col-sm-5 {
+      .col-sm-5,
+      .col-xs-5 {
         flex:5;
+        min-width: calc(500%/12);
       }
-      .col-sm-6 {
+      .col-sm-6,
+      .col-xs-6 {
         flex:6;
+        min-width: calc(600%/12);
       }
-      .col-sm-7 {
+      .col-sm-7,
+      .col-xs-7 {
         flex:7;
+        min-width: calc(700%/12);
       }
-      .col-sm-8 {
+      .col-sm-8,
+      .col-xs-8 {
         flex:8;
+        min-width: calc(800%/12);
       }
-      .col-sm-9 {
+      .col-sm-9,
+      .col-xs-9 {
         flex:9;
+        min-width: calc(900%/12);
       }
-      .col-sm-10 {
+      .col-sm-10,
+      .col-xs-10 {
         flex:10;
+        min-width: calc(1000%/12);
       }
-      .col-sm-11 {
+      .col-sm-11,
+      .col-xs-11 {
         flex:11;
+        min-width: calc(1100%/12);
       }
-      .col-sm-12 {
+      .col-sm-12,
+      .col-xs-12 {
         flex:12;
+        min-width: calc(100%);
       }
       div {
         display: block;
+      }
+      div.list-group-item {
+        display: flex;
+        flex-wrap: wrap;
+
+        & > div {
+          position: relative;
+
+        }
+      }
+    }
+
+    .tp-radio:hover input ~ .switch, .tp-radio input:checked ~ span.switch {
+      border-color: @tenthGreen;
+
+      &:after {
+        background-color: @tenthGreen;
       }
     }
 
@@ -311,6 +340,10 @@ body.touchpoint-template-default {
       text-align: center;
     }
 
+    .form-actions {
+      padding-top: 1.5em;
+    }
+
     .form-group.passcode { // 2FA??
       &,
       & > .passcode-title {
@@ -330,6 +363,7 @@ body.touchpoint-template-default {
         a.forgot {
           right: 0;
           border-radius: 0;
+          margin-top: 2px;
           color: @secondaryBtnFgColor;
           background-color: @secondaryBtnBgColor;
           top: unset;
@@ -368,7 +402,7 @@ body.touchpoint-template-default {
 
     // GIVING PAGE
     div#main.giving {
-      select {
+      .gift.well select {
         max-width:20em;
         margin:0 auto;
         text-align: center;
@@ -379,7 +413,9 @@ body.touchpoint-template-default {
         text-align: center;
       }
 
-      div.gift, div.payment-container {
+      div.gift,
+      div.payment-container,
+      div.panel .panel {
         padding:1em;
         border: #999 solid 1px;
         border-radius: 0;
@@ -409,8 +445,11 @@ body.touchpoint-template-default {
               z-index: 1000;
               margin-top: -10px;
 
-              .datepicker table tr td.active.active {
+              .datepicker table tr td.active,
+              .datepicker-months table tr td span.month.active,
+              .datepicker-years table tr td span.year.active {
                 background: @tenthGreen;
+                border-radius: 0;
               }
 
               div.control-group.form-group {
@@ -424,22 +463,43 @@ body.touchpoint-template-default {
 
           }
 
+        }
+        &.well {
           div.form-group {
-            border-top:0;
-            padding-bottom:1em;
+            border-top: 0;
+            padding-bottom: 1em;
           }
         }
 
+        div.edit-payment-method {
+          width: 100%;
+          max-height: fit-content;
+          padding-left: 200%/12;
+
+          .row .form-group {
+            border-top:0;
+          }
+
+          & > .row:first-of-type {
+            margin-top: 0;
+          }
+
+        }
+
         button.close {
+          margin-top: .5em;
           background-color: #fff;
           color:@validationErrorColor;
           border: 1px solid @validationErrorColor
         }
 
+        .control-label,
         .tp-input.filled .control-label,
         .tp-input.focus .control-label {
-          top: -3px;
+          top: -5px;
           left: 1em;
+          font-size: 0.7em;
+          position: relative;
         }
 
         h4 {
@@ -451,7 +511,48 @@ body.touchpoint-template-default {
           font-size: 1.6em;
           padding-top:0;
         }
+
+        .tp-checkbox .checkmark {
+          width: 22px;
+          height: 22px;
+        }
+        .tp-checkbox input:checked ~ .checkmark {
+          background-color: @tenthGreen;
+        }
       }
     }
+
+    i.fa.fa-5x.fa-check-circle.text-success {
+      color: green;
+      text-align: center;
+    }
+
+    .panel-body.text-center {
+      text-align: center;
+    }
+
+    .table-responsive.text-left {
+      text-align: left;
+    }
+
+    //table td {
+    //  padding-left: 0;
+    //}
+
+    table.table.table-bordered {
+      padding-top: 2em;
+    }
+
+    .page-header.text-center {
+      padding-bottom: 2em;
+    }
+
+    .text-center > p {
+      text-align: center;
+    }
+  }
+
+  .row {
+    margin-top: 1em;
   }
 }

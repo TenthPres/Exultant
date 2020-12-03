@@ -17,11 +17,16 @@ body {
   }
 
   overflow-x: hidden;
-}
 
-nav ul {
-  padding:0;
-  margin:0;
+  p {
+    margin-bottom: 1em;
+  }
+
+  *:focus {
+    outline: 1px solid darken(@tenthGreen, 20%);
+    z-index: 1;
+  }
+
 }
 
 main#site-content {
@@ -121,6 +126,15 @@ main#site-content {
               -1px 0 0 @blackIsh;
   }
 
+}
+
+//// Sweet Alert Shimming  TODO move somewhere more specific someday.  So far, only necessary for TouchPoint.
+.sweet-alert.showSweetAlert.visible {
+  border-radius: 0;
+}
+.sweet-alert h2 {
+  margin: 0;
+  padding: 1em;
 }
 
 
