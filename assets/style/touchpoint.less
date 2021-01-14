@@ -115,7 +115,13 @@ body.touchpoint-template-default {
     input.btn,
     a#login-here,
     button,
-    input[type='submit'] { // TODO much of this should be moved to the main style sheets.
+    input[type='submit'],
+    input[type='file']::before { // TODO much of this should be moved to the main style sheets.
+
+      &[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+      }
 
       &[href^="/OnlineReg/Cancel/"] { // "Cancel this person" button
         font-size: 0.8em;
@@ -164,6 +170,7 @@ body.touchpoint-template-default {
     input[type='password'],
     input[inputmode='numeric'],
     input[type='tel'],
+    textarea,
     select {
       border-radius: 0;
       border: 0;
@@ -174,11 +181,21 @@ body.touchpoint-template-default {
         background-color:transparent;
         border: 0;
         opacity: 0.5;
+        cursor: not-allowed;
       }
       &.input-validation-error {
         border-bottom: 1px solid @validationErrorColor;
       }
     }
+
+    input[type='file']::before {
+      content: "Select File";
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
     .money-input:before {
       background-color: @tenthGreen;
     }
@@ -189,6 +206,11 @@ body.touchpoint-template-default {
     }
     div.validation-summary-errors {
       color: @validationErrorColor;
+    }
+
+    p.help-block {
+      color: @helpTextColor;
+      font-size:0.8em;
     }
 
     input[type="checkbox"] {
@@ -224,6 +246,17 @@ body.touchpoint-template-default {
         height: 0;
         overflow: hidden;
       }
+    }
+
+    /// For file upload forms
+    .form-inline.docBlock {
+      margin-top: 0.5em;
+    }
+    input.btn.btn-block {
+      width: auto;
+    }
+    .form-group:not(.text-center) .docBlock div {
+      display: inline;
     }
 
     .form-group:not(.text-center),
@@ -334,6 +367,10 @@ body.touchpoint-template-default {
       background-repeat: no-repeat;
       background-position:center;
       margin: 0 auto;
+    }
+
+    a#loginbt {
+      margin-top: 1.5em;
     }
 
     .form-group .text-center {

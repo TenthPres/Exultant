@@ -25,7 +25,7 @@ input[type='submit'] { // TODO much of this should be moved to the main style sh
       background-color: @tenthGreen;
       border: 1px solid darken(@tenthGreen, 5%);
 
-      &:hover {
+      &:not([disabled]):hover {
         background-color: lighten(@tenthGreen, 10%);
         color: #fff;
       }
@@ -35,9 +35,14 @@ input[type='submit'] { // TODO much of this should be moved to the main style sh
       padding: 0.7em 1.3em 0.6em;
     }
 
-    &:hover {
+    &:not([disabled]):hover {
       background-color: lighten(@secondaryBtnBgColor, 10%);
       color: #fff;
+    }
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
   }
