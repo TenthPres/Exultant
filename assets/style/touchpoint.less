@@ -115,8 +115,9 @@ body.touchpoint-template-default {
     input.btn,
     a#login-here,
     button,
-    input[type='submit'],
-    input[type='file']::before { // TODO much of this should be moved to the main style sheets.
+    input[type='submit'] { // TODO much of this should be moved to the main style sheets.
+
+      text-align: center;
 
       &[disabled] {
         opacity: .5;
@@ -133,11 +134,10 @@ body.touchpoint-template-default {
       }
 
       &.width100,
-      &.btn-block {
+      &.btn-block,
+      &.min-width15em {
         width:100%;
-        text-align: center;
       }
-
     }
 
 
