@@ -29,22 +29,12 @@ div.navbar-header.hidden-xs a {
 body.touchpoint-template-default {
 
   // Compensate for TouchPoint styles
-  margin: 5.5em 0 0;
-  #fonts.bodyFont;
-  font-size: initial;
-  line-height: normal;
-  background-color: @bodyBackgroundColor;
-
   .h1, .h2, .h3, h1, h2, h3 {
     font-size: initial;
   }
   .container {
     padding-left: 0;
     padding-right: 0;
-  }
-
-  * {
-    box-sizing: border-box;
   }
 
   // overrides values in _mixins.less
@@ -81,9 +71,16 @@ body.touchpoint-template-default {
       max-width: @contentMaxWidth;
     }
 
+    // Hide account dropdown
+    .col-sm-12 > .dropdown.pull-right,
+    .col-sm-12 > button.btn.btn-link.pull-right {
+      display: none;
+    }
+
     div > h2, article > h2, div.regform > h3 {
       #fonts.headerFormat;
     }
+
     h4:not(:first-child) {
       margin-top: 2em;
     }
@@ -95,17 +92,34 @@ body.touchpoint-template-default {
 
     .btn-group {
       display: flex;
-      width:100%;
+      width: 100%;
       max-width: 400px;
       margin-left: auto;
       margin-right: auto;
+      flex-wrap: wrap;
+
+      & > * {
+        flex: 1 1 0;
+      }
 
       .btn {
-        flex: 1;
         text-align: center;
         margin-left: 0;
         margin-right: 0;
-        padding: 0.5em;
+        padding: 0.5em 1em;
+        height: auto;
+        width: 100%;
+        white-space: nowrap;
+      }
+    }
+
+    .table-responsive {
+      overflow: auto;
+      transition: max-height 1s;
+      max-height: 0;
+
+      &.expand-leave-active {
+        max-height: 0;
       }
 
     }
@@ -130,13 +144,13 @@ body.touchpoint-template-default {
       }
 
       &.btn-xs.pull-right {
-        float:right;
+        float: right;
       }
 
       &.width100,
       &.btn-block,
       &.min-width15em {
-        width:100%;
+        width: 100%;
       }
     }
 
@@ -160,6 +174,7 @@ body.touchpoint-template-default {
       color: @tenthGreen;
       font-size: 0.8em;
     }
+
     .row .row small,
     .row .tp-input small {
       left: 1em;
@@ -167,6 +182,7 @@ body.touchpoint-template-default {
     }
 
     input[type='text'],
+    input[type='email'],
     input[type='password'],
     input[inputmode='numeric'],
     input[type='tel'],
@@ -176,13 +192,15 @@ body.touchpoint-template-default {
       border: 0;
       border-bottom: 1px solid @secondaryBtnBgColor;
       width: 100%;
-      background-color:#fff;
+      background-color: #fff;
+
       &[disabled] {
-        background-color:transparent;
+        background-color: transparent;
         border: 0;
         opacity: 0.5;
         cursor: not-allowed;
       }
+
       &.input-validation-error {
         border-bottom: 1px solid @validationErrorColor;
       }
@@ -202,15 +220,16 @@ body.touchpoint-template-default {
 
     span.field-validation-error {
       color: @validationErrorColor;
-      font-size:0.8em;
+      font-size: 0.8em;
     }
+
     div.validation-summary-errors {
       color: @validationErrorColor;
     }
 
     p.help-block {
       color: @helpTextColor;
-      font-size:0.8em;
+      font-size: 0.8em;
     }
 
     input[type="checkbox"] {
@@ -219,13 +238,15 @@ body.touchpoint-template-default {
 
     table {
       width: 100%;
+
       tbody tr:nth-child(odd) {
         background: #ffffff99;
       }
     }
+
     td {
       vertical-align: top;
-      padding:.4em;
+      padding: .4em;
     }
 
     .panel-heading {
@@ -233,7 +254,7 @@ body.touchpoint-template-default {
       padding: .5em 0;
 
       & > h3 > .btn { // "Cancel this person" button
-        margin:0;
+        margin: 0;
       }
     }
 
@@ -252,86 +273,114 @@ body.touchpoint-template-default {
     .form-inline.docBlock {
       margin-top: 0.5em;
     }
+
     input.btn.btn-block {
       width: auto;
     }
+
     .form-group:not(.text-center) .docBlock div {
       display: inline;
     }
 
+    .row.actions-row {
+      display: flex;
+    }
+
     .form-group:not(.text-center),
-    .list-group {
-      padding: 0.75em 0 0;
+    .row.actions-row {
+      padding: 0;
       border-top: 1px solid #eee;
-      margin: 0.75em 0 0;
+      margin: 1.75em 0 0.75em;
+    }
+
+    .form-group:not(.text-center),
+    .list-group,
+    .row.actions-row {
 
       .pull-right > *:last-child {
         margin-right: 0;
       }
 
+      & > * > input {
+        width:100%;
+      }
+
       .col-sm-1,
       .col-xs-1 {
-        flex:1;
-        min-width: calc(100%/12);
+        //flex: 1 1 auto;
+        //min-width: calc(100%/12);
       }
+
       .col-sm-2,
       .col-xs-2 {
-        flex:2;
-        min-width: calc(200%/12);
+        flex: 2 1 auto;
+        //min-width: calc(200%/12);
       }
+
       .col-sm-3,
       .col-xs-3 {
-        flex:3;
-        min-width: calc(300%/12);
+        flex: 3 1 auto;
+        //min-width: calc(300%/12);
       }
+
       .col-sm-4,
       .col-xs-4 {
-        flex:4;
-        min-width: calc(400%/12);
+        flex: 4 1 auto;
+        //min-width: calc(400%/12);
       }
+
       .col-sm-5,
       .col-xs-5 {
-        flex:5;
-        min-width: calc(500%/12);
+        flex: 5 1 auto;
+        //min-width: calc(500%/12);
       }
+
       .col-sm-6,
       .col-xs-6 {
-        flex:6;
-        min-width: calc(600%/12);
+        flex: 6 1 auto;
+        //min-width: calc(600%/12);
       }
+
       .col-sm-7,
       .col-xs-7 {
-        flex:7;
-        min-width: calc(700%/12);
+        flex: 7 1 auto;
+        //min-width: calc(700%/12);
       }
+
       .col-sm-8,
       .col-xs-8 {
-        flex:8;
-        min-width: calc(800%/12);
+        flex: 8 1 auto;
+        //min-width: calc(800%/12);
       }
+
       .col-sm-9,
       .col-xs-9 {
-        flex:9;
-        min-width: calc(900%/12);
+        flex: 9 1 auto;
+        //min-width: calc(900%/12);
       }
+
       .col-sm-10,
       .col-xs-10 {
-        flex:10;
-        min-width: calc(1000%/12);
+        flex: 10 1 auto;
+        //min-width: calc(1000%/12);
       }
+
       .col-sm-11,
       .col-xs-11 {
-        flex:11;
-        min-width: calc(1100%/12);
+        flex: 11 1 auto;
+        //min-width: calc(1100%/12);
       }
+
       .col-sm-12,
       .col-xs-12 {
-        flex:12;
-        min-width: calc(100%);
+        flex: 12 1 auto;
+        //min-width: calc(100%);
       }
+
       div {
         display: block;
       }
+
       div.list-group-item {
         display: flex;
         flex-wrap: wrap;
@@ -343,6 +392,12 @@ body.touchpoint-template-default {
       }
     }
 
+    .tp-radio {
+      position: relative;
+      top: 0.2em;
+      width: 30px;
+    }
+
     .tp-radio:hover input ~ .switch, .tp-radio input:checked ~ span.switch {
       border-color: @tenthGreen;
 
@@ -350,6 +405,14 @@ body.touchpoint-template-default {
         background-color: @tenthGreen;
       }
     }
+    .tp-checkbox input:checked ~ .checkmark {
+      background-color: @tenthGreen;
+      &::after {
+        top: 2px;
+        left: 7px;
+      }
+    }
+
 
     address {
       opacity: 0.6;
@@ -359,13 +422,13 @@ body.touchpoint-template-default {
     //// login page stuff
     .loginHeader {
       position: relative;
-      z-index:1;
+      z-index: 1;
       padding: 21% 1em 0;
-      max-width:250px;
+      max-width: 250px;
       background-size: contain;
       background-image: url('https://c4265878.ssl.cf2.rackcdn.com/brett.2002051701.TP-logo-blue-no-slogan-300x62.png');
       background-repeat: no-repeat;
-      background-position:center;
+      background-position: center;
       margin: 0 auto;
     }
 
@@ -388,9 +451,8 @@ body.touchpoint-template-default {
       }
 
 
-
       .hidden-xs {
-        display:none;
+        display: none;
       }
 
     }
@@ -418,10 +480,10 @@ body.touchpoint-template-default {
         color: @validationErrorColor;
         border: @validationErrorColor 1px dotted;
         max-width: 360px;
-        width:auto;
+        width: auto;
         font-size: 0.85em;
         padding: 1em;
-        margin-bottom:0;
+        margin-bottom: 0;
 
         button.close {
           display: none;
@@ -429,7 +491,7 @@ body.touchpoint-template-default {
       }
 
       .no-header {
-        display:none;
+        display: none;
       }
 
       .signin-with {
@@ -440,8 +502,8 @@ body.touchpoint-template-default {
     // GIVING PAGE
     div#main.giving {
       .gift.well select {
-        max-width:20em;
-        margin:0 auto;
+        max-width: 20em;
+        margin: 0 auto;
         text-align: center;
         text-align-last: center;
       }
@@ -453,7 +515,7 @@ body.touchpoint-template-default {
       div.gift,
       div.payment-container,
       div.panel .panel {
-        padding:1em;
+        padding: 1em;
         border: #999 solid 1px;
         border-radius: 0;
         margin-bottom: -1px;
@@ -465,42 +527,21 @@ body.touchpoint-template-default {
           .text-center {
             text-align: center;
             float: left;
-            width:100%;
-            display:block;
+            width: 100%;
+            display: block;
             position: relative;
 
             &.col-xs-12 { // recurrence sentence
-              width:100%;
+              width: 100%;
               position: absolute;
-              float:left;
+              float: left;
               left: 0;
             }
-
-            & > div.popover { // date picker
-              float: none;
-              width: auto;
-              z-index: 1000;
-              margin-top: -10px;
-
-              .datepicker table tr td.active,
-              .datepicker-months table tr td span.month.active,
-              .datepicker-years table tr td span.year.active {
-                background: @tenthGreen;
-                border-radius: 0;
-              }
-
-              div.control-group.form-group {
-                margin:0;
-                padding:0;
-              }
-
-            }
-
-            @import "TouchPoint/bootstrap/popovers";
 
           }
 
         }
+
         &.well {
           div.form-group {
             border-top: 0;
@@ -514,7 +555,7 @@ body.touchpoint-template-default {
           padding-left: 200%/12;
 
           .row .form-group {
-            border-top:0;
+            border-top: 0;
           }
 
           & > .row:first-of-type {
@@ -526,7 +567,7 @@ body.touchpoint-template-default {
         button.close {
           margin-top: .5em;
           background-color: #fff;
-          color:@validationErrorColor;
+          color: @validationErrorColor;
           border: 1px solid @validationErrorColor
         }
 
@@ -541,20 +582,12 @@ body.touchpoint-template-default {
 
         h4 {
           #fonts.headingFont;
-          padding:1em 0;
+          padding: 1em 0;
         }
 
         & > h4 { // TODO make equivalent to h2 formatting
           font-size: 1.6em;
-          padding-top:0;
-        }
-
-        .tp-checkbox .checkmark {
-          width: 22px;
-          height: 22px;
-        }
-        .tp-checkbox input:checked ~ .checkmark {
-          background-color: @tenthGreen;
+          padding-top: 0;
         }
       }
     }
@@ -572,16 +605,8 @@ body.touchpoint-template-default {
       text-align: left;
     }
 
-    //table td {
-    //  padding-left: 0;
-    //}
-
     table.table.table-bordered {
       padding-top: 2em;
-    }
-
-    .page-header.text-center {
-      padding-bottom: 2em;
     }
 
     .text-center > p {
@@ -592,4 +617,41 @@ body.touchpoint-template-default {
   .row {
     margin-top: 1em;
   }
+
+  div.popover { // date picker
+    max-width: 300px;
+    display: block;
+    background: #fffffffa;
+
+    .datepicker table tr td.active,
+    .datepicker-months table tr td span.month.active,
+    .datepicker-years table tr td span.year.active {
+      background: @tenthGreen;
+      border-radius: 0;
+    }
+
+    .popover-content {
+      top: -1em;
+      position: relative;
+    }
+
+    //&::before {
+    //  content: ' ';
+    //  position: absolute;
+    //  top:0;
+    //  left:0;
+    //  bottom:0;
+    //  right:0;
+    //  background:#ffffffdd;
+    //  z-index:-1;
+    //}
+
+    div.control-group.form-group {
+      margin:0;
+      padding:0;
+    }
+
+
+  }
+  @import "TouchPoint/bootstrap/popovers";
 }

@@ -6,6 +6,10 @@ body, input {
   #fonts.bodyFont()
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: @headerHeight 0 0;
   background-color: @bodyBackgroundColor;
@@ -41,7 +45,6 @@ main#site-content {
   @media (max-width: @reallyNarrow) {
     min-height: calc(~"100vh - " (@headerHeight_reallyNarrow + @footerMinHeight));
   }
-  transition:min-height @transitionTime;
 
   & > * {
     background: @contentBackgroundColor;
