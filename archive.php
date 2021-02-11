@@ -13,7 +13,7 @@
 
 $templates = [ 'archive.twig', 'index.twig' ];
 
-$context = Timber::context();
+$context = Timber\Timber::context();
 
 $context['title'] = 'Archive';
 if ( is_day() ) {
@@ -34,4 +34,4 @@ if ( is_day() ) {
 
 $context['posts'] = new Timber\PostQuery();
 
-Timber::render( $templates, $context );
+Timber\Timber::render( $templates, $context );

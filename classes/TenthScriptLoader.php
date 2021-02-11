@@ -11,7 +11,10 @@
 class TenthScriptLoader
 {
     /**
-     * Adds async/defer attributes to enqueued / registered scripts.
+     * Adds async/defer attributes to enqueued / registered scripts.  If -defer or -async is present in the script's
+     * handle, the respective attribute is added.
+     *
+     * DOES apply to ALL scripts, not just those in the template.
      *
      * @param string $tag The script tag.
      * @param string $handle The script handle.
@@ -20,16 +23,11 @@ class TenthScriptLoader
      */
     public function filter_script_loader_tag($tag, $handle)
     {
-        foreach (['async', 'defer'] as $attr) {
-            if ( ! wp_scripts()->get_data($handle, $attr)) {
-                continue;
-            }
-            // Prevent adding attribute when already added in #12009.
-            if ( ! preg_match(":\s$attr(=|>|\s):", $tag)) {
-                $tag = preg_replace(':(?=></script>):', " $attr", $tag, 1);
-            }
-            // Only allow async or defer, not both.
-            break;
+        if (strpos($tag, 'async') === false && strpos($handle, '-async') > 0) {
+            $tag = str_replace(' src=', ' async="async" src=', $tag);
+        }
+        if (strpos($tag, 'defer') === false && strpos($handle, '-defer') > 0) {
+            $tag = str_replace('<script ', '<script defer ', $tag);
         }
 
         return $tag;

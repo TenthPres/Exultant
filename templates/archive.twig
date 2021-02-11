@@ -1,0 +1,11 @@
+{% extends 'single.twig' %}
+
+{% block article_content %}
+	<h1 class="archive-h1">{{ title }}</h1>
+	<div class="article-body">
+		{% for post in posts %}
+			{% set post = TimberPost(post) %}
+			{% include ['teases/tease-'~post.post_type~'.twig', 'teases/tease.twig'] with { class: 'teaser' } %}
+		{% endfor %}
+	</div>
+{% endblock %}

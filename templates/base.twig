@@ -17,7 +17,7 @@
 		<main id="site-content" role="main"{% if main_class %} class="{{ main_class }}"{% endif %}>
 			{% block header %}
 				{% if post.thumbnail %}
-					<header style="background-image:url('{{ post.thumbnail.src }}');">
+					<header class="page-header" style="background-image:url('{{ post.thumbnail.src }}');">
 						<h1>{{ post.title }}</h1>
 					</header>
 				{% endif %}
