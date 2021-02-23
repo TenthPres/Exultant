@@ -1,0 +1,74 @@
+@import (reference) '_mixins';
+
+body label {
+  display: block;
+  font-size: 0.8em;
+}
+
+.form-group {
+  padding: 0;
+  margin: 0 0 0.75em;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[inputmode='numeric'],
+input[type='tel'],
+textarea,
+select {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid @secondaryBtnBgColor;
+  width: 100%;
+  background-color: #fff;
+
+  &[disabled] {
+    background-color: transparent;
+    border: 0;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.input-validation-error {
+    border-bottom: 1px solid @validationErrorColor;
+  }
+}
+
+input[type='file']::before {
+  content: "Select File";
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+a.btn:not(.btn-mini),
+input.btn,
+a#login-here,
+button,
+input[type='submit'] {
+
+  text-align: center;
+
+  &[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  &[href^="/OnlineReg/Cancel/"] { // "Cancel this person" button  TODO move to TouchPoint page
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+
+  &.btn-xs.pull-right {
+    float: right;
+  }
+
+  &.width100,  // TODO move to TouchPoint page
+  &.btn-block,
+  &.min-width15em {
+    width: 100%;
+  }
+}

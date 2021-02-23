@@ -29,6 +29,14 @@ div.navbar-header.hidden-xs a {
 body.touchpoint-template-default {
 
   // Compensate for TouchPoint styles
+
+  // Necessary for One-Time Link page
+  #fonts.bodyFont;
+  margin: 5.5em 0 0;
+  @media (max-width: 835px) {
+    margin-top: 3em;
+  }
+
   .h1, .h2, .h3, h1, h2, h3 {
     font-size: initial;
   }
@@ -125,36 +133,6 @@ body.touchpoint-template-default {
     }
 
 
-    a.btn:not(.btn-mini),
-    input.btn,
-    a#login-here,
-    button,
-    input[type='submit'] { // TODO much of this should be moved to the main style sheets.
-
-      text-align: center;
-
-      &[disabled] {
-        opacity: .5;
-        cursor: not-allowed;
-      }
-
-      &[href^="/OnlineReg/Cancel/"] { // "Cancel this person" button
-        font-size: 0.8em;
-        font-weight: normal;
-      }
-
-      &.btn-xs.pull-right {
-        float: right;
-      }
-
-      &.width100,
-      &.btn-block,
-      &.min-width15em {
-        width: 100%;
-      }
-    }
-
-
     //// LINKS
     article #main div a:not(.btn):not(.dropdown-item),
     article #main div .btn-link,
@@ -179,39 +157,6 @@ body.touchpoint-template-default {
     .row .tp-input small {
       left: 1em;
       position: relative;
-    }
-
-    input[type='text'],
-    input[type='email'],
-    input[type='password'],
-    input[inputmode='numeric'],
-    input[type='tel'],
-    textarea,
-    select {
-      border-radius: 0;
-      border: 0;
-      border-bottom: 1px solid @secondaryBtnBgColor;
-      width: 100%;
-      background-color: #fff;
-
-      &[disabled] {
-        background-color: transparent;
-        border: 0;
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-
-      &.input-validation-error {
-        border-bottom: 1px solid @validationErrorColor;
-      }
-    }
-
-    input[type='file']::before {
-      content: "Select File";
-    }
-
-    textarea {
-      resize: vertical;
     }
 
     .money-input:before {
@@ -247,6 +192,10 @@ body.touchpoint-template-default {
     td {
       vertical-align: top;
       padding: .4em;
+    }
+
+    .panel-group {
+      padding: 0.75em .5em;
     }
 
     .panel-heading {
@@ -289,13 +238,12 @@ body.touchpoint-template-default {
     .form-group:not(.text-center),
     .row.actions-row {
       padding: 0;
-      border-top: 1px solid #eee;
-      margin: 1.75em 0 0.75em;
+      margin: 0 0 0.75em;
     }
 
     .form-group:not(.text-center),
     .list-group,
-    .row.actions-row {
+    .row {
 
       .pull-right > *:last-child {
         margin-right: 0;
@@ -303,78 +251,6 @@ body.touchpoint-template-default {
 
       & > * > input {
         width:100%;
-      }
-
-      .col-sm-1,
-      .col-xs-1 {
-        //flex: 1 1 auto;
-        //min-width: calc(100%/12);
-      }
-
-      .col-sm-2,
-      .col-xs-2 {
-        flex: 2 1 auto;
-        //min-width: calc(200%/12);
-      }
-
-      .col-sm-3,
-      .col-xs-3 {
-        flex: 3 1 auto;
-        //min-width: calc(300%/12);
-      }
-
-      .col-sm-4,
-      .col-xs-4 {
-        flex: 4 1 auto;
-        //min-width: calc(400%/12);
-      }
-
-      .col-sm-5,
-      .col-xs-5 {
-        flex: 5 1 auto;
-        //min-width: calc(500%/12);
-      }
-
-      .col-sm-6,
-      .col-xs-6 {
-        flex: 6 1 auto;
-        //min-width: calc(600%/12);
-      }
-
-      .col-sm-7,
-      .col-xs-7 {
-        flex: 7 1 auto;
-        //min-width: calc(700%/12);
-      }
-
-      .col-sm-8,
-      .col-xs-8 {
-        flex: 8 1 auto;
-        //min-width: calc(800%/12);
-      }
-
-      .col-sm-9,
-      .col-xs-9 {
-        flex: 9 1 auto;
-        //min-width: calc(900%/12);
-      }
-
-      .col-sm-10,
-      .col-xs-10 {
-        flex: 10 1 auto;
-        //min-width: calc(1000%/12);
-      }
-
-      .col-sm-11,
-      .col-xs-11 {
-        flex: 11 1 auto;
-        //min-width: calc(1100%/12);
-      }
-
-      .col-sm-12,
-      .col-xs-12 {
-        flex: 12 1 auto;
-        //min-width: calc(100%);
       }
 
       div {
@@ -614,11 +490,18 @@ body.touchpoint-template-default {
     }
   }
 
-  .row {
-    margin-top: 1em;
+  //// Sweet Alert Shimming
+  .sweet-alert.showSweetAlert.visible {
+    border-radius: 0;
+    z-index: 10000000;
+  }
+  .sweet-alert h2 {
+    margin: 0;
+    padding: 1em;
   }
 
-  div.popover { // date picker
+  // Date Pickers
+  div.popover {
     max-width: 300px;
     display: block;
     background: #fffffffa;

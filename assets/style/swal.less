@@ -1,0 +1,27 @@
+@import (reference) 'body';
+
+.swal2-popup.swal2-modal.swal2-show {
+  border-radius: 0;
+  box-shadow: rgba(0,0,0,20%) 0 0 @corsetPadding*2 0;
+  background-color: @contentBackgroundColor;
+
+  button.swal2-styled {
+    border-radius: 0;
+  }
+
+  button.swal2-styled.swal2-confirm {
+    background-color: @tenthGreen;
+  }
+
+  button.swal2-styled.swal2-deny {
+    background-color: @validationErrorColor;
+  }
+
+  button.swal2-styled.swal2-cancel {
+    background-color: @secondaryBtnBgColor;
+  }
+
+  input {
+    text-align: center;
+  }
+}

@@ -33,7 +33,7 @@ body {
 
 }
 
-main#site-content {
+main {
   margin-left: 50%;
   transform: translateX(-50%);
   max-width: @mainMaxWidth;
@@ -129,16 +129,6 @@ main#site-content {
               -1px 0 0 @blackIsh;
   }
 
-}
-
-//// Sweet Alert Shimming  TODO move somewhere more specific someday.  So far, only necessary for TouchPoint.
-.sweet-alert.showSweetAlert.visible {
-  border-radius: 0;
-  z-index: 10000000;
-}
-.sweet-alert h2 {
-  margin: 0;
-  padding: 1em;
 }
 
 
