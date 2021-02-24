@@ -37,9 +37,6 @@ body.touchpoint-template-default {
     margin-top: 3em;
   }
 
-  .h1, .h2, .h3, h1, h2, h3 {
-    font-size: initial;
-  }
   .container {
     padding-left: 0;
     padding-right: 0;
@@ -223,10 +220,6 @@ body.touchpoint-template-default {
       margin-top: 0.5em;
     }
 
-    input.btn.btn-block {
-      width: auto;
-    }
-
     .form-group:not(.text-center) .docBlock div {
       display: inline;
     }
@@ -241,6 +234,10 @@ body.touchpoint-template-default {
       margin: 0 0 0.75em;
     }
 
+    .upload-doc-options input.btn.btn-block {
+      width: auto;
+    }
+
     .form-group:not(.text-center),
     .list-group,
     .row {
@@ -252,9 +249,8 @@ body.touchpoint-template-default {
       & > * > input {
         width:100%;
       }
-
-      div {
-        display: block;
+      & > * input[type="radio"] {
+        width: auto;
       }
 
       div.list-group-item {
@@ -388,17 +384,28 @@ body.touchpoint-template-default {
         text-align: center;
       }
 
+      .btn {
+        text-align:center;
+      }
+      div.row {
+        display: block;
+      }
+      div.row.actions-row {
+        display: flex;
+      }
+
       div.gift,
       div.payment-container,
       div.panel .panel {
         padding: 1em;
         border: #999 solid 1px;
         border-radius: 0;
-        margin-bottom: -1px;
+        margin: 0.9em .3em -1px;
         transition: all 1s;
 
         &.recurring.well {
           padding-bottom: 3em;
+          margin-bottom: 1.2em;
 
           .text-center {
             text-align: center;

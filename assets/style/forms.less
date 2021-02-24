@@ -1,13 +1,24 @@
 @import (reference) '_mixins';
 
 body label {
-  display: block;
   font-size: 0.8em;
 }
 
 .form-group {
   padding: 0;
   margin: 0 0 0.75em;
+}
+
+.form-group {
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[inputmode='numeric'],
+  input[type='tel'],
+  textarea,
+  select {
+    width: 100%;
+  }
 }
 
 input[type='text'],
@@ -20,7 +31,6 @@ select {
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid @secondaryBtnBgColor;
-  width: 100%;
   background-color: #fff;
 
   &[disabled] {
@@ -35,7 +45,7 @@ select {
   }
 }
 
-input[type='file']::before {
+input[type="file"]::before {
   content: "Select File";
 }
 
@@ -48,7 +58,7 @@ a.btn:not(.btn-mini),
 input.btn,
 a#login-here,
 button,
-input[type='submit'] {
+input[type="submit"] {
 
   text-align: center;
 
