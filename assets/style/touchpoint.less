@@ -84,6 +84,10 @@ body.touchpoint-template-default {
 
     div > h2, article > h2, div.regform > h3 {
       #fonts.headerFormat;
+
+      strong {
+        font-weight: normal;
+      }
     }
 
     h4:not(:first-child) {
@@ -495,6 +499,11 @@ body.touchpoint-template-default {
     .text-center > p {
       text-align: center;
     }
+
+    label.control-label,
+    label.doc {
+      font-size: 1em;
+    }
   }
 
   //// Sweet Alert Shimming
@@ -507,7 +516,7 @@ body.touchpoint-template-default {
     padding: 1em;
   }
 
-  // Date Pickers
+  //// Date Pickers
   div.popover {
     max-width: 300px;
     display: block;
