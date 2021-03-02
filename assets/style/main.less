@@ -41,6 +41,10 @@ main {
   padding: 0 @sectionPadding;
   box-sizing: border-box;
 
+  *:first-child {
+    padding-top: 0;
+  }
+
   min-height: calc(~"100vh - " (@headerHeight + @footerMinHeight));
   @media (max-width: @reallyNarrow) {
     min-height: calc(~"100vh - " (@headerHeight_reallyNarrow + @footerMinHeight));
@@ -50,8 +54,8 @@ main {
     background: @contentBackgroundColor;
     padding: @sectionPadding;
     box-shadow: #d9d9d9 0 0 @corsetPadding*2 0;
-    margin-bottom: @sectionPadding * 3;
-    max-width: @articleMaxWidth;
+    margin-bottom: @sectionPadding * 2;
+    //max-width: @articleMaxWidth; TODO re-impose when sidebar nav is present.
   }
 
   // 404, etc.
@@ -78,6 +82,28 @@ main {
 
   @import "body";
 
+  //// Comments
+  .comment {
+    border-top: 1px dotted @tenthGreen;
+    border-bottom: 1px dotted @tenthGreen;
+
+    h3 {
+      display:inline-block;
+    }
+    span.byline {
+      display: inline-block;
+      opacity: 60%;
+      font-size: 0.8em;
+      margin: 0 .5em;
+    }
+
+    .comment  {
+      margin-left: 1em;
+    }
+  }
+
+
+
   //// Headers
   h1 {
     #fonts.headerFormat;
@@ -91,12 +117,32 @@ main {
     margin:0;
   }
 
+  h3 {
+    #fonts.headingFont;
+    font-size: 1.5em;
+    padding: .5em 0 0;
+    margin:0;
+    color: @tenthGreen;
+  }
+
+  div.singleHeader {
+    p.byline {
+      padding: 0;
+      margin: 0;
+    }
+
+    h1 {
+      padding: 0;
+      margin-bottom:-0.2em;
+    }
+  }
+
   header.page-header {
     background-size: cover;
     background-position: center center;
     width: 100vw;
     max-width: @mainMaxWidth;
-    padding: 25% @sectionPadding*2 0;
+    padding: 25% @sectionPadding*2 1em;
     box-sizing: border-box;
     margin: 0 -@sectionPadding;
     position: relative;
@@ -117,7 +163,7 @@ main {
 
     color: #fff;
     text-stroke: 0.05em black;
-    @blackIsh: fade(black, 50%);
+    @blackIsh: fade(black, 30%);
     text-shadow:
               -1px -1px 0 @blackIsh,
               0 -1px 0 @blackIsh,
@@ -127,6 +173,30 @@ main {
               0 1px 0 @blackIsh,
               -1px 1px 0 @blackIsh,
               -1px 0 0 @blackIsh;
+
+    .byline {
+      opacity: 60%;
+      font-size: .8em;
+      transition: opacity 1s;
+    }
+    &:hover .byline {
+      opacity: 100%;
+    }
+
+    a:link, a:visited {
+      color: #fff;
+      border-bottom: 1px solid #ffffff00;
+      transition: border .5s;
+      line-height:1.1em;
+      display:inline-block;
+    }
+    &:hover a:link,
+    &:hover a:visited {
+      border-color: #ffffff66;
+    }
+    a:hover {
+      border-color: #ffffffaa;
+    }
   }
 
 }

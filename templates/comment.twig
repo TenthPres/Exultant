@@ -1,0 +1,16 @@
+<div class="blog-comment {{comment.comment_type}}" id="blog-comment-{{comment.ID}}">
+	<h3 class="comment-author">{{comment.author.name}}</h3>
+	<span class="byline">{{ comment.date }}</span>
+	<div class="comment-content">{{comment.comment_content|wpautop}}</div>
+
+	<section class="comment-box">
+		<!-- child comments -->
+		{% if comment.children.count > 0 %}
+			<div class="comments">
+				{% for cmt in comment.children %}
+					{% include "comment.twig" with {comment:cmt} %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</section>
+</div>

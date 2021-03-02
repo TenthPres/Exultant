@@ -18,7 +18,7 @@
 			{% block header %}
 				{% if post.thumbnail %}
 					<header class="page-header" style="background-image:url('{{ post.thumbnail.src }}');">
-						<h1>{{ post.title }}</h1>
+						{%  include 'partials/singleHeader.twig' %}
 					</header>
 				{% endif %}
 			{% endblock %}
