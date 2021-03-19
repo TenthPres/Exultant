@@ -4,8 +4,7 @@ $searchId        = wp_unique_id('search-form-');
 $searchResultsId = wp_unique_id('search-list-');
 
 ?>
-<label class="las la-search" for="<?php
-echo $searchId; ?>"></label>
+<label class="las la-search" for="<?php echo $searchId; ?>"></label>
 <div><!-- equiv to ul -->
     <div><!-- equiv to li -->
         <?php
@@ -18,9 +17,8 @@ echo $searchId; ?>"></label>
         );
         ?>
         <div>
-            <ul id="<?php
-            echo $searchResultsId; ?>">
-                <li><span>Start Typing...</span></li>
+            <ul id="<?php echo $searchResultsId; ?>" class="search-results">
+                <li><span class="start-typing">Start Typing...</span></li>
             </ul>
         </div>
     </div>

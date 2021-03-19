@@ -152,6 +152,39 @@ header[role="banner"] {
     }
 
 
+    //// Nav darkening overlay
+    &::after {
+      content: ' ';
+
+      background-color: darken(@tenthGreen, 35%);
+      background-image: data-uri("image/svg+xml;charset=UTF-8", @logoIconImg);
+      background-repeat: no-repeat;
+      background-position: 50% 40%;
+      background-size: 300px;
+      filter: blur(2px);
+      backdrop-filter: blur(4px);
+
+      position: fixed;
+      top: @headerHeight;
+      height: 100vh;
+      left: -100vw;
+      right: -100vw;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity @transitionTime;
+      @media (max-width: @reallyNarrow) {
+        top: @headerHeight_reallyNarrow;
+      }
+    }
+    &:focus-within,
+    &:hover {
+      &::after {
+        opacity: 0.6;
+      }
+    }
+
+
     //// SEARCH
     input[type='search']:focus {
       outline: none;
@@ -166,9 +199,25 @@ header[role="banner"] {
     input[type='search'] {
       border: none;
       background: transparent;
-      padding: 0.8*@sectionPadding 0 0.8*@sectionPadding 0.8*@sectionPadding;
+      padding: 0.7*@sectionPadding 0 0.7*@sectionPadding 0.7*@sectionPadding;
       margin-right:-1em;
       width: @searchWidth;
+    }
+
+    div .search-results {
+      display:none;
+    }
+    div:focus-within .search-results {
+      display: unset;
+    }
+    div .search-results span.start-typing {
+      opacity: .5;
+      font-style: italic;
+    }
+
+    // Prevent focused elements from appearing as focused
+    *:focus {
+      outline: 0;
     }
 
 
@@ -202,8 +251,7 @@ header[role="banner"] {
 
       & > div > ul > li:hover,
       & > div > div > div:hover,
-      & > div > ul > li:hover,
-      & > div > div > div:hover,
+      & > div > ul > li:focus-within,
       & > div > div > div:focus-within {
         /* second level list item (about) */
         overflow: visible;
@@ -226,7 +274,9 @@ header[role="banner"] {
       & > div > div > div > span {
         /* second level link (about) */
         display: inline-block;
-        padding: 0.8 * @sectionPadding;
+        padding: 0.7 * @sectionPadding;
+        height: @headerHeight;
+        height: ~"calc(" @headerHeight_reallyNarrow ~" - 1px)";
       }
 
       & > div > ul > li > div,
@@ -250,9 +300,9 @@ header[role="banner"] {
 
       & > div > div > div:focus-within > div {
         /* third level grouping (box that descends -- in this case, for Search) */
-      left: 0;
-      right: 0;
-      transform: none;
+        left: 0;
+        right: 0;
+        transform: none;
       }
 
       & > div > ul > li > div > ul,
@@ -277,7 +327,19 @@ header[role="banner"] {
 
       & > div > ul > li > div > ul ul,
       & > div > div > div > div > ul ul {
-        padding-bottom: .2em;
+        //padding-bottom: .2em;
+      }
+
+      & > div > ul > li > div > ul > li,
+      & > div > div > div > div > ul > li {
+        border-top: 1px solid @thirdGreen;
+        padding: .5em 0;
+
+        &:first-child {
+          margin-top: 0;
+          padding-top: 0;
+          border-top: 0;
+        }
       }
 
       & > div > ul > li > div > ul > li > a,
@@ -324,10 +386,9 @@ header[role="banner"] {
       & > div > label {
         /* first level links (icons: menu, user, etc) */
         display: block;
-        width: @linkHeight * 1.4;
         box-sizing: border-box;
         overflow: hidden;
-        height: @linkHeight * 1.4;
+        height: calc(100% - 2px);
         padding: 0;
         cursor: pointer;
       }
@@ -336,6 +397,7 @@ header[role="banner"] {
         /* first level icons */
         margin: @linkHeight * 0.4;
         display: block;
+        line-height: @linkHeight;
       }
 
       & > div > label > img {
@@ -377,7 +439,7 @@ header[role="banner"] {
       & > div:focus > div,
       & > div:focus-within > div {
         /* first level sub-lists (basic row) */
-        width: calc(~"100vw - " (@sectionPadding * 2));
+        width: calc(~"100vw - " (@sectionPadding * 3));
         display: block;
         background: #fff;
         max-height: 85vh;
@@ -395,7 +457,8 @@ header[role="banner"] {
         margin-left: 0;
       }
 
-      div li {
+      div li,
+      div input[type='search']{
         width: 100%;
         text-align: left;
         padding-left: @sectionPadding;

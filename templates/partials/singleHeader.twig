@@ -4,7 +4,7 @@
         By <a href="{{post.author.path}}">{{ post.author.name }}</a>
         &#9702; <time datetime="{{ post.date | date('Y-m-d H:i:s') }}">{{ post.date }}</time>
         {% if post.edit_link %}
-        &#9702; <a href="{{ post.link }}">{{ _e('edit') }}</a>
+        &#9702; <a href="{{ post.edit_link }}">{{ _e('edit') }}</a>
         {% endif %}
     </p>
 </div>
