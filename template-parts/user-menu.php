@@ -15,27 +15,32 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
         } else {
             $current_user = wp_get_current_user();
             if ($current_user->first_name . $current_user->last_name === "") {
-                echo "<span>" . $current_user->user_nicename . "</span>"; // TODO should this span be a link to the profile?
+                echo "<span>" . $current_user->user_nicename . "</span>";
             } else {
                 echo "<span>" . $current_user->first_name . " " . $current_user->last_name . "</span>";
             }
             echo "<div id=\"userMenu\">";
 
             if (class_exists(TenthAdminMenu::class)) {
-                TenthAdminMenu::renderSingleton();
+                TenthAdminMenu::renderSingleton(true);
             }
-
             ?>
             <ul>
-                <li><a href="<?php
-                    echo get_edit_profile_url(); ?>"><?php
-                        _e("My Profile", "tenthtemplate"); ?></a></li>
-                <li><a href="<?php
-                    echo wp_logout_url(get_permalink()); ?>"><?php
-                        _e("Logout", "tenthtemplate"); ?></a></li>
+                <li><?php
+                    echo "<a href=\"" . get_edit_profile_url() . "\">";
+                    echo __("My Profile", "tenthtemplate");
+                    echo "</a>"; ?>
+                    <ul>
+                        <li><?php
+                            echo "<a href=\"" . wp_logout_url(get_permalink()) . "\">";
+                            echo __("Logout", "tenthtemplate");
+                            echo "</a>"; ?>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-            </div>
         <?php
+            echo "</div>";
         } ?>
     </li>
 </ul>

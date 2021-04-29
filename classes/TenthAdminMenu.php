@@ -26,22 +26,22 @@ class TenthAdminMenu extends \WP_Admin_Bar
      *
      * @throws Exception
      */
-    public static function renderSingleton()
+    public static function renderSingleton($includeUL = true)
     {
         if (self::$singleton === null) {
             throw new Exception("TenthAdminMenu has not been instantiated yet.");
         }
-        self::$singleton->renderForMenu();
+        self::$singleton->renderForMenu($includeUL);
     }
 
     /**
      * Called by the userMenu partial to generate the content of this menu.
      */
-    public function renderForMenu()
+    public function renderForMenu($includeUL = true)
     {
         $root = $this->_bind();
         if ($root) {
-            $this->_tenthRender($root);
+            $this->_tenthRender($root, $includeUL);
         }
     }
 
@@ -50,27 +50,29 @@ class TenthAdminMenu extends \WP_Admin_Bar
      *
      * @param object $root
      */
-    final protected function _tenthRender($root)
+    final protected function _tenthRender($root, $includeUL = true)
     {
         foreach ($root->children as $group) {
-            $this->_tenthRender_group($group);
+            $this->_tenthRender_group($group, $includeUL);
         }
     }
 
     /**
      * @param object $node
      */
-    final protected function _tenthRender_group($node)
+    final protected function _tenthRender_group($node, $includeUL = true)
     {
         if ($node->type !== 'group' || empty($node->children)) {
             return;
         }
 
-        echo "<ul>";
+        if ($includeUL)
+            echo "<ul>";
         foreach ($node->children as $item) {
             $this->_tenthRender_item($item);
         }
-        echo '</ul>';
+        if ($includeUL)
+            echo '</ul>';
     }
 
     /**

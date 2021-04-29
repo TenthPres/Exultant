@@ -180,7 +180,7 @@ header[role="banner"] {
     &:focus-within,
     &:hover {
       &::after {
-        opacity: 0.6;
+        opacity: 0.15;
       }
     }
 
@@ -246,16 +246,22 @@ header[role="banner"] {
         float: left;
         overflow: hidden;
         position: relative;
-        background-color: #ffffff00;
+        background-color: #fdfdfd00;
       }
 
       & > div > ul > li:hover,
       & > div > div > div:hover,
       & > div > ul > li:focus-within,
       & > div > div > div:focus-within {
-        /* second level list item (about) */
+        /* second level list item (e.g. about.  includes search w/o focus) */
+        background-color: #fdfdfdff;
+      }
+
+      & > div > ul > li:hover,
+      & > div > ul > li:focus-within,
+      & > div > div > div:focus-within {
+        /* second level list item (e.g. about.  excludes search w/o focus) */
         overflow: visible;
-        background-color: #ffffffff;
       }
 
       & > div > ul > li.current-item,
@@ -263,7 +269,7 @@ header[role="banner"] {
       & > div > ul > li.current-ancestor,
       & > div > div > div.current-ancestor {
         /* second level list item (about) */
-        background-color: #ffffff99;
+        background-color: #fdfdfd99;
         border-bottom: solid 2px @tenthGreen;
         border-radius: 0 0 2px 2px;
       }
@@ -289,12 +295,18 @@ header[role="banner"] {
         z-index: 110;
         left: 50%;
         white-space: nowrap;
-        background: #fff;
+        background: #fdfdfd;
+        border-bottom: 2px solid @tenthGreen;
+        border-radius: 0 0 2px 2px;
 
         &#userMenu {
           transform: none;
           left: auto;
           right: 0;
+        }
+
+        a:hover {
+          background: #fff;
         }
       }
 
@@ -461,7 +473,6 @@ header[role="banner"] {
       div input[type='search']{
         width: 100%;
         text-align: left;
-        padding-left: @sectionPadding;
       }
 
       div div div,
@@ -469,6 +480,11 @@ header[role="banner"] {
         display: block;
       }
 
+    }
+
+    //// Searchbar detail
+    input[type=search]:not(:focus) {
+      cursor: pointer;
     }
   }
 }
