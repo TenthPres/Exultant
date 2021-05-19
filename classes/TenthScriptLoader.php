@@ -23,10 +23,13 @@ class TenthScriptLoader
      */
     public function filterByTag($tag, $handle)
     {
-        if (strpos($tag, 'async') !== false && strpos($handle, '-async') > 0) {
+        if (strpos($tag, 'async') !== false &&
+            strpos($handle, '-async') > 0) {
             $tag = str_replace(' src=', ' async="async" src=', $tag);
         }
-        if (strpos($tag, 'defer') !== false && strpos($handle, '-defer') > 0) {
+        if (strpos($tag, 'defer') !== false &&
+            strpos($handle, '-defer') > 0
+        ) {
             $tag = str_replace('<script ', '<script defer ', $tag);
         }
 
