@@ -38,6 +38,18 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
                         </li>
                     </ul>
                 </li>
+                <?php
+                if (in_array('administrator',  wp_get_current_user()->roles)) {
+                    global $template;
+                    $templateName = str_replace(get_template_directory(), "", $template);
+                    ?>
+                    <li>
+                        <span>Active Template</span>
+                        <ul>
+                            <li><?php echo "<span>$templateName</span>"; ?></li>
+                        </ul>
+                    </li>
+                <?php } ?>
             </ul>
         <?php
             echo "</div>";

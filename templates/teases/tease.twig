@@ -1,0 +1,25 @@
+{# Base tease template #}
+
+{% set t_class = class %}
+
+<article class="tease {{post.post_type}} {{ t_class }}">
+
+    {% block content %}
+        {% if post.thumbnail.src %}
+            <a href="{{post.link}}" class="tease-thumb">
+                <img src="{{ post.thumbnail.src }}" class="tease-thumb" />
+            </a>
+        {% endif %}
+
+        <div class="tease-details" >
+        <h2><a href="{{post.link}}">{{post.post_title}}</a></h2>
+            {# TODO Post type link needs work... #}
+        <a href="{{ function('get_post_type_archive_link', post) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
+        <p>{{post.header_summary}}</p>
+        <a href="{{ post.link }}">Read more...</a>
+        </div>
+
+
+    {% endblock %}
+
+</article>
