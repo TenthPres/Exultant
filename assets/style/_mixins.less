@@ -9,7 +9,7 @@
     font-family: 'Line Awesome Brands', monospace;
   }
   .headingFont() {
-    font-family: adobe-garamond-pro, serif;
+    font-family: @fontFamilySerif;
     font-style: normal;
     font-weight: 400;
   }
@@ -31,10 +31,17 @@
   }
 }
 
+@fontFamilySansSerif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@fontFamilySerif: adobe-garamond-pro, Garamond, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+@fontFamilyMonospace: Menlo, Monaco, Consolas, "Courier New", monospace;
+
 @tenthGreen: #49917b;
 @tenthGold: #e6c000;
 @tenthRed: #9b2525;
 @tenthBlue: #39407d;
+
+@bodyColor: fade(#000, 90%);
 
 @secondaryBtnBgColor: #aaa;
 @secondaryBtnFgColor: #fff;

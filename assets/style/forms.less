@@ -1,7 +1,7 @@
 @import (reference) '_mixins';
 
 body label {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .form-group {
@@ -21,13 +21,20 @@ body label {
   }
 }
 
+input[type='radio'],
+input[type='checkbox'] {
+  filter: grayscale(1);
+}
+
 input[type='text'],
 input[type='email'],
 input[type='password'],
 input[inputmode='numeric'],
 input[type='tel'],
 textarea,
-select {
+select,
+.multiselect .multiselect__tags // bootstrap multi-select
+{
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid @secondaryBtnBgColor;
@@ -41,13 +48,13 @@ select {
     cursor: not-allowed;
   }
 
+  input {
+    border-color:transparent;
+  }
+
   &.input-validation-error {
     border-bottom: 1px solid @validationErrorColor;
   }
-}
-
-input[type="file"]::before {
-  content: "Select File";
 }
 
 textarea {
@@ -66,20 +73,5 @@ input[type="submit"] {
   &[disabled] {
     opacity: .5;
     cursor: not-allowed;
-  }
-
-  &[href^="/OnlineReg/Cancel/"] { // "Cancel this person" button  TODO move to TouchPoint page
-    font-size: 0.8em;
-    font-weight: normal;
-  }
-
-  &.btn-xs.pull-right {
-    float: right;
-  }
-
-  &.width100,  // TODO move to TouchPoint page
-  &.btn-block,
-  &.min-width15em {
-    width: 100%;
   }
 }

@@ -1,0 +1,245 @@
+@import (reference) "assets/TouchPoint/node_modules/bootstrap/less/mixins/vendor-prefixes";
+
+main#site-content {
+	@import url("assets/TouchPoint/TouchPoint-styling");
+}
+
+@import url("assets/style/fonts");
+@import url("assets/style/header");
+@import url("assets/style/footer");
+@import url("assets/style/main");
+@import url("assets/style/links");
+@import url("assets/style/forms");
+@import url("assets/style/tease");
+@import url("assets/style/swal");
+//@import url("assets/style/touchpoint");
+
+
+main#site-content {
+	.row {
+		margin-left:0;
+		margin-right:0;
+	}
+
+	.form-control {
+		.box-shadow(none);
+		border-width: 0 0 1px;
+		background-color: #fff;
+	}
+
+	.form-control:focus {
+		.box-shadow(0 1px 4px 2px fade(@tenthGreen, 30%));
+		border-width: 0 0 1px;
+		border-color: @tenthGreen;
+	}
+
+	textarea.form-control {
+		min-height: 6em;
+	}
+
+	#PaymentPage .payment-container {
+		border-radius: 0;
+	}
+
+	p.bg-info {
+		padding: .5em 1em;
+	}
+
+	.regForm > h3:first-child,
+	#regForm > form#OnlineRegProcessPayment > h2:first-child
+	{
+		font-size: 3em;
+	}
+
+	@import url("assets/style/forms");
+
+	.columns(xs);
+	@media (min-width: 768px) {
+		.columns(sm)
+	}
+	@media (min-width: 992px) {
+		.columns(md)
+	}
+	@media (min-width: 1030px) {
+		.columns(lg);
+	}
+
+	.well,
+	.payment-container
+	//*:not(.panel-group) > .panel // ecvludes panels on OnlineReg forms
+	{
+		background-color: transparent;
+		border: none;
+		border-radius: 0;
+		.box-shadow(10px 10px 20px rgba(0,0,0,.2));
+
+		& >.panel-heading {
+			background: transparent;
+			border: none;
+			font-family: 'adobe-garamond-pro';
+			font-size: 1.2em;
+		}
+	}
+	.panel, .panel-default {
+		box-shadow: none;
+	}
+
+	div.checkbox > label {
+		font-size: unset;
+	}
+
+	.tp-input {
+		margin-top: 1em;
+	}
+
+	// for giving page
+	.money-input input {
+		font-size: 2em;
+	}
+	.money-input:before {
+		background-color: @tenthGreen;
+	}
+
+	// for paylinks page
+	div#totalContainer {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+	}
+
+	.form-inline > * {
+		display: inline-block;
+	}
+
+	.tp-checkbox input:checked ~ .checkmark,
+	.tp-radio .switch:after{
+		background-color: @tenthGreen;
+	}
+	input:checked ~ .switch {
+		border-color: @tenthGreen;
+	}
+
+	.list-group-item {
+		border-width: 1px 0;
+
+		&:last-item {
+			border: none;
+		}
+	}
+
+	div#main.giving,
+	div#main.onlineReg // counteracting an odd directive in TouchPoint css
+	{
+		overflow: visible;
+		padding-top: .5em;
+	}
+
+	overflow-x: hidden;
+
+
+	strong,
+	label { // cancel-out over-bearing font-weight
+		font-weight: inherit;
+	}
+
+	hr {
+		border-top: 1px solid #0000001a;
+	}
+
+	.text-center,
+	.text-center *:not(input) {
+		text-align: center;
+	};
+
+}
+
+.columns(@class) {
+	.col-size(@class, 1);
+	.col-size(@class, 2);
+	.col-size(@class, 3);
+	.col-size(@class, 4);
+	.col-size(@class, 5);
+	.col-size(@class, 6);
+	.col-size(@class, 7);
+	.col-size(@class, 8);
+	.col-size(@class, 9);
+	.col-size(@class, 10);
+	.col-size(@class, 11);
+	.col-size(@class, 12);
+
+	.col-offset(@class, 1);
+	.col-offset(@class, 2);
+	.col-offset(@class, 3);
+	.col-offset(@class, 4);
+	.col-offset(@class, 5);
+	.col-offset(@class, 6);
+	.col-offset(@class, 7);
+	.col-offset(@class, 8);
+	.col-offset(@class, 9);
+	.col-offset(@class, 10);
+	.col-offset(@class, 11);
+}
+
+.col-size(@width, @size) {
+	.col-@{width}-@{size}
+	{
+		grid-column: span @size / span @size;
+		width: auto;
+		float: none;
+
+		& > div:not(.form-group):not(.row):not(.text-center) {
+			display: inline-block;
+		}
+	}
+}
+
+.col-offset(@width, @pos) {
+	.col-@{width}-offset-@{pos}
+	{
+		grid-column-start: @pos + 1;
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
+
+@import url("assets/TouchPoint/popovers");
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+address,
+big,
+cite,
+code,
+em,
+font,
+img,
+small,
+strike,
+sub,
+sup,
+fieldset,
+form,
+label,
+legend,
+button,
+table,
+caption,
+tr,
+th,
+td {
+	border: none;
+	font-size: inherit;
+	font-wieght: normal;
+	line-height: inherit;
+	margin: 0;
+	padding: 0;
+	text-align: inherit;
+}
+

@@ -1,0 +1,92 @@
+//
+// Popovers
+// --------------------------------------------------
+
+
+@popover-background-color: @contentBackgroundColor;
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  max-width: none;
+  padding: 1px;
+  font-size: 1em;
+  background-color: @popover-background-color;
+  background-clip: padding-box;
+  border: 0;
+  border-radius: 0;
+  box-shadow: #d9d9d9 0 0 3.2em 0;
+
+  @popover-arrow-width: 0.8em;
+  @popover-arrow-outer-width: @popover-arrow-width * 1.2;
+  @popover-arrow-color: @popover-background-color;
+
+  // Arrows
+  // .arrow is outer, .arrow:after is inner
+  > .arrow {
+    border-width: @popover-arrow-width * 1.1;
+
+    &,
+    &:after {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+    }
+
+    &:after {
+      content: "";
+      border-width: @popover-arrow-width;
+    }
+  }
+
+  &.top > .arrow {
+    bottom: -@popover-arrow-width;
+    left: 50%;
+    margin-left: -@popover-arrow-width;
+    border-top-color: @popover-background-color;
+    border-bottom-width: 0;
+  }
+
+  //// Date Pickers
+  max-width: 300px;
+  display: block;
+  background: #fffffffa;
+
+  .datepicker table tr td.active,
+  .datepicker-months table tr td span.month.active,
+  .datepicker-years table tr td span.year.active {
+    background: @tenthGreen;
+    border-radius: 0;
+  }
+
+  .popover-content {
+    position: relative;
+  }
+
+  div.control-group.form-group {
+    margin: 0;
+    padding: 0;
+  }
+
+}
+
+.popover-title {
+  display: none;
+  padding: 8px 14px;
+  margin: 0; // reset heading margin
+}
+
+main#site-content .popover-content {
+  padding: 0;
+
+  .well {
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+}
