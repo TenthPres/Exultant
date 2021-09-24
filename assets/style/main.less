@@ -142,7 +142,7 @@ main {
     background-size: cover;
     background-position: center center;
     width: 100vw;
-    max-width: @mainMaxWidth;
+    max-width: ~"calc(" @mainMaxWidth ~" + 2em)";
     padding: 25% @sectionPadding*2 1em;
     box-sizing: border-box;
     margin: 0 -@sectionPadding;
