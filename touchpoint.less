@@ -1,6 +1,6 @@
 @import (reference) "assets/TouchPoint/node_modules/bootstrap/less/mixins/vendor-prefixes";
 
-main#site-content {
+main#site-content.TouchPoint {
 	@import url("assets/TouchPoint/TouchPoint-styling");
 }
 
@@ -15,7 +15,7 @@ main#site-content {
 //@import url("assets/style/touchpoint");
 
 
-main#site-content {
+main#site-content.TouchPoint {
 	.row {
 		margin-left:0;
 		margin-right:0;
@@ -49,6 +49,7 @@ main#site-content {
 	#regForm > form#OnlineRegProcessPayment > h2:first-child
 	{
 		font-size: 3em;
+		padding-top: 0;
 	}
 
 	@import url("assets/style/forms");
@@ -65,7 +66,8 @@ main#site-content {
 	}
 
 	.well,
-	.payment-container
+	.payment-container,
+	.showform.form > .panel.panel-default
 	//*:not(.panel-group) > .panel // ecvludes panels on OnlineReg forms
 	{
 		background-color: transparent;
@@ -98,6 +100,16 @@ main#site-content {
 	}
 	.money-input:before {
 		background-color: @tenthGreen;
+	}
+	div#main.giving .panel label.checkbox.tp-checkbox {
+		display: unset;
+	}
+	.editable-click,
+	a.editable-click
+	a.editable:not(.btn):not(.dropdown-item)
+	{
+		border-color: @tenthGreen;
+		color: @tenthGreen;
 	}
 
 	// for paylinks page
@@ -132,8 +144,13 @@ main#site-content {
 		overflow: visible;
 		padding-top: .5em;
 	}
+	div#main.giving {
+		overflow-x: hidden;
+	}
 
-	overflow-x: hidden;
+	& > * {
+		overflow-x: hidden;
+	}
 
 
 	strong,
