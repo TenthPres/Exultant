@@ -28,7 +28,8 @@ header[role="banner"] {
   &::before {
     content: ' ';
     display: block;
-    background-color: #f7f7f7f7;
+    background-color: #ffffffd1;
+    backdrop-filter: blur(15px); // blurs items behind
     border-bottom: #eee solid 0.08em;
     width: 150vw;
     margin-left: -50vw;
@@ -65,6 +66,7 @@ header[role="banner"] {
     top:@sectionPadding * 0.75;
     left:@sectionPadding * 0.75;
     width: 4.6 * @logoHeight;
+    z-index: 110;
 
     @logoHeight_reallyNarrow: @headerHeight_reallyNarrow - (@sectionPadding * 0.8);
 
@@ -131,6 +133,7 @@ header[role="banner"] {
       text-align: center;
       list-style-type: none;
       display: inline-block;
+      z-index: 10;
     }
 
     a, span, input {
@@ -153,34 +156,38 @@ header[role="banner"] {
 
 
     //// Nav darkening overlay
+    &::before,
     &::after {
       content: ' ';
-
-      background-color: darken(@tenthGreen, 35%);
-      background-image: data-uri("image/svg+xml;charset=UTF-8", @logoIconImg);
-      background-repeat: no-repeat;
-      background-position: 50% 40%;
-      background-size: 300px;
-      filter: blur(2px);
-      backdrop-filter: blur(4px);
-
       position: fixed;
-      top: @headerHeight;
+      top: 0;
       height: 100vh;
       left: -100vw;
       right: -100vw;
       opacity: 0;
       pointer-events: none;
-      z-index: -1;
       transition: opacity @transitionTime;
-      @media (max-width: @reallyNarrow) {
-        top: @headerHeight_reallyNarrow;
-      }
+    }
+    &::after {
+      background-color: fade(darken(@tenthGreen, 10%), 15%);
+      backdrop-filter: blur(2px); // blurs items behind
+      z-index: 1;
+    }
+    &::before {
+      background-image: data-uri("image/svg+xml;charset=UTF-8", @logoIconImg);
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: 300px;
+      z-index: 2;
+      filter: invert(1) blur(2px);
     }
     &:focus-within,
     &:hover {
       &::after {
-        opacity: 0.15;
+        opacity: 1;
+      }
+      &::before {
+        opacity: .25;
       }
     }
 
@@ -251,10 +258,15 @@ header[role="banner"] {
 
       & > div > ul > li:hover,
       & > div > div > div:hover,
+      & > div > ul > li.current-ancestor:hover,
+      & > div > ul > li.current-item:hover,
       & > div > ul > li:focus-within,
       & > div > div > div:focus-within {
         /* second level list item (e.g. about.  includes search w/o focus) */
         background-color: #fdfdfdff;
+        position: relative;
+        box-shadow: #a1a1a166 0 0 10px;
+        z-index: 3;
       }
 
       & > div > ul > li:hover,
@@ -269,9 +281,11 @@ header[role="banner"] {
       & > div > ul > li.current-ancestor,
       & > div > div > div.current-ancestor {
         /* second level list item (about) */
-        background-color: #fdfdfd99;
+        background-color: #ffffff66;
         border-bottom: solid 2px @tenthGreen;
         border-radius: 0 0 2px 2px;
+        box-shadow: #D0D0D0A1 0 0 10px;
+        z-index: 2;
       }
 
       & > div > ul > li > a,
