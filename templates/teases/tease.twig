@@ -9,15 +9,19 @@
             <a href="{{post.link}}" class="tease-thumb">
                 <img src="{{ post.thumbnail.src }}" class="tease-thumb" />
             </a>
+        {% else %}
+            <div></div>
         {% endif %}
 
-        <div class="tease-details" >
-        <h2><a href="{{post.link}}">{{post.post_title}}</a></h2>
-            {# TODO Post type link needs work... #}
-        <a href="{{ function('get_post_type_archive_link', post) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
-        <p>{{post.header_summary}}</p>
-        <a href="{{ post.link }}">Read more...</a>
-        </div>
+            <div class="tease-details" >
+            <h2><a href="{{post.link}}">{{post.post_title}}</a></h2>
+                {{ post.date }}
+
+            <a href="{{ function('get_post_type_archive_link', post.type.name) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
+        {% if post.preview %}
+            <p>{{ post.preview.read_more('').length(100) }}</p>
+        {% endif %}
+            </div>
 
 
     {% endblock %}
