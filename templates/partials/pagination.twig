@@ -1,0 +1,70 @@
+{% if posts.pagination.pages is not empty %}
+    <nav class="pagination-block">
+        <ul class="pagination">
+
+            {# First #}
+            {% if posts.pagination.pages|first and posts.pagination.pages|first.current != true %}
+                <li class="first">
+                    <a href="{{ posts.pagination.pages|first.link }}" class="las la-angle-double-left"></a>
+                </li>
+            {% else %}
+                <li class="first disabled">
+                    <span class="disabled las la-angle-double-left"></span>
+                </li>
+            {% endif %}
+
+        </ul>
+        <ul class="pagination">
+
+            {# Previous #}
+            {% if posts.pagination.prev %}
+                <li class="prev">
+                    <a href="{{ posts.pagination.prev.link }}" class="las la-angle-left"></a>
+                </li>
+            {% else %}
+                <li class="prev disabled">
+                    <span class="disabled las la-angle-left"></span>
+                </li>
+            {% endif %}
+
+            {# Pages #}
+            {% for page in posts.pagination.pages %}
+                {% if page.link %}
+                    <li>
+                        <a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
+                    </li>
+                {% else %}
+                    <li class="current">
+                        <span class="{{ page.class }}">{{ page.title }}</span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {# Next #}
+            {% if posts.pagination.next %}
+                <li class="next">
+                    <a href="{{ posts.pagination.next.link }}" class="las la-angle-right"></a>
+                </li>
+            {% else %}
+                <li class="next disabled">
+                    <span class="disabled las la-angle-right"></span>
+                </li>
+            {% endif %}
+
+        </ul>
+        <ul class="pagination">
+
+            {# Last #}
+            {% if posts.pagination.pages|last and posts.pagination.pages|last.current != true %}
+                <li class="last">
+                    <a href="{{ posts.pagination.pages|last.link }}" class="las la-angle-double-right"></a>
+                </li>
+            {% else %}
+                <li class="last disabled">
+                    <span class="disabled las la-angle-double-right"></span>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+{% endif %}

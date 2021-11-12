@@ -1,0 +1,60 @@
+
+nav.pagination-block {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  display: flex;
+  position: relative;
+  z-index: 10;
+
+  ul.pagination {
+    display: flex;
+    border: 1px solid #ddd;
+    margin: 0 .2em;
+    padding: .2em 0;
+  }
+
+  ul.pagination > li {
+    flex: 1;
+    list-style: none;
+    border-right: 1px dotted #ddd;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &.current {
+      position: relative;
+    }
+
+    &.current:after {
+      content: ' ';
+      background: @tenthGreen;
+      position: absolute;
+      top: -0.25em;
+      display: block;
+      left: 0;
+      z-index: -1;
+      right: 0;
+      bottom: -.25em;
+      box-shadow: @tenthGreen 0 0 5px;
+    }
+  }
+
+  ul.pagination > li > a,
+  ul.pagination > li > span {
+    width: 2em;
+    text-align: center;
+    display: inline-block;
+
+    &.disabled {
+      opacity: .2;
+    }
+
+    &.current {
+      color: @contentBackgroundColor;
+    }
+  }
+
+}

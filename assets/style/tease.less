@@ -1,9 +1,13 @@
 article.tease {
   display: grid;
   grid-template-columns: 11em auto;
-  padding-bottom: 1em;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 1em;
+  padding-top: 1em;
+  border-top: 1px solid #eee;
+  margin-top: 1em;
+
+  &:first-child {
+    border-top: none;
+  }
 
   img.tease-thumb {
     max-width:10em;

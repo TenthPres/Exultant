@@ -15,9 +15,8 @@
 
             <div class="tease-details" >
             <h2><a href="{{post.link}}">{{post.post_title}}</a></h2>
-                {{ post.date }}
-
-            <a href="{{ function('get_post_type_archive_link', post.type.name) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
+                {{ post.date }}  {{ post.author }} {#  TODO work out a more flexible approach to presenting the author #}
+            <a href="{{ fn('get_post_type_archive_link', post.type.name) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
         {% if post.preview %}
             <p>{{ post.preview.read_more('').length(100) }}</p>
         {% endif %}
