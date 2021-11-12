@@ -123,6 +123,7 @@ header[role="banner"] {
       transition:
               color @transitionTime,
               background @transitionTime,
+              opacity @transitionTime,
               width @transitionTime,
               height @transitionTime,
               margin @transitionTime;
@@ -309,6 +310,7 @@ header[role="banner"] {
         z-index: 110;
         left: 50%;
         white-space: nowrap;
+        opacity: 0;
         background: #fdfdfd;
         border-bottom: 2px solid @tenthGreen;
         border-radius: 0 0 2px 2px;
@@ -329,6 +331,12 @@ header[role="banner"] {
         left: 0;
         right: 0;
         transform: none;
+      }
+
+      & > div > div > div:focus-within > div,
+      & > div > ul > li:hover > div {
+        /* third level grouping (all boxes that descend) */
+        opacity: 1;
       }
 
       & > div > ul > li > div > ul,
