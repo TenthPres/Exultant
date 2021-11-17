@@ -10,7 +10,7 @@ main#site-content.TouchPoint {
 @import url("assets/style/main");
 @import url("assets/style/links");
 @import url("assets/style/forms");
-@import url("assets/style/tease");
+//@import url("assets/style/tease");
 @import url("assets/style/swal");
 //@import url("assets/style/touchpoint");
 
@@ -31,6 +31,12 @@ main#site-content.TouchPoint {
 		.box-shadow(0 1px 4px 2px fade(@tenthGreen, 30%));
 		border-width: 0 0 1px;
 		border-color: @tenthGreen;
+	}
+
+	.field-validation-error {
+		color: @tenthRed;
+		text-transform: uppercase;
+		font-size: 0.8em;
 	}
 
 	textarea.form-control {
