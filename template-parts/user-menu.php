@@ -42,11 +42,18 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
                 if (in_array('administrator',  wp_get_current_user()->roles)) {
                     global $template;
                     $templateName = str_replace(get_template_directory(), "", $template);
+                    $postType = get_post_type(get_queried_object());
                     ?>
                     <li>
                         <span>Active Template</span>
                         <ul>
                             <li><?php echo "<span>$templateName</span>"; ?></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>Post Type</span>
+                        <ul>
+                            <li><?php echo "<span>$postType</span>"; ?></li>
                         </ul>
                     </li>
                 <?php } ?>
