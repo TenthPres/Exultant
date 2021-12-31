@@ -5,7 +5,12 @@ namespace tp;
 use Timber\Site;
 use tp\TenthTemplate\TenthHeaderMenuWalker;
 use tp\TenthTemplate\TenthMenu;
+use Twig\Environment;
 use Twig\Extension\StringLoaderExtension;
+use Twig\Extra\Markdown\DefaultMarkdown;
+use Twig\Extra\Markdown\MarkdownExtension;
+use Twig\Extra\Markdown\MarkdownRuntime;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 class TenthTheme extends Site
 {
@@ -14,7 +19,7 @@ class TenthTheme extends Site
     {
         add_action('after_setup_theme', [$this, 'theme_supports']);
         add_filter('timber/context', [$this, 'add_to_context']);
-        add_filter('timber/twig', [$this, 'add_to_twig']);
+        add_filter('timber/twig', [$this, 'addTwigRuntimeAndExtensions']);
         add_action('init', [$this, 'register_post_types']);
         add_action('init', [$this, 'register_taxonomies']);
         parent::__construct();
@@ -143,17 +148,27 @@ class TenthTheme extends Site
         add_theme_support('menus');
     }
 
-    /** Custom functions for Twig
+    /** Load extensions and runtime loaders for Twig
      *
-     * @param string $twig get extension.
+     * @param Environment $twig get extension.
      */
-    public
-    function add_to_twig(
-        $twig
-    ) {
+    public function addTwigRuntimeAndExtensions(Environment $twig): Environment
+    {
+        // Allows for template extending
         $twig->addExtension(new StringLoaderExtension());
 
-//        $twig->addFilter( new \Twig\TwigFilter( 'myfoo', [ $this, 'myfoo' ] ) );
+        // Allows for Markdown to be processed in the midst of twig
+        $twig->addExtension(new MarkdownExtension());
+        $twig->addRuntimeLoader(new class implements RuntimeLoaderInterface {
+            public function load($class): ?MarkdownRuntime
+            {
+                if (MarkdownRuntime::class === $class) {
+                    return new MarkdownRuntime(new DefaultMarkdown());
+                }
+                return null;
+            }
+        });
+
         return $twig;
     }
 }
