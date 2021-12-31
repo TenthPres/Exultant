@@ -1,6 +1,17 @@
 article.tease {
-  display: grid;
-  grid-template-columns: 11em auto;
+  & > a {
+    float: left;
+    padding: 0 1em 1em 0;
+  }
+  @media (min-width: @iconicNavThreshold) {
+    & > a {
+      float: none;
+      padding: 0;
+    }
+    display: grid;
+    grid-template-columns: 11em auto;
+  }
+
   padding-top: 1em;
   border-top: 1px solid #eee;
   margin-top: 1em;
@@ -10,8 +21,18 @@ article.tease {
   }
 
   img.tease-thumb {
-    max-width:10em;
-    max-height:10em
+    max-width:8em;
+    max-height:8em;
+
+    @media (min-width: @iconicNavThreshold) {
+      max-width:10em;
+      max-height:10em;
+    }
+
+    @media (max-width: @reallyReallyNarrow) {
+      max-width:4em;
+      max-height:4em;
+    }
   }
 
   .tease-details {

@@ -423,6 +423,7 @@ header[role="banner"] {
         box-sizing: border-box;
         overflow: hidden;
         height: calc(100% - 2px);
+        width: @linkHeight * 1.5;
         padding: 0;
         cursor: pointer;
       }
@@ -437,9 +438,9 @@ header[role="banner"] {
       & > div > label > img {
         /* user pic */
         display: inline-block;
-        width: @linkHeight;
-        height: @linkHeight;
-        margin: @linkHeight * 0.2;
+        width: @linkHeight * 0.75;
+        height: @linkHeight * 0.75;
+        margin: (@linkHeight * 0.5) (@linkHeight * 0.2) (@linkHeight * 0.2);
       }
 
       & > div:hover > label,
@@ -473,7 +474,7 @@ header[role="banner"] {
       & > div:focus > div,
       & > div:focus-within > div {
         /* first level sub-lists (basic row) */
-        width: calc(~"100vw - " (@sectionPadding * 3));
+        width: calc(~"100vw - " (@sectionPadding * 2));
         display: block;
         background: #fff;
         max-height: 85vh;

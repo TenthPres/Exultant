@@ -6,13 +6,24 @@
  *
  */
 
+use Timber\PostQuery;
+use Timber\Timber;
+use tp\TouchPointWP\Person;
+
 global $wp_query;
 
 $context          = Timber::context();
-$context['posts'] = new Timber\PostQuery();
+$context['posts'] = new PostQuery();
+$context['type']  = "Person";
 if ( isset( $wp_query->query_vars['author'] ) ) {
-    $author            = new Timber\User( $wp_query->query_vars['author'] );
-    $context['author'] = $author;
-    $context['title']  = 'Author Archives: ' . $author->name();
+    $person = Person::fromId($wp_query->query_vars['author']);
+    if ($person !== null) {
+        $context['person'] = $person;
+        $context['title']  = $person->display_name;
+
+        Timber::render( [ 'person.twig', 'archive.twig' ], $context );
+    }
+
+     // TODO else: render an error
 }
-Timber::render( [ 'author.twig', 'archive.twig' ], $context );
+// TODO else: render an error

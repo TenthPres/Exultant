@@ -1,21 +1,22 @@
 {# Base tease template #}
 
 {% set t_class = class %}
+{% set hl = headerLevel ?: "h2" %}
 
 <article class="tease {{post.post_type}} {{ t_class }}">
 
     {% block content %}
         {% if post.thumbnail.src %}
             <a href="{{post.link}}" class="tease-thumb">
-                <img src="{{ post.thumbnail.src }}" class="tease-thumb" />
+                <img src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}" class="tease-thumb" />
             </a>
         {% else %}
             <div></div>
         {% endif %}
 
-            <div class="tease-details" >
-            <h2><a href="{{post.link}}">{{post.post_title}}</a></h2>
-                {{ post.date }}  {{ post.author }} {#  TODO work out a more flexible approach to presenting the author #}
+            <div class="tease-details">
+                {{ "<#{hl}>" }}<a href="{{post.link}}">{{post.post_title}}</a>{{ "</#{hl}>" }}
+                <span class="tease-byline">{{ post.date }}  {{ post.author }}</span> {#  TODO work out a more flexible approach to presenting the author #}
             <a href="{{ fn('get_post_type_archive_link', post.type.name) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
         {% if post.preview %}
             <p>{{ post.preview.read_more('').length(100) }}</p>

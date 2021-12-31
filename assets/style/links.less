@@ -94,3 +94,12 @@ a.item-badge {
   bottom: 2px;
   border: 1px solid @tenthGold;
 }
+
+
+//// External Link decoration
+a[href*="//"]:not(.no-ext-decoration):not([href*='tenth.org']):not([href*='tenth.local']):not([href*='tenth.mobi']):not([href^='#']):not([href^='/']):after {
+  content: '\f35d';
+  #fonts.icons;
+  opacity: 0.7;
+  padding-left: .25em;
+}

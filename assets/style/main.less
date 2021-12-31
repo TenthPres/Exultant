@@ -59,22 +59,27 @@ main {
     //max-width: @articleMaxWidth; TODO re-impose when sidebar nav is present.
   }
 
+  & > article > *:not(:first-child) {
+    border-top: #eee solid 1px;
+    margin-top: 2.5em;
+  }
+
   // 404, etc.
   &.error {
     max-width: 500px;
-    text-align:center;
+    text-align: center;
 
     & > * {
       position: absolute;
-      top:40%;
+      top: 40%;
       transform: translateY(-40%);
       left: @corsetPadding;
       right: @corsetPadding;
     }
 
     h1 {
-      color:@tenthGreen;
-      text-align:center;
+      color: @tenthGreen;
+      text-align: center;
       margin-bottom: 0.4em;
       border-bottom: 1px dotted #ddd;
       padding-bottom: 0.1em;
@@ -89,8 +94,9 @@ main {
     border-bottom: 1px dotted @tenthGreen;
 
     h3 {
-      display:inline-block;
+      display: inline-block;
     }
+
     span.byline {
       display: inline-block;
       opacity: 60%;
@@ -98,31 +104,30 @@ main {
       margin: 0 .5em;
     }
 
-    .comment  {
+    .comment {
       margin-left: 1em;
     }
   }
 
 
-
   //// Headers
   h1 {
     #fonts.headerFormat;
-    margin:0;
+    margin: 0;
   }
 
   h2 {
     #fonts.headingFont;
     font-size: 1.8em;
     padding: .5em 0 0;
-    margin:0;
+    margin: 0;
   }
 
   h3 {
     #fonts.headingFont;
     font-size: 1.5em;
     padding: .5em 0 0;
-    margin:0;
+    margin: 0;
     color: @tenthGreen;
   }
 
@@ -134,7 +139,7 @@ main {
 
     h1 {
       padding: 0;
-      margin-bottom:-0.2em;
+      margin-bottom: -0.2em;
     }
   }
 
@@ -165,21 +170,21 @@ main {
     color: #fff;
     text-stroke: 0.05em black;
     @blackIsh: fade(black, 30%);
-    text-shadow:
-              -1px -1px 0 @blackIsh,
-              0 -1px 0 @blackIsh,
-              1px -1px 0 @blackIsh,
-              1px 0 0 @blackIsh,
-              1px 1px 0 @blackIsh,
-              0 1px 0 @blackIsh,
-              -1px 1px 0 @blackIsh,
-              -1px 0 0 @blackIsh;
+    text-shadow: -1px -1px 0 @blackIsh,
+      0 -1px 0 @blackIsh,
+      1px -1px 0 @blackIsh,
+    1px 0 0 @blackIsh,
+    1px 1px 0 @blackIsh,
+    0 1px 0 @blackIsh,
+    -1px 1px 0 @blackIsh,
+    -1px 0 0 @blackIsh;
 
     .byline {
       opacity: 60%;
       font-size: .8em;
       transition: opacity 1s;
     }
+
     &:hover .byline {
       opacity: 100%;
     }
@@ -188,27 +193,18 @@ main {
       color: #fff;
       border-bottom: 1px solid #ffffff00;
       transition: border .5s;
-      line-height:1.1em;
-      display:inline-block;
+      line-height: 1.1em;
+      display: inline-block;
     }
+
     &:hover a:link,
     &:hover a:visited {
       border-color: #ffffff66;
     }
+
     a:hover {
       border-color: #ffffffaa;
     }
   }
 
 }
-
-
-//// External Link decoration
-a[href*="//"]:not([href*='tenth.org']):not([href*='tenth.local']):not([href*='tenth.mobi']):not([href^='#']):not([href^='/']):after {
-  content: '\f35d';
-  #fonts.icons;
-  opacity: 0.7;
-  padding-left: .25em;
-}
-
-

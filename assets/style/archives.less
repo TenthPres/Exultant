@@ -1,0 +1,46 @@
+article.archive {
+
+  .archiveHeader {
+    padding-top: 2em;
+  }
+
+  div.archive-type-label {
+    font-size: 1.2em;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: @tenthGreen;
+    margin: 0;
+    padding-bottom: 2em;
+  }
+
+  &.archive-Person {
+    .bio {
+      font-size: 0.9em;
+      opacity: .9;
+    }
+
+    section.article-content > .article-body .profile-core.withPicture {
+      @media (min-width: @iconicNavThreshold) {
+        display: grid;
+        grid-template-columns: 11em auto;
+      }
+    }
+
+    img.personProfilePic {
+      max-width: 8em;
+      float: left;
+      padding: 0 1em 1em 0;
+
+      @media (min-width: @iconicNavThreshold) {
+        max-width: 10em;
+        float: none;
+        padding: 0;
+      }
+
+      @media (max-width: @reallyReallyNarrow) {
+        max-width: 4em;
+        max-height: 4em;
+      }
+    }
+  }
+}
