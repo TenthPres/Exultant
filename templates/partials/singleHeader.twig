@@ -1,7 +1,7 @@
 <div class="singleHeader">
     <h1 class="article-h1">{{ post.title }}</h1>
     <p class="byline">
-        By <a href="{{post.author.path}}">{{ post.author.name }}</a>
+        By <a href="{{post.author.path}}">{{ post.author.name }}</a>{#  TODO allow for more flexibility in how authors are presented #}
         &#9702; <time datetime="{{ post.date | date('Y-m-d H:i:s') }}">{{ post.date }}</time>
         {% if post.edit_link %}
         &#9702; <a href="{{ post.edit_link }}">{{ _e('edit') }}</a>

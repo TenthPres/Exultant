@@ -8,7 +8,9 @@
 					{% include 'partials/singleHeader.twig' %}
 				{% endif %}
 			<div class="article-body">
+				{% block article_body %}
 				{{ post.content }}
+				{% endblock %}
 			</div>
 			{% endblock %}
 		</section>
