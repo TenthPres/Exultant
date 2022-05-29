@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+
+{% include 'partials/branding/codeHeading.txt' %}
+
+-->
+<html class="no-js" {{ site.language_attributes }}>
+<head>
+    <meta charset="{{ site.charset }}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Styling -->
+    <link rel="dns-prefetch" href="//use.typekit.net" />
+    <link rel="dns-prefetch" href="//p.typekit.net" />
+    <link rel="dns-prefetch" href="//maxst.icons8.com" />
+    <link rel="stylesheet" href="{{ site.theme.link }}/style.min.css" type="text/css" media="screen" />
+
+    <!-- Basic Meta -->
+    <meta name="description" content="{{ site.description }}" />
+    <link rel="pingback" href="{{ site.pingback_url }}" />
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+
+    <!-- OpenSearch -->
+    {#  TODO Delveop OpenSearch functionality #}
+
+    <!-- Facebook AppId -->
+    <meta property="fb:app_id" content="454458622630100" />
+    <meta property="fb:admins" content="590301109">
+
+    <!-- OpenGraph and Twitter -->
+    <meta name="twitter:site" content="@TenthPres" />
+{#  TODO all this stuff #}
+{#    <meta property="og:url" content="https://www.tenth.org/">#}
+{#    <meta property="og:title" content="Homepage">#}
+{#    <meta property="twitter:title" content="Homepage">#}
+{#    <meta property="og:image" content="https://www.tenth.org/wp-content/uploads/2020/05/Three-Panel-Pulpit-View_4-Composite.jpg">#}
+{#    <meta property="twitter:image" content="https://www.tenth.org/wp-content/uploads/2020/05/Three-Panel-Pulpit-View_4-Composite.jpg">#}
+    <meta name="twitter:card" content="summary_large_image" />
+{#    <meta property="og:description" content="">#}
+{#    <meta property="twitter:description" content="">#}
+    <meta property="og:site_name" content="Tenth Presbyterian Church">
+
+    <!-- Android chrome color -->
+    <meta name="theme-color" content="#49917b">
+
+    {{ function('wp_head') }}
+</head>

@@ -86,13 +86,18 @@ a.item-badge {
   text-transform: uppercase;
   font-size: 0.5em;
   background: lighten(@tenthGold, 50%);
-  padding: 0.1em .4em;
+  padding: 0 .4em 0.1em;
   font-weight: 700;
   color: @tenthGold;
   white-space: nowrap;
   position: relative;
   bottom: 2px;
   border: 1px solid @tenthGold;
+
+  &:hover {
+    background: @tenthGold;
+    color: @bodyBackgroundColor;
+  }
 }
 
 

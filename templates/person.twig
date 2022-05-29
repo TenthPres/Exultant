@@ -1,0 +1,42 @@
+{% extends 'archive.twig' %}
+
+{% block archive_header %}
+	<div class="archiveHeader">
+		<div class="archive-type-label">{{ type }}</div>
+	</div>
+{% endblock %}
+
+{% block article_body %}
+	{% set picUrl = person.getPictureUrl() %}{# TODO size #}
+	<div class="profile-core {% if picUrl %}withPicture{% endif %}">
+		{% if picUrl != null %}
+		<div>
+			<img class="personProfilePic" alt="{{ person.display_name }}" src="{{ picUrl }}" />
+		</div>
+		{% endif %}
+		<div>
+			<h1 class="article-h1">{{ title }}</h1>
+
+			<div class="bio">{{ person.description | markdown_to_html }}</div>
+
+			<div class="person-action-buttons" data-tp-person="{{ person.peopleId }}">
+				{{ person.getActionButtons("person-profile") }}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block article_footer %}
+	{% if posts.count > 0 %}
+		<section>
+		<h2>Resources by {{ person.first_name }}</h2>
+		<div class="resource-listing">
+			{% for post in posts %}
+				{% set post = TimberPost(post) %}
+				{% include ['partials/teases/tease-'~post.post_type~'.twig', 'partials/teases/tease.twig'] with { class: 'teaser', headerLevel: 'h3' } %}
+			{% endfor %}
+		</div>
+		</section>
+	{% endif %}
+{% endblock %}
