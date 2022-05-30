@@ -14,6 +14,7 @@
 $templates = [ 'archive.twig', 'index.twig' ];
 
 $context = Timber\Timber::context();
+require 'commonContext.php';
 
 $context['title'] = 'Archive';
 $context['type'] = null;

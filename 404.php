@@ -5,6 +5,9 @@
  * @package Tenth_Template
  */
 
+use Timber\Timber;
+
 $context = Timber::context();
+require 'commonContext.php';
 Timber::render( '404.twig', $context );
 

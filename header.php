@@ -8,5 +8,6 @@
  */
 
 $GLOBALS['timberContext'] = Timber\Timber::context();
+require 'commonContext.php';
 ob_start();
 

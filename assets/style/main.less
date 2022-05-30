@@ -34,6 +34,12 @@ body {
 
 }
 
+.post-meta {
+  opacity: 50%;
+  font-weight: 700;
+  font-size: 80%;
+}
+
 main {
   margin-left: 50%;
   transform: translateX(-50%);
@@ -131,7 +137,7 @@ main {
     color: @tenthGreen;
   }
 
-  div.singleHeader {
+  div.page-header-content {
     p.byline {
       padding: 0;
       margin: 0;
@@ -148,12 +154,12 @@ main {
     background-position: center center;
     width: 100vw;
     max-width: ~"calc(" @mainMaxWidth ~" + 2em)";
-    padding: 25% @sectionPadding*2 1em;
+    padding: 25% @sectionPadding*2 @sectionPadding;
     box-sizing: border-box;
     margin: 0 -@sectionPadding;
     position: relative;
 
-    &::after {
+    &::before {
       content: ' ';
       background: inherit;
       width: 150vw;
@@ -164,20 +170,50 @@ main {
       opacity: 0.6;
       left: -50vw;
       top: -@headerHeight;
-
     }
 
-    color: #fff;
-    text-stroke: 0.05em black;
-    @blackIsh: fade(black, 30%);
-    text-shadow: -1px -1px 0 @blackIsh,
-      0 -1px 0 @blackIsh,
-      1px -1px 0 @blackIsh,
-    1px 0 0 @blackIsh,
-    1px 1px 0 @blackIsh,
-    0 1px 0 @blackIsh,
-    -1px 1px 0 @blackIsh,
-    -1px 0 0 @blackIsh;
+    &::after {
+      content: ' ';
+      display: block;
+      background: linear-gradient(0deg, rgba(0,0,0,0.3), rgba(0,0,0,0));
+      width: 100%;
+      position: absolute;
+      height: 5em;
+      z-index: 1;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      mix-blend-mode: darken;
+    }
+
+    &.tall-50 {
+      padding-top:50vh;
+    }
+
+    .page-header-content {
+      color: #fff;
+      text-stroke: 0.05em black;
+      min-height: 4.5em;
+
+      pointer-events: none;
+      position: relative;
+      z-index: 2;
+
+      @blackIsh: fade(black, 30%);
+      text-shadow: -1px -1px 0 @blackIsh,
+        0 -1px 0 @blackIsh,
+        1px -1px 0 @blackIsh,
+      1px 0 0 @blackIsh,
+      1px 1px 0 @blackIsh,
+      0 1px 0 @blackIsh,
+      -1px 1px 0 @blackIsh,
+      -1px 0 0 @blackIsh;
+
+      a {
+        pointer-events: auto;
+      }
+    }
 
     .byline {
       opacity: 60%;
