@@ -5,10 +5,12 @@
  * @package Tenth_Template
  */
 
+use Timber\PostQuery;
 use Timber\Timber;
 
 $context          = Timber::context();
-$context['posts'] = new \Timber\PostQuery();
+require 'commonContext.php';
+$context['posts'] = new PostQuery();
 $templates        = ['index.twig'];
 if ( is_home() ) {
     array_unshift( $templates, 'front-page.twig', 'home.twig' );

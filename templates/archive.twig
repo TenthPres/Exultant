@@ -1,20 +1,21 @@
 {% extends "base.twig" %}
 
 {% block corset %}
-	<article class="archive archive-{{ type }}">
+	<article class="post-type-{{ post.post_type }} archive">
 		<section class="article-content">
 			{% block article_content %}
-				{% if not post.thumbnail %}
-					{% block archive_header %}
-						<div class="archiveHeader">
-							<div class="archive-type-label">{{ type }}</div>
-							<h1 class="article-h1">{{ title }}</h1>
-						</div>
-					{% endblock %}
-				{% endif %}
+				{% block article_content_header %}
+					<div class="page-header-content">
+						<h1 class="archive-h1">{{ title }}</h1>
+					</div>
+				{% endblock %}
 				<div class="article-body">
-					{% block article_body %}
-						{{ post.content }}
+					{% block article_content_body %}
+						{% for post in posts %}
+							{% set post = TimberPost(post) %}
+							{% include ['partials/teases/tease-'~post.post_type~'.twig', 'partials/teases/tease.twig'] with { class: 'teaser' } %}
+						{% endfor %}
+						{% include ['partials/pagination.twig'] %}
 					{% endblock %}
 				</div>
 			{% endblock %}

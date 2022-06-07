@@ -16,11 +16,11 @@
 
             <div class="tease-details">
                 {{ "<#{hl}>" }}<a href="{{post.link}}">{{post.post_title}}</a>{{ "</#{hl}>" }}
-                <span class="tease-byline">{{ post.date }}  {{ post.author }}</span> {#  TODO work out a more flexible approach to presenting the author #}
-            <a href="{{ fn('get_post_type_archive_link', post.type.name) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
-        {% if post.preview %}
-            <p>{{ post.preview.read_more('').length(100) }}</p>
-        {% endif %}
+                <span class="tease-byline">{{ byline(post) }}</span>
+                <a href="{{ fn('get_post_type_archive_link', post.type.name) }}" class="item-badge post-type">{{ post.type.labels.singular_name }}</a>
+                {% if post.preview %}
+                    <p>{{ post.preview.read_more('').length(100) }}</p>
+                {% endif %}
             </div>
 
 

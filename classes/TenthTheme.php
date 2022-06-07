@@ -2,7 +2,10 @@
 
 namespace tp;
 
+use Timber\Post;
 use Timber\Site;
+use Timber\Timber;
+use Timber\Twig_Function;
 use tp\TenthTemplate\TenthHeaderMenuWalker;
 use tp\TenthTemplate\TenthMenu;
 use Twig\Environment;
@@ -11,6 +14,10 @@ use Twig\Extra\Markdown\DefaultMarkdown;
 use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\Markdown\MarkdownRuntime;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
+
+use WP_MatchesMapRegex;
+use WP_Post;
+use WP_Query;
 
 class TenthTheme extends Site
 {
@@ -169,6 +176,298 @@ class TenthTheme extends Site
             }
         });
 
+        $twig->addFunction(new Twig_Function('byline', [self::class, 'byline']));
+        $twig->addFunction(new Twig_Function('breadcrumbs', [self::class, 'breadcrumbs']));
+        $twig->addFunction(new Twig_Function('timeToRead', [self::class, 'timeToRead_str']));
+
         return $twig;
+    }
+
+    public static function byline($p): string
+    {
+        /** @var Post $p */
+
+        $items = [];
+
+        $author = get_the_author();
+
+        if ($author) {
+            $items[] = $author;
+        } elseif ($p->author->ID !== 0) {
+            $items[] = __('By ') . "<a href=\"{$p->author->path}\">{$p->author->name}</a>";
+        }
+
+        $date = get_the_date('', $p);
+        if ($date) {
+            $items[] = $date;
+        }
+
+        $readTime = self::timeToRead_str($p->content());
+        if ($readTime) {
+            $items[] = $readTime;
+        }
+
+        $editLink = get_edit_post_link($p);
+        if ($editLink) {
+            $edit = __('Edit');
+            $items[] = "<a href=\"$editLink\">$edit</a>";
+        }
+        return implode(TouchPointWP\TouchPointWP::$joiner, $items);
+    }
+
+    /**
+     * Provides a time to read as a human-readable string.
+     *
+     * @param string $content
+     *
+     * @return ?string
+     */
+    public static function timeToRead_str(string $content): ?string
+    {
+        /** @noinspection SpellCheckingInspection */
+        $mins  = self::timeToRead_min($content);
+        /** @noinspection SpellCheckingInspection */
+        $rmins = round($mins * 2) / 2;
+        $pre   = __('Read Time: ', 'tenthtemplate');
+
+        if ($rmins === 0) {
+            return null;
+        }
+        if ($rmins < 1) {
+            $secs = round($mins * 12) * 5;
+            return $pre . sprintf(
+            /* translators: %s: number of seconds. */
+                __( '%s seconds', 'tenthtemplate'),
+                $secs
+            );
+        }
+        if ($rmins === 1.0) {
+            return $pre . sprintf(
+            /* translators: %s: 1 */
+                __( '%s minute', 'tenthtemplate' ),
+                $rmins
+            );
+        }
+        if ($rmins < 4) {
+            return $pre . sprintf(
+            /* translators: %s: number of minutes. */
+                __( '%s minutes', 'tenthtemplate' ),
+                $rmins
+            );
+        }
+        return $pre . sprintf(
+        /* translators: %s: number of minutes. */
+            __( '%s minutes', 'tenthtemplate' ),
+            round($mins)
+        );
+    }
+
+    /**
+     * Provides an estimate of time to read as a number of minutes.
+     *
+     * @param string $content
+     *
+     * @return float
+     */
+    public static function timeToRead_min(string $content): float
+    {
+        $content = strip_tags($content);
+
+        $speed_wpm = 250.0; // 250-300, from WolframAlpha
+        $words = 1.0 * str_word_count($content);
+        return $words / $speed_wpm;
+    }
+
+
+    public static function breadcrumbs(): array
+    {
+        global $wp;
+        $path = explode("/", $wp->request);
+        $r = [];
+        $concat = "/";
+
+        if (is_search()) {
+            $r[] = (object)[
+                'url' => $wp->request,
+                'title' => __('Search'),
+                'type' => 'search',
+                'label' => null
+            ];
+        }
+
+        foreach ($path as $p) {
+            if ($p === "")
+                continue;
+
+            $concat .= $p;
+            $info = self::urlToInfo($concat);
+            if ($info !== null) {
+                $r[] = $info;
+            }
+
+            $concat .= "/";
+        }
+        return $r;
+    }
+
+    /**
+     * Examines a URL and gets the item title  TODO figure out how much of this is actually needed.
+     *
+     * @param string $url Permalink to check.
+     *
+     * @return ?array Post ID, or 0 on failure.
+     */
+    public static function urlToInfo(string $url): ?array
+    {
+        global $wp_rewrite;
+
+        $info = [
+            'url' => $url,
+            'title' => null,
+            'type' => null,
+            'label' => null
+        ];
+
+        // Get rid of the #anchor.
+        $url_split = explode('#', $url);
+        $url       = $url_split[0];
+
+        // Set the correct URL scheme.
+        $scheme = parse_url(home_url(), PHP_URL_SCHEME);
+        $url    = set_url_scheme($url, $scheme);
+
+        if (trim($url, '/') === home_url() && 'page' === get_option('show_on_front')) {
+            $page_on_front = get_option('page_on_front');
+
+            if ($page_on_front && get_post($page_on_front) instanceof WP_Post) {
+                return null;
+            }
+        }
+
+        // Check to see if we are using rewrite rules.
+        $rewrite = $wp_rewrite->wp_rewrite_rules();
+
+        // Not using rewrite rules, and 'p=N' and 'page_id=N' methods failed, so we're out of options.
+        if (empty($rewrite)) {
+            return null;
+        }
+
+        // Strip 'index.php/' if we're not using path info permalinks.
+        if ( ! $wp_rewrite->using_index_permalinks()) {
+            $url = str_replace($wp_rewrite->index . '/', '', $url);
+        }
+
+        if (false !== strpos(trailingslashit($url), home_url('/'))) {
+            // Chop off http://domain.com/[path].
+            $url = str_replace(home_url(), '', $url);
+        } else {
+            // Chop off /path/to/blog.
+            $home_path = parse_url(home_url('/'));
+            $home_path = $home_path['path'] ?? '';
+            $url       = preg_replace(sprintf('#^%s#', preg_quote($home_path)), '', trailingslashit($url));
+        }
+
+        // Trim leading and lagging slashes.
+        $url = trim($url, '/');
+
+        $request              = $url;
+        $post_type_query_vars = array();
+
+        foreach (get_post_types(array(), 'objects') as $post_type => $t) {
+            if ( ! empty($t->query_var)) {
+                $post_type_query_vars[$t->query_var] = $post_type;
+            }
+        }
+
+        // Look for matches.
+        $request_match = $request;
+        foreach ((array)$rewrite as $match => $query) {
+            if (preg_match("#^$match#", $request_match, $matches)) {
+                if ($wp_rewrite->use_verbose_page_rules && preg_match(
+                        '/pagename=\$matches\[([0-9]+)\]/',
+                        $query,
+                        $varMatch
+                    )) {
+                    // This is a verbose page match, let's check to be sure about it.
+                    $page = get_page_by_path($matches[$varMatch[1]]);
+                    if ( ! $page) {
+                        continue;
+                    }
+
+                    $post_status_obj = get_post_status_object($page->post_status);
+                    if ( ! $post_status_obj->public && ! $post_status_obj->protected
+                         && ! $post_status_obj->private && $post_status_obj->exclude_from_search) {
+                        continue;
+                    }
+                }
+
+                // Got a match.
+                // Trim the query of everything up to the '?'.
+                $query = preg_replace('!^.+\?!', '', $query);
+
+                // Substitute the substring matches into the query.
+                $query = addslashes(WP_MatchesMapRegex::apply($query, $matches));
+
+                // Filter out non-public query vars.
+                global $wp;
+                parse_str($query, $query_vars);
+                $query = [
+                    'posts_per_page' => 2
+                ];
+                foreach ((array)$query_vars as $key => $value) {
+                    if (in_array((string)$key, $wp->public_query_vars, true)) {
+                        $query[$key] = $value;
+                        if (isset($post_type_query_vars[$key])) {
+                            $query['post_type'] = $post_type_query_vars[$key];
+                            $query['name']      = $value;
+                        }
+                    }
+                }
+
+                // Resolve conflicts between posts with numeric slugs and date archive queries.
+                $query = wp_resolve_numeric_slug_conflicts($query);
+
+                // Do the query.
+                $wpq = new WP_Query($query);
+
+                $info['q'] = $wpq;
+                $posts = $wpq->get_posts();
+                if (count($posts) === 0) {
+                    return null;
+                }
+                if ($wpq->is_archive()) {
+                    if ($wpq->is_day()) {
+                        $info['title'] = get_the_date( 'D M Y' );
+                        $info['type'] = "day";
+                        $info['label'] = __('Day');
+                    } elseif ($wpq->is_month()) {
+                        $info['title'] = get_the_date('M Y');
+                        $info['type'] = "month";
+                        $info['label'] = __('Month');
+                    } elseif ($wpq->is_year()) {
+                        $info['title'] = get_the_date('Y');
+                        $info['type'] = "year";
+                        $info['label'] = __('Year');
+                    } elseif ($wpq->is_post_type_archive()) {
+                        global $wp_post_types;
+                        $info['title'] = $wp_post_types[$wpq->get_posts()[0]->post_type]->label ?? null;
+                        $info['type']  = 'post_type_archive';
+                    }
+                    return $info;
+                }
+                if ($wpq->is_singular() && count($posts) === 1) {
+                    $info['title'] = get_the_title($posts[0]);
+                    $info['type']  = 'single';
+                    return $info;
+                }
+                if ($wpq->is_search()) {
+                    $info['title'] = Timber::Context();
+                    $info['type']  = 'search';
+                    return $info;
+                }
+            }
+        }
+
+        return null;
     }
 }

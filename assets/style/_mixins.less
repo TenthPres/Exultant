@@ -31,6 +31,20 @@
   }
 }
 
+.textStroke(@color) {
+  text-stroke: 0.05em @color;
+
+  @blackIsh: fade(@color, 30%);
+  text-shadow: -1px -1px 0 @blackIsh,
+    0 -1px 0 @blackIsh,
+    1px -1px 0 @blackIsh,
+  1px 0 0 @blackIsh,
+  1px 1px 0 @blackIsh,
+  0 1px 0 @blackIsh,
+  -1px 1px 0 @blackIsh,
+  -1px 0 0 @blackIsh;
+}
+
 @fontFamilySansSerif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 @fontFamilySerif: adobe-garamond-pro, Garamond, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.

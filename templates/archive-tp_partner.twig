@@ -1,4 +1,4 @@
-{% extends 'base.twig' %}
+{% extends 'archive.twig' %}
 
 {% block header %}
     <header class="page-header tall-50" style="background-image:url('{{ context.dir~'/assets/images/worldmap-sat.jpg' }}');">
@@ -11,26 +11,16 @@
     </header>
 {% endblock %}
 
-{% block corset %}
-    <article class="archive archive-{{ type }}">
-        <section class="article-content">
-            {% block article_content %}
-                {% block archive_header %}
-                    <div class="archiveHeader">
-                        {% filter shortcodes %}
-                            [TP-Partner-Filters]
-                        {% endfilter %}
-                    </div>
-                {% endblock %}
-                <div class="article-body">
-                    {% block article_body %}
-                        {% filter shortcodes %}
-                            [TP-Partner-List includeCss=false class=box-list]
-                        {% endfilter %}
-                    {% endblock %}
-                </div>
-            {% endblock %}
-        </section>
-        {% block article_footer %}{% endblock %}
-    </article>
+{% block article_content_header %}
+    <div class="archiveHeader">
+        {% filter shortcodes %}
+            [TP-Partner-Filters]
+        {% endfilter %}
+    </div>
+{% endblock %}
+
+{% block article_content_body %}
+    {% filter shortcodes %}
+        [TP-Partner-List includeCss=false class=box-list itemClass="box-tease"]
+    {% endfilter %}
 {% endblock %}

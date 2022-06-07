@@ -4,16 +4,21 @@
 	<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 		<section class="article-content">
 			{% block article_content %}
-				{% if not post.thumbnail %}
-					{% include 'partials/singleHeader.twig' %}
-				{% endif %}
-			<div class="article-body">
-				{% block article_body %}
-				{{ post.content }}
+				{% block article_content_header %}
+					{% if not post.thumbnail %}
+						{% include 'partials/singleHeader.twig' %}
+					{% endif %}
 				{% endblock %}
-			</div>
+				<div class="article-body">
+					{% block article_content_body %}
+						{% block article_body %}
+							{{ post.content }}
+						{% endblock %}
+					{% endblock %}
+				</div>
 			{% endblock %}
 		</section>
+		{% block article_footer %}{% endblock %}
 	</article>
 
 	{% if post.comment_status == "open" or post.comments.count > 0 %}

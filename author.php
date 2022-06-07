@@ -13,6 +13,7 @@ use tp\TouchPointWP\Person;
 global $wp_query;
 
 $context          = Timber::context();
+require 'commonContext.php';
 $context['posts'] = new PostQuery();
 $context['type']  = "Person";
 if ( isset( $wp_query->query_vars['author'] ) ) {

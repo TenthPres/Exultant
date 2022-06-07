@@ -1,5 +1,5 @@
 {% block html_head_container %}
-{% include 'htmlHead.twig' %}
+{% include 'partials/htmlHead.twig' %}
 	{% block head %}
 	{% endblock %}
 {% endblock %}
@@ -11,7 +11,18 @@
 				{% include 'header.twig' %}
 			</header>
 		{% endblock %}
-
+		{% block breadcrumbs %}
+			{% with { bc: breadcrumbs() } %}
+				{% if bc %}
+					<nav id="breadcrumbs">
+						<a href="{{ site.url }}" class="home"></a>
+						{% for crumb in bc %}
+							<span>&rsaquo;</span><a href="{{ site.url }}{{ crumb.url }}">{{ crumb.title }}</a>
+						{% endfor %}
+					</nav>
+				{% endif %}
+			{% endwith %}
+		{% endblock %}
 		<main id="site-content" role="main"{% if main_class %} class="{{ main_class }}"{% endif %}>
 			{% block header %}
 				{% if post.thumbnail %}

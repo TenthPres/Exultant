@@ -1,0 +1,85 @@
+@import (reference) "_mixins";
+
+nav#breadcrumbs {
+  @media (max-width: @reallyNarrow) {
+    display: none;
+  }
+
+
+  @boxHeight: 1.2em;
+  @vPadding: .6em;
+
+  & {
+    position: relative;
+    z-index: 1;
+    line-height: @boxHeight;
+    vertical-align: bottom;
+    padding: @vPadding @sectionPadding;
+    width: 100%;
+    font-size: .8em;
+    max-width: @headerMaxWidth;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: calc(-2 * @vPadding - @boxHeight);
+    color: white;
+    pointer-events: none;
+
+    opacity: 50%;
+    transition: opacity 1s;
+
+    .textStroke(black);
+  }
+
+  &:hover {
+    opacity: 100%;
+  }
+
+  &::before {
+    content: ' ';
+    font-size: calc(1em / .8); // compensate for nav font-size of .8em
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .2));
+    z-index: -27;
+    height: 3em;
+    position: absolute;
+    display: block;
+    top: 0;
+    right: -1em;
+    left: -1em;
+    mix-blend-mode: darken;
+  }
+
+  & > * {
+    height: @boxHeight;
+    display: inline-block;
+    vertical-align: bottom;
+
+    pointer-events: all;
+
+    opacity: .5;
+    transition: opacity .3s;
+  }
+
+  & > span {
+    padding: 0 .5em 0 .4em;
+  }
+
+  & > a:hover {
+    opacity: .7;
+  }
+
+  a:link,
+  a:visited {
+    color: #fff;
+  }
+
+  a.home::before {
+    content: data-uri("image/svg+xml;charset=UTF-8", @logoIconImg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: @boxHeight;
+    height: @boxHeight;
+    display: inline-block;
+
+    filter: invert(1);
+  }
+}

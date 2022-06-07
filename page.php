@@ -19,7 +19,7 @@
  */
 
 $context = Timber\Timber::context();
-
+require 'commonContext.php';
 $timber_post     = new Timber\Post();
 $context['post'] = $timber_post;
 Timber\Timber::render( [ 'page-' . $timber_post->post_name . '.twig', 'page.twig' ], $context );

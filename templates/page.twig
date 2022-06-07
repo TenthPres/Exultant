@@ -1,12 +1,45 @@
 {% extends "base.twig" %}
 
 {% block corset %}
-	<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+	<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 		<section class="article-content">
-			{% if not post.thumbnail %}
-				<h1>{{ post.title }}</h1>
-			{% endif %}
-			{{ post.content }}
+			{% block article_content %}
+				{% block article_content_header %}
+					{% if not post.thumbnail %}
+						{% include 'partials/singleHeader.twig' %}
+					{% endif %}
+				{% endblock %}
+				<div class="article-body">
+					{% block article_content_body %}
+						{% block article_body %}
+							{{ post.content }}
+						{% endblock %}
+					{% endblock %}
+				</div>
+			{% endblock %}
 		</section>
+		{% block article_footer %}{% endblock %}
 	</article>
+
+	{% if post.comment_status == "open" or post.comments.count > 0 %}
+		<section class="comments-container">
+			<!-- comment box -->
+			<h2>Comments</h2>
+
+			<!-- comments -->
+			<div class="comments">
+				{% if post.comments %}
+					{% for cmt in post.comments %}
+						{% include "comment.twig" with {comment:cmt} %}
+					{% endfor %}
+				{% else %}
+					<p class="nocomments">No comments yet.</p>
+				{% endif %}
+			</div>
+			{% if post.comment_status == "open" %}
+				<!-- comment form -->
+				{% include "comment-form.twig" %}
+			{% endif %}
+		</section>
+	{%  endif %}
 {% endblock %}

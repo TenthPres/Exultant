@@ -33,6 +33,10 @@
                     <li>
                         <a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
                     </li>
+                {% elseif page.class == 'dots' %}
+                    <li class="dots disabled">
+                        <span class="disabled las la-ellipsis-h"></span>
+                    </li>
                 {% else %}
                     <li class="current">
                         <span class="{{ page.class }}">{{ page.title }}</span>

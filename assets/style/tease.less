@@ -1,3 +1,26 @@
+article.tease,
+article.box-tease {
+  & h2 > a:before,
+  & h3 > a:before {
+    content: ' ';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    position: absolute;
+  }
+
+  .tease-details,
+  .actions {
+    a,
+    button {
+      position: relative;
+      z-index: 10;
+    }
+  }
+}
+
 article.tease {
   & > a {
     float: left;
@@ -35,14 +58,6 @@ article.tease {
     }
   }
 
-  .tease-byline {
-    font-size: 80%;
-    opacity: 60%;
-    font-weight: 700;
-    letter-spacing: .8px;
-    font-variant: small-caps;
-  }
-
   .tease-details {
     & {
       position: relative;
@@ -50,20 +65,6 @@ article.tease {
 
     & > *:first-child > a {
       position: unset;
-    }
-
-    & > *:first-child > a:before {
-      content: ' ';
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      position: absolute;
-    }
-
-    a {
-      position: relative;
-      z-index: 10;
     }
 
     & > *:first-child {

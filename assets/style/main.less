@@ -34,19 +34,13 @@ body {
 
 }
 
-.post-meta {
-  opacity: 50%;
-  font-weight: 700;
-  font-size: 80%;
-}
-
 main {
   margin-left: 50%;
-  transform: translateX(-50%);
   max-width: @mainMaxWidth;
   width: 100%;
   //padding: 0 @sectionPadding; TODO remove?
   box-sizing: content-box;
+  transform: translateX(-50%);
 
   & > *:first-child {
     padding-top: 0;
@@ -105,8 +99,6 @@ main {
 
     span.byline {
       display: inline-block;
-      opacity: 60%;
-      font-size: 0.8em;
       margin: 0 .5em;
     }
 
@@ -193,32 +185,17 @@ main {
 
     .page-header-content {
       color: #fff;
-      text-stroke: 0.05em black;
       min-height: 4.5em;
 
       pointer-events: none;
       position: relative;
       z-index: 2;
 
-      @blackIsh: fade(black, 30%);
-      text-shadow: -1px -1px 0 @blackIsh,
-        0 -1px 0 @blackIsh,
-        1px -1px 0 @blackIsh,
-      1px 0 0 @blackIsh,
-      1px 1px 0 @blackIsh,
-      0 1px 0 @blackIsh,
-      -1px 1px 0 @blackIsh,
-      -1px 0 0 @blackIsh;
+      .textStroke(black);
 
       a {
         pointer-events: auto;
       }
-    }
-
-    .byline {
-      opacity: 60%;
-      font-size: .8em;
-      transition: opacity 1s;
     }
 
     &:hover .byline {
@@ -241,6 +218,15 @@ main {
     a:hover {
       border-color: #ffffffaa;
     }
+  }
+
+  .post-meta,
+  .tease .tease-byline,
+  .byline {
+    opacity: 50%;
+    font-weight: 900;
+    font-size: 80%;
+    transition: opacity 1s;
   }
 
 }
