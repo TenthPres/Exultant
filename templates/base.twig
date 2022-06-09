@@ -11,10 +11,23 @@
 				{% include 'header.twig' %}
 			</header>
 		{% endblock %}
+
+		{# page feature header (image, video, etc).  Not rendered here, but assembled for later render and reference by other blocks. #}
+		{% set feature_rendered %}
+			{% block header %}
+				{% if post.thumbnail %}
+					<header class="page-header" style="background-image:url('{{ post.thumbnail.src('tenth-header') }}');">
+						{%  include 'partials/singleHeader.twig' %}
+					</header>
+				{% endif %}
+			{% endblock %}
+		{% endset %}
+		{% set has_feature = (trim(feature_rendered) != "") %}
+
 		{% block breadcrumbs %}
 			{% with { bc: breadcrumbs() } %}
 				{% if bc %}
-					<nav id="breadcrumbs">
+					<nav id="breadcrumbs" class="{{ has_feature ? "with-feature" : "without-feature" }}">
 						<a href="{{ site.url }}" class="home"></a>
 						{% for crumb in bc %}
 							<span>&rsaquo;</span><a href="{{ site.url }}{{ crumb.url }}">{{ crumb.title }}</a>
@@ -23,14 +36,9 @@
 				{% endif %}
 			{% endwith %}
 		{% endblock %}
-		<main id="site-content" role="main"{% if main_class %} class="{{ main_class }}"{% endif %}>
-			{% block header %}
-				{% if post.thumbnail %}
-					<header class="page-header" style="background-image:url('{{ post.thumbnail.src('tenth-header') }}');">
-						{%  include 'partials/singleHeader.twig' %}
-					</header>
-				{% endif %}
-			{% endblock %}
+
+		<main id="site-content" role="main" class="{{ main_class }} {{ has_feature ? "with-feature" : "without-feature" }}">
+			{{ feature_rendered }}
 			{% block corset %}
 				<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
 					<section class="article-content">
