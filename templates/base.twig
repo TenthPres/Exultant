@@ -23,6 +23,7 @@
 			{% endblock %}
 		{% endset %}
 		{% set has_feature = (trim(feature_rendered) != "") %}
+		{% set has_breadcrumbs = breadcrumbs() ? true : false %}
 
 		{% block breadcrumbs %}
 			{% with { bc: breadcrumbs() } %}
@@ -37,7 +38,7 @@
 			{% endwith %}
 		{% endblock %}
 
-		<main id="site-content" role="main" class="{{ main_class }} {{ has_feature ? "with-feature" : "without-feature" }}">
+		<main id="site-content" role="main" class="{{ main_class }} {{ has_feature ? "with-feature" : "without-feature" }} {{ has_breadcrumbs ? "with-breadcrumbs" : "without-breadcrumbs" }}">
 			{{ feature_rendered }}
 			{% block corset %}
 				<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">

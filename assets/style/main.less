@@ -43,10 +43,7 @@ main {
   box-sizing: content-box;
   transform: translateX(-50%);
 
-  & > *:first-child {
-    padding-top: 0;
-  }
-  &.without-feature > *:first-child {
+  &.without-feature.with-breadcrumbs > *:first-child { // make space for the breadcrumbs
     padding-top: 2.5em;
   }
 
