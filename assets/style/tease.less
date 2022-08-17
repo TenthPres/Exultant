@@ -1,7 +1,7 @@
 article.tease,
 article.box-tease {
-  & h2 > a:before,
-  & h3 > a:before {
+  & header h2 > a:before,
+  & header h3 > a:before {
     content: ' ';
     top: 0;
     bottom: 0;
@@ -12,7 +12,8 @@ article.box-tease {
   }
 
   .tease-details,
-  .actions {
+  .actions,
+  .child-involvements {
     a,
     button {
       position: relative;

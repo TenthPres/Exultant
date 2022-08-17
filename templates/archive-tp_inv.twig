@@ -1,0 +1,33 @@
+{% extends 'archive.twig' %}
+
+
+{% block header %}
+    {% if use_geo %}
+    <header class="page-header tall-50" style="background-image:url('{{ context.dir~'/assets/images/localmap.jpg' }}');">
+        {% filter shortcodes %}
+            [TP-Inv-Map]
+        {% endfilter %}
+        <div class="page-header-content">
+            <h1 class="article-h1">{{ title }}</h1>
+        </div>
+    </header>
+    {% endif %}
+{% endblock %}
+
+
+{% block article_content_header %}
+    <div class="page-header-content">
+        {% if not use_geo %}
+            <h1 class="archive-h1">{{ title }}</h1>
+        {% endif %}
+        {% filter shortcodes %}
+            [TP-Inv-Filters]
+        {% endfilter %}
+    </div>
+{% endblock %}
+
+{% block article_content_body %}
+    {% filter shortcodes %}
+        [TP-Inv-List includeCss=false class=box-list itemClass="box-tease"]
+    {% endfilter %}
+{% endblock %}

@@ -134,6 +134,7 @@ main {
     p.byline {
       padding: 0;
       margin: 0;
+      color:#666;
     }
 
     h1 {
@@ -221,13 +222,20 @@ main {
     }
   }
 
-  .post-meta,
-  .tease .tease-byline,
-  .byline {
-    opacity: .36; // matches breadcrumbs at .6 x .6
-    font-weight: 900;
-    font-size: 80%;
-    transition: opacity 1s;
+  .page-header-content,
+  article.box-tease {
+    .post-meta,
+    .tease .tease-byline,
+    .byline {
+      opacity: .36; // matches breadcrumbs at .6 x .6
+      font-weight: 900;
+      font-size: 80%;
+      transition: opacity 1s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 
 }

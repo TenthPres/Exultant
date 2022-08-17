@@ -11,6 +11,8 @@
  *
  */
 
+use tp\TouchPointWP\Involvement;
+
 $templates = [ 'archive.twig', 'index.twig' ];
 
 $context = Timber\Timber::context();
@@ -37,7 +39,14 @@ if ( is_day() ) {
 } elseif ( is_post_type_archive() ) {
     $context['title'] = post_type_archive_title( '', false );
     $context['type'] = post_type_archive_title( '', false ); // TODO figure out a better term here.
-    array_unshift( $templates, 'archive-' . get_post_type() . '.twig' );
+    $addTemplates = [];
+    if (substr(get_post_type(), 0, 7) == "tp_inv_") {
+        $settings = Involvement::getSettingsForPostType(get_post_type());
+        $context['use_geo'] = $settings->useGeo;
+        $addTemplates[] = "archive-tp_inv.twig";
+    }
+    $addTemplates[] = 'archive-' . get_post_type() . '.twig';
+    array_unshift( $templates, ...$addTemplates);
 }
 
 $context['posts'] = new Timber\PostQuery();
