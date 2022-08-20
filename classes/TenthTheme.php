@@ -439,11 +439,10 @@ class TenthTheme extends Site
                 if ($wpq->is_archive()) {
                     if ($wpq->is_day()) {
                         $date = intval(get_the_date( 'j' ));
-                        $ends = ['th','st','nd','rd','th','th','th','th','th','th'];
                         if ($date >= 11 && $date <= 13) // 11, 12, 13
                             $info['title'] = $date . 'th';
                         else
-                            $info['title'] = $date . $ends[$date % 10];
+                            $info['title'] = $date . ['th','st','nd','rd','th','th','th','th','th','th'][$date % 10];
                         $info['type'] = "day";
                         $info['label'] = __('Day');
                     } elseif ($wpq->is_month()) {
