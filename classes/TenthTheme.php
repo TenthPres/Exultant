@@ -438,11 +438,16 @@ class TenthTheme extends Site
                 }
                 if ($wpq->is_archive()) {
                     if ($wpq->is_day()) {
-                        $info['title'] = get_the_date( 'D M Y' );
+                        $date = intval(get_the_date( 'j' ));
+                        $ends = ['th','st','nd','rd','th','th','th','th','th','th'];
+                        if ($date >= 11 && $date <= 13) // 11, 12, 13
+                            $info['title'] = $date . 'th';
+                        else
+                            $info['title'] = $date . $ends[$date % 10];
                         $info['type'] = "day";
                         $info['label'] = __('Day');
                     } elseif ($wpq->is_month()) {
-                        $info['title'] = get_the_date('M Y');
+                        $info['title'] = get_the_date('F');
                         $info['type'] = "month";
                         $info['label'] = __('Month');
                     } elseif ($wpq->is_year()) {
