@@ -1,4 +1,6 @@
 <div class="page-header-content">
     <h1 class="article-h1">{{ post.title }}</h1>
+    {% if includeByline %}
     <p class="byline">{{ byline(post) }}</p>
+    {% endif %}
 </div>

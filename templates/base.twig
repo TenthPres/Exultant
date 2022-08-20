@@ -6,18 +6,20 @@
 
 	<body class="{{ body_class }}" data-template="base.twig">
 		{{ function('wp_body_open') }}
-		{% block page_header %}
+		{% block site_banner %}
 			<header role="banner" >
-				{% include 'header.twig' %}
+				{% include 'site-banner.twig' %}
 			</header>
 		{% endblock %}
 
 		{# page feature header (image, video, etc).  Not rendered here, but assembled for later render and reference by other blocks. #}
 		{% set feature_rendered %}
-			{% block header %}
+			{% block feature %}
 				{% if post.thumbnail %}
 					<header class="page-header" style="background-image:url('{{ post.thumbnail.src('tenth-header') }}');">
-						{%  include 'partials/singleHeader.twig' %}
+						{% block feature_header %}
+							{%  include 'partials/singleHeader.twig' with { 'includeByline': includeByline or includeByline is empty } %}
+						{% endblock %}
 					</header>
 				{% endif %}
 			{% endblock %}
@@ -41,14 +43,47 @@
 		<main id="site-content" role="main" class="{{ main_class }} {{ has_feature ? "with-feature" : "without-feature" }} {{ has_breadcrumbs ? "with-breadcrumbs" : "without-breadcrumbs" }}">
 			{{ feature_rendered }}
 			{% block corset %}
-				<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+				<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 					<section class="article-content">
-						<h1 class="article-h1">{{ _e( 'Not Found', 'TenthTemplate') }}</h1>
-						<div class="article-body">
-							<p>{{ _e( 'No Content to Display', 'TenthTemplate') }}</p>
-						</div>
+						{% block article_content %}
+							{% if not post.thumbnail %}
+								{% block content_header %}
+									{% include 'partials/singleHeader.twig' with { 'includeByline': includeByline or includeByline is empty } %}
+								{% endblock %}
+							{% endif %}
+							<div class="article-body">
+								{% block article_content_body %}
+									{% block article_body %}
+										{{ post.content }}
+									{% endblock %}
+								{% endblock %}
+							</div>
+						{% endblock %}
 					</section>
+					{% block article_footer %}{% endblock %}
 				</article>
+
+				{% if post.comment_status == "open" or post.comments.count > 0 %}
+					<section class="comments-container">
+						<!-- comment box -->
+						<h2>Comments</h2>
+
+						<!-- comments -->
+						<div class="comments">
+							{% if post.comments %}
+								{% for cmt in post.comments %}
+									{% include "comment.twig" with {comment:cmt} %}
+								{% endfor %}
+							{% else %}
+								<p class="nocomments">No comments yet.</p>
+							{% endif %}
+						</div>
+						{% if post.comment_status == "open" %}
+							<!-- comment form -->
+							{% include "comment-form.twig" %}
+						{% endif %}
+					</section>
+				{%  endif %}
 			{% endblock %}
 		</main>
 

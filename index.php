@@ -7,6 +7,7 @@
 
 use Timber\PostQuery;
 use Timber\Timber;
+use tp\TenthTheme;
 
 $context          = Timber::context();
 require 'commonContext.php';
@@ -15,4 +16,4 @@ $templates        = ['index.twig'];
 if ( is_home() ) {
     array_unshift( $templates, 'front-page.twig', 'home.twig' );
 }
-Timber::render( $templates, $context );
+TenthTheme::render( $templates, $context );

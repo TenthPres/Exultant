@@ -8,6 +8,7 @@
 
 use Timber\PostQuery;
 use Timber\Timber;
+use tp\TenthTheme;
 use tp\TouchPointWP\Person;
 
 global $wp_query;
@@ -22,7 +23,7 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
         $context['person'] = $person;
         $context['title']  = $person->display_name;
 
-        Timber::render( [ 'person.twig', 'archive.twig' ], $context );
+        TenthTheme::render( [ 'person.twig', 'archive.twig' ], $context );
     }
 
      // TODO else: render an error

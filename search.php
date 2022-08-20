@@ -12,6 +12,7 @@
 
 use Timber\PostQuery;
 use Timber\Timber;
+use tp\TenthTheme;
 
 add_action('wp_ajax_load_search_results', 'ajaxSearchResults' );
 add_action( 'wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
@@ -23,4 +24,4 @@ require 'commonContext.php';
 $context['title'] = __('Search: ') . get_search_query();
 $context['posts'] = new PostQuery();
 
-Timber::render( $templates, $context );
+TenthTheme::render( $templates, $context );

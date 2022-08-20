@@ -1,6 +1,9 @@
 <?php
 
 /* Icon or Profile Picture */
+
+use tp\TenthTheme;
+
 if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
     echo "<label><img src=\"" . get_avatar_url(get_current_user_id(), ['size' => 64]) . "\" /></label>";
 } else {
@@ -41,13 +44,19 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
                 <?php
                 if (in_array('administrator',  wp_get_current_user()->roles)) {
                     global $template;
-                    $templateName = str_replace(get_template_directory(), "", $template);
-                    $postType = get_post_type(get_queried_object());
+                    $phpTemplate  = str_replace(get_template_directory(), "", $template);
+                    $postType     = get_post_type(get_queried_object());
                     ?>
                     <li>
-                        <span>Active Template</span>
+                        <span>PHP Template</span>
                         <ul>
-                            <li><?php echo "<span>$templateName</span>"; ?></li>
+                            <li><?php echo "<span>$phpTemplate</span>"; ?></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>Twig Template</span>
+                        <ul>
+                            <li><?php echo "<span>" . TenthTheme::$renderedFilename . "</span>"; ?></li>
                         </ul>
                     </li>
                     <li>
@@ -63,4 +72,3 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
         } ?>
     </li>
 </ul>
-

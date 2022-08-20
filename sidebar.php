@@ -6,4 +6,6 @@
  * @subpackage  Timber
  */
 
-Timber::render( array( 'sidebar.twig' ), $data );
+use tp\TenthTheme;
+
+TenthTheme::render('sidebar.twig', []);

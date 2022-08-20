@@ -217,7 +217,37 @@ class TenthTheme extends Site
     }
 
     /**
+     * Render function.  Replaces (and wraps) Timber::render()
+     *
+     * @param array|string $filenames  Name of the Twig file to render. If this is an array of files, Timber will
+     *                                 render the first file that exists.
+     * @param array        $data       Optional. An array of data to use in Twig template.
+     * @param bool|int     $expires    Optional. In seconds. Use false to disable cache altogether. When passed an
+     *                                 array, the first value is used for non-logged in visitors, the second for users.
+     *                                 Default false.
+     * @param string       $cache_mode Optional. Any of the cache mode constants defined in TimberLoader.
+     *
+     * @return bool|string The echoed output.
+     *
+     * @see \Timber\Timber::render
+     */
+    public static function render( $filenames, array $data = [], $expires = false, string $cache_mode = \Timber\Loader::CACHE_USE_DEFAULT )
+    {
+        if (in_array('administrator',  wp_get_current_user()->roles)) {
+            $caller = \Timber\LocationManager::get_calling_script_dir(1);
+            $loader = new \Timber\Loader($caller);
+            $file = $loader->choose_template($filenames);
+            self::$renderedFilename = $file;
+        }
+        return Timber::render($filenames, $data, $expires, $cache_mode);
+    }
+
+    public static $renderedFilename = null;
+
+    /**
      * Provides a time to read as a human-readable string.
+     *
+     * TODO #4 move to an extension of the post class.  https://timber.github.io/docs/v2/guides/extending-timber/#extending-timber-classes
      *
      * @param string $content
      *
@@ -309,6 +339,25 @@ class TenthTheme extends Site
             $concat .= "/";
         }
         return $r;
+    }
+
+    /**
+     * Add st, nd, rd, th for numbers.
+     *
+     * @param numeric $num
+     *
+     * @return string
+     *
+     * TODO i18n
+     */
+    public static function addOrdinalIndicator($num): string
+    {
+        $num = intval($num);
+        $ind = $num % 100;
+        if ($ind >= 11 && $ind <= 13) // 11, 12, 13
+            return $num . 'th';
+        else
+            return $num . ['th','st','nd','rd','th','th','th','th','th','th'][$ind % 10];
     }
 
     /**
@@ -438,11 +487,7 @@ class TenthTheme extends Site
                 }
                 if ($wpq->is_archive()) {
                     if ($wpq->is_day()) {
-                        $date = intval(get_the_date( 'j' ));
-                        if ($date >= 11 && $date <= 13) // 11, 12, 13
-                            $info['title'] = $date . 'th';
-                        else
-                            $info['title'] = $date . ['th','st','nd','rd','th','th','th','th','th','th'][$date % 10];
+                        $info['title'] = self::addOrdinalIndicator(get_the_date( 'j' ));
                         $info['type'] = "day";
                         $info['label'] = __('Day');
                     } elseif ($wpq->is_month()) {

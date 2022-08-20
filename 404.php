@@ -6,8 +6,9 @@
  */
 
 use Timber\Timber;
+use tp\TenthTheme;
 
 $context = Timber::context();
 require 'commonContext.php';
-Timber::render( '404.twig', $context );
+TenthTheme::render('404.twig', $context );
 

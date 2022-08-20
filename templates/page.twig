@@ -1,12 +1,14 @@
 {% extends "base.twig" %}
 
+{% set includeByline = false %}
+
 {% block corset %}
 	<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
 		<section class="article-content">
 			{% block article_content %}
 				{% block article_content_header %}
 					{% if not post.thumbnail %}
-						{% include 'partials/singleHeader.twig' %}
+						{% include 'partials/singleHeader.twig' with { 'includeByline': includeByline } %}
 					{% endif %}
 				{% endblock %}
 				<div class="article-body">
