@@ -356,8 +356,7 @@ class TenthTheme extends Site
         $ind = $num % 100;
         if ($ind >= 11 && $ind <= 13) // 11, 12, 13
             return $num . 'th';
-        else
-            return $num . ['th','st','nd','rd','th','th','th','th','th','th'][$ind % 10];
+        return $num . ['th','st','nd','rd','th','th','th','th','th','th'][$ind % 10];
     }
 
     /**
