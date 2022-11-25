@@ -317,15 +317,6 @@ class TenthTheme extends Site
         $r = [];
         $concat = "/";
 
-        if (is_search()) {
-            $r[] = (object)[
-                'url' => $wp->request,
-                'title' => __('Search'),
-                'type' => 'search',
-                'label' => null
-            ];
-        }
-
         foreach ($path as $p) {
             if ($p === "")
                 continue;
@@ -338,6 +329,16 @@ class TenthTheme extends Site
 
             $concat .= "/";
         }
+
+        if (is_search()) {
+            $r[] = (object)[
+                'url' => $wp->request,
+                'title' => __('Search'),
+                'type' => 'search',
+                'label' => null
+            ];
+        }
+
         return $r;
     }
 
