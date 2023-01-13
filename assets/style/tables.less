@@ -1,0 +1,27 @@
+table {
+  overflow-x: auto;
+  margin: 0 -@sectionPadding @paragraphSpacing;
+  padding: 0 @sectionPadding/2 .7em;
+  display: block;
+
+  td, th {
+    padding: 0.2em 0.7em 0;
+
+    &:first-child {
+      padding-left: @sectionPadding/2;
+    }
+    &:last-child {
+      padding-right: @sectionPadding/2;
+    }
+  }
+
+  // th in the first row, presumably headers
+  tr:first-child th {
+    vertical-align: bottom;
+    border-bottom: 1px solid @grayBorders;
+  }
+
+  tr:nth-child(even) {
+    background: #ffffff99;
+  }
+}

@@ -62,8 +62,9 @@ div#site-footer {
         font-weight: 600;
       }
 
-      @media (max-width: @iconicNavThreshold) {
-        display:none;
+      display: none;
+      @media (min-width: @iconicNavThreshold) {
+        display: block;
       }
 
     }

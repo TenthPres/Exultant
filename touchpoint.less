@@ -9,16 +9,19 @@ main#site-content.TouchPoint {
 @import url("assets/style/footer");
 @import url("assets/style/main");
 @import url("assets/style/links");
-@import url("assets/style/forms");
+//@import url("assets/style/tables");  Below, in scope
+//@import url("assets/style/forms");  Below, in scope
 //@import url("assets/style/tease");
 @import url("assets/style/swal");
-//@import url("assets/style/touchpoint");
+//
+// @import url("assets/style/touchpoint");
 
 
 main#site-content.TouchPoint {
 	.row {
 		margin-left:0;
 		margin-right:0;
+		grid-gap: 0 1em;
 	}
 
 	.form-control {
@@ -59,6 +62,7 @@ main#site-content.TouchPoint {
 	}
 
 	@import url("assets/style/forms");
+	@import url("assets/style/tables");
 
 	.columns(xs);
 	@media (min-width: 768px) {
@@ -101,7 +105,7 @@ main#site-content.TouchPoint {
 	}
 
 	// for giving page
-	.money-input input {
+	.money-input:not(.small-money-input) input {
 		font-size: 2em;
 	}
 	.money-input:before {
@@ -120,8 +124,7 @@ main#site-content.TouchPoint {
 
 	// for paylinks page
 	div#totalContainer {
-		display: grid;
-		grid-template-columns: repeat(12, 1fr);
+		.grid();
 	}
 
 	.form-inline > * {
@@ -150,9 +153,9 @@ main#site-content.TouchPoint {
 		overflow: visible;
 		padding-top: .5em;
 	}
-	div#main.giving {
-		overflow-x: hidden;
-	}
+	//div#main.giving {
+	//	overflow-x: hidden;
+	//}
 
 	& > * {
 		overflow-x: hidden;
@@ -172,6 +175,8 @@ main#site-content.TouchPoint {
 	.text-center *:not(input) {
 		text-align: center;
 	};
+
+	@import url("assets/TouchPoint/popovers");
 
 }
 
@@ -203,11 +208,14 @@ main#site-content.TouchPoint {
 }
 
 .col-size(@width, @size) {
-	.col-@{width}-@{size}
+	.row > .col-@{width}-@{size}
 	{
 		grid-column: span @size / span @size;
 		width: auto;
 		float: none;
+
+		padding-right: 0;
+		padding-left: 0;
 
 		& > div:not(.form-group):not(.row):not(.text-center) {
 			//display: inline-block;  Needs to be excluded for username login on giving page.
@@ -215,8 +223,13 @@ main#site-content.TouchPoint {
 	}
 }
 
+.grid() {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+}
+
 .col-offset(@width, @pos) {
-	.col-@{width}-offset-@{pos}
+	.row > .col-@{width}-offset-@{pos}
 	{
 		grid-column-start: @pos + 1;
 		width: 100%;
@@ -225,7 +238,7 @@ main#site-content.TouchPoint {
 	}
 }
 
-@import url("assets/TouchPoint/popovers");
+
 
 
 h1,
