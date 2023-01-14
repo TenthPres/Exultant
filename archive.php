@@ -11,6 +11,7 @@
  *
  */
 
+use tp\TenthTemplate\PostQuery;
 use tp\TenthTheme;
 use tp\TouchPointWP\Involvement;
 
@@ -52,6 +53,6 @@ if ( is_day() ) {
     array_unshift( $templates, ...$addTemplates);
 }
 
-$context['posts'] = new Timber\PostQuery();
+$context['posts'] = new PostQuery();
 
 TenthTheme::render( $templates, $context );

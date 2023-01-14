@@ -1,0 +1,28 @@
+{% extends "single.twig" %}
+
+{% set map_rendered %}
+{% block map %}{% endblock %}
+{% endset %}
+
+{% block feature %}
+    {% if not post.thumbnail and object.hasGeo() %}
+        <header class="page-header" style="background-image:url('{{ map_background }}');">
+            {{ map_rendered }}
+            {% block content_header %}
+                {% include 'partials/singleHeader.twig' with { 'includeByline': includeByline or includeByline is empty } %}
+            {% endblock %}
+        </header>
+    {% endif %}
+{% endblock %}
+
+{% block article_precontent %}
+<div>
+    {{ object.getActionButtons("single-template") }}
+</div>
+{% endblock %}
+
+{% block article_postcontent %}
+    {% if post.thumbnail and object.hasGeo() %}
+        {{ map_rendered }}
+    {% endif %}
+{% endblock %}

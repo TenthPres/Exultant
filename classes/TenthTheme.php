@@ -2,12 +2,13 @@
 
 namespace tp;
 
-use Timber\Post;
+use tp\TenthTemplate\Post;
 use Timber\Site;
 use Timber\Timber;
 use Timber\Twig_Function;
 use tp\TenthTemplate\TenthHeaderMenuWalker;
 use tp\TenthTemplate\TenthMenu;
+use tp\TouchPointWP\Person;
 use Twig\Environment;
 use Twig\Extension\StringLoaderExtension;
 use Twig\Extra\Markdown\DefaultMarkdown;
@@ -18,6 +19,12 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
 use WP_MatchesMapRegex;
 use WP_Post;
 use WP_Query;
+
+if (!is_admin()) {
+    require_once "Post.php";
+    require_once "PostQuery.php";
+    require_once "PostPreview.php";
+}
 
 class TenthTheme extends Site
 {
@@ -178,7 +185,6 @@ class TenthTheme extends Site
 
         $twig->addFunction(new Twig_Function('byline', [self::class, 'byline']));
         $twig->addFunction(new Twig_Function('breadcrumbs', [self::class, 'breadcrumbs']));
-        $twig->addFunction(new Twig_Function('timeToRead', [self::class, 'timeToRead_str']));
         $twig->addFunction(new Twig_Function('trim', 'trim'));
 
         return $twig;
@@ -203,7 +209,7 @@ class TenthTheme extends Site
             $items[] = $date;
         }
 
-        $readTime = self::timeToRead_str($p->content());
+        $readTime = self::timeToRead_str($p->post_content);
         if ($readTime) {
             $items[] = $readTime;
         }
@@ -247,8 +253,6 @@ class TenthTheme extends Site
     /**
      * Provides a time to read as a human-readable string.
      *
-     * TODO #4 move to an extension of the post class.  https://timber.github.io/docs/v2/guides/extending-timber/#extending-timber-classes
-     *
      * @param string $content
      *
      * @return ?string
@@ -261,7 +265,7 @@ class TenthTheme extends Site
         $rmins = round($mins * 2) / 2;
         $pre   = __('Read Time: ', 'tenthtemplate');
 
-        if ($rmins === 0) {
+        if ($rmins === 0 || $mins * 60 < 27.5) {
             return null;
         }
         if ($rmins < 1) {
@@ -302,6 +306,7 @@ class TenthTheme extends Site
      */
     public static function timeToRead_min(string $content): float
     {
+        $content = strip_shortcodes($content);
         $content = strip_tags($content);
 
         $speed_wpm = 250.0; // 250-300, from WolframAlpha
@@ -309,9 +314,19 @@ class TenthTheme extends Site
         return $words / $speed_wpm;
     }
 
+    private static $_breadcrumbs = null;
 
+    /**
+     * Generate an array of info to be used for breadcrumbs.
+     *
+     * @return array
+     */
     public static function breadcrumbs(): array
     {
+        if (self::$_breadcrumbs !== null) {
+            return self::$_breadcrumbs;
+        }
+
         global $wp;
         $path = explode("/", $wp->request);
         $r = [];
@@ -323,7 +338,14 @@ class TenthTheme extends Site
 
             $concat .= $p;
             $info = self::urlToInfo($concat);
+
             if ($info !== null) {
+                if ($info['q']->is_author) {
+                    $person = Person::fromId($info['q']->query_vars['author']);
+                    if ($person)
+                        $info['title'] = $person->display_name;
+                }
+
                 $r[] = $info;
             }
 
@@ -338,6 +360,8 @@ class TenthTheme extends Site
                 'label' => null
             ];
         }
+
+        self::$_breadcrumbs = $r;
 
         return $r;
     }
@@ -379,14 +403,13 @@ class TenthTheme extends Site
         ];
 
         // Get rid of the #anchor.
-        $url_split = explode('#', $url);
-        $url       = $url_split[0];
+        $url = explode('#', $url)[0];
 
         // Set the correct URL scheme.
         $scheme = parse_url(home_url(), PHP_URL_SCHEME);
         $url    = set_url_scheme($url, $scheme);
 
-        if (trim($url, '/') === home_url() && 'page' === get_option('show_on_front')) {
+        if (trim($url, '/') === home_url() && get_option('show_on_front') === 'page') {
             $page_on_front = get_option('page_on_front');
 
             if ($page_on_front && get_post($page_on_front) instanceof WP_Post) {
@@ -421,9 +444,9 @@ class TenthTheme extends Site
         $url = trim($url, '/');
 
         $request              = $url;
-        $post_type_query_vars = array();
+        $post_type_query_vars = [];
 
-        foreach (get_post_types(array(), 'objects') as $post_type => $t) {
+        foreach (get_post_types([], 'objects') as $post_type => $t) {
             if ( ! empty($t->query_var)) {
                 $post_type_query_vars[$t->query_var] = $post_type;
             }

@@ -1,1 +1,10 @@
-{% extends "single.twig" %}
+{% extends "single-tp-geo.twig" %}
+
+{% set article_attributes = "data-tp-partner=\"" ~ post.id ~ "\"" %}
+{% set map_background = context.dir ~ '/assets/images/worldmap-sat.jpg' %}
+
+{% block map %}
+    {% filter shortcodes %}
+        [TP-Partner-Map]
+    {% endfilter %}
+{% endblock %}

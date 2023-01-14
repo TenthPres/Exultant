@@ -1,0 +1,10 @@
+{% extends "single-tp-geo.twig" %}
+
+{% set article_attributes = "data-tp-involvement=\"" ~ post.id ~ "\"" %}
+{% set map_background = context.dir ~ '/assets/images/localmap.jpg' %}
+
+{% block map %}
+    {% filter shortcodes %}
+        [TP-Inv-Map]
+    {% endfilter %}
+{% endblock %}

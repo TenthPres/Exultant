@@ -6,20 +6,22 @@ nav#breadcrumbs {
   }
 
   @boxHeight: 1.2em;
-  @vPadding: .6em;
+  @vPadding: .7em;
 
   & {
+    @fontSize: 0.8; // em
+
     position: relative;
     z-index: 1;
     line-height: @boxHeight;
     vertical-align: bottom;
-    padding: @vPadding @sectionPadding;
+    padding: @vPadding (@sectionPadding / @fontSize);
     width: 100%;
-    font-size: .8em;
+    font-size: 1em * @fontSize;
     max-width: @headerMaxWidth;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: calc(-2 * @vPadding - @boxHeight);
+    margin-bottom: (-2 * @vPadding - @boxHeight);
 
     opacity: .6;
     transition: opacity 1s, background-color 4s;

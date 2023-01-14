@@ -130,13 +130,17 @@ main {
     color: @tenthGreen;
   }
 
+  &.without-feature div.page-header-content {
+    p.byline {
+      color: #666;
+    }
+  }
+
   div.page-header-content {
     p.byline {
       padding: 0;
       margin: 0;
-      color:#666;
     }
-
     h1 {
       padding: 0;
       margin-bottom: -0.2em;
@@ -222,19 +226,26 @@ main {
     }
   }
 
-  .page-header-content,
-  article.box-tease {
-    .post-meta,
-    .tease .tease-byline,
-    .byline {
-      opacity: .36; // matches breadcrumbs at .6 x .6
-      font-weight: 900;
-      font-size: 80%;
-      transition: opacity 1s;
+  .post-meta,
+  .tease .tease-byline,
+  .byline {
+    opacity: .36; // matches breadcrumbs at .6 x .6
+    font-weight: 900;
+    font-size: 80%;
+    transition: opacity 1s;
 
-      &:hover {
-        opacity: 1;
-      }
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .person-list-item {
+    .post-meta {
+      opacity: 1;
+    }
+
+    a:not(.btn) {
+      color: inherit;
     }
   }
 

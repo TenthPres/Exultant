@@ -6,9 +6,9 @@
  *
  */
 
-use Timber\PostQuery;
 use Timber\Timber;
 use tp\TenthTheme;
+use tp\TenthTemplate\PostQuery;
 use tp\TouchPointWP\Person;
 
 global $wp_query;
@@ -23,9 +23,10 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
         $context['person'] = $person;
         $context['title']  = $person->display_name;
 
-        TenthTheme::render( [ 'person.twig', 'archive.twig' ], $context );
+        TenthTheme::render(['person.twig', 'archive.twig'], $context);
+    } else {
+        TenthTheme::render(['404.twig'], $context);
     }
-
-     // TODO else: render an error
+} else {
+    TenthTheme::render(['404.twig'], $context);
 }
-// TODO else: render an error

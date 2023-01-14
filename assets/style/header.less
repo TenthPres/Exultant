@@ -389,19 +389,8 @@ header[role="banner"] {
       }
     }
 
-    @media (max-width: @iconicNavThreshold) {
+    @media (max-width: (@iconicNavThreshold - 1)) {
       /* iconic nav mode */
-      a, input {
-        /* All links in Nav */
-        margin: 0;
-        text-decoration: none;
-        font-weight: bold;
-        display: block;
-      }
-
-      & ul a {
-        padding: 2px 0;
-      }
 
       @media (max-width: @reallyReallyNarrow) {
         opacity: 0;
@@ -416,6 +405,9 @@ header[role="banner"] {
         }
       }
 
+      & > div > ul {
+        padding: 0.3em 0.1em 0.5em;
+      }
 
       & > div > label {
         /* first level links (icons: menu, user, etc) */
@@ -451,9 +443,15 @@ header[role="banner"] {
         color: @tenthGreen;
       }
 
+      & > div > ul a,
+      & > div > div a {
+        padding: 0.15em 0.6em;
+        width: 100%;
+      }
+
       & > div > ul,
       & > div > div {
-        /* first level sub-lists (basic row) */
+        /* second level sub-lists (home, about) */
         position: absolute;
         display: none;
         right: 0;
@@ -485,14 +483,31 @@ header[role="banner"] {
         }
       }
 
-      & > div > ul > li {
-        /* second level list */
+      & > div > ul > li,
+      & > div > div > div {
+        /* second level list item (about) */
         display: block;
         width: 100%;
         margin-left: 0;
       }
 
+      & > div > ul > li > a,
+      & > div > ul > li > span,
+      & > div > div > div > a,
+      & > div > div > div > span {
+        /* second level link (about) */
+        background: red;
+      }
+
+      & > div > ul > li > div,
+      & > div > div > div > div {
+        /* second level children container (session, diaconate) */
+        max-height: 0;
+        overflow: hidden;
+      }
+
       div li,
+      div div,
       div input[type='search']{
         width: 100%;
         text-align: left;

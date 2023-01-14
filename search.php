@@ -10,8 +10,8 @@
  */
 
 
-use Timber\PostQuery;
 use Timber\Timber;
+use tp\TenthTemplate\PostQuery;
 use tp\TenthTheme;
 
 add_action('wp_ajax_load_search_results', 'ajaxSearchResults' );
