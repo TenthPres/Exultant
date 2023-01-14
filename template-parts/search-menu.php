@@ -1,11 +1,11 @@
 <?php
 
-$searchId        = wp_unique_id('search-form-');
-$searchResultsId = wp_unique_id('search-list-');
+$searchId        = 'search-input';
+$searchResultsId = 'search-results-list';
 
 ?>
 <label class="las la-search" for="<?php echo $searchId; ?>"></label>
-<div><!-- equiv to ul -->
+<div id="search-menu"><!-- equiv to ul -->
     <div><!-- equiv to li -->
         <?php
         get_search_form(
@@ -18,7 +18,7 @@ $searchResultsId = wp_unique_id('search-list-');
         ?>
         <div>
             <ul id="<?php echo $searchResultsId; ?>" class="search-results">
-                <li><span class="start-typing">Start Typing...</span></li>
+                <li><span class="start-typing" id="search-results-status"><?php _e("Start Typing...", 'TenthTemplate'); ?></span></li>
             </ul>
         </div>
     </div>

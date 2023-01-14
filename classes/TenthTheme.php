@@ -196,17 +196,21 @@ class TenthTheme extends Site
 
         $items = [];
 
-        $author = get_the_author();
+        if (!is_author()) {
+            $author = get_the_author();
 
-        if ($author) {
-            $items[] = $author;
-        } elseif ($p->author->ID !== 0) {
-            $items[] = __('By ') . "<a href=\"{$p->author->path}\">{$p->author->name}</a>";
+            if ($author) {
+                $items[] = $author;
+            } elseif ($p->author->ID !== 0) {
+                $items[] = __('By ') . "<a href=\"{$p->author->path}\">{$p->author->name}</a>";
+            }
         }
 
-        $date = get_the_date('', $p);
-        if ($date) {
-            $items[] = $date;
+        if (!is_day()) {
+            $date = get_the_date('', $p);
+            if ($date) {
+                $items[] = $date;
+            }
         }
 
         $readTime = self::timeToRead_str($p->post_content);

@@ -226,15 +226,21 @@ main {
     }
   }
 
-  .post-meta,
-  .tease .tease-byline,
-  .byline {
-    opacity: .36; // matches breadcrumbs at .6 x .6
-    font-weight: 900;
-    font-size: 80%;
-    transition: opacity 1s;
+  header,
+  .page-header-content,
+  .child-involvements div {
+    .post-meta,
+    .tease .tease-byline,
+    .byline {
+      opacity: .36; // matches breadcrumbs at .6 x .6
+      font-weight: 900;
+      font-size: 80%;
+      transition: opacity 1s;
+    }
 
-    &:hover {
+    &:hover .post-meta,
+    &:hover .tease .tease-byline,
+    &:hover .byline {
       opacity: 1;
     }
   }

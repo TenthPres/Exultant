@@ -194,11 +194,6 @@ header[role="banner"] {
 
 
     //// SEARCH
-    input[type='search']:focus {
-      outline: none;
-      width:50vw;
-    }
-
     input[type='submit'] {
       display: none;
     }
@@ -210,17 +205,63 @@ header[role="banner"] {
       padding: 0.7*@sectionPadding 0 0.7*@sectionPadding 0.7*@sectionPadding;
       margin-right:-1em;
       width: @searchWidth;
+
+      &:focus {
+        padding-left: 0.9*@sectionPadding;
+        padding-right: 2em;
+        outline: none;
+        width: 50vw;
+      }
     }
 
-    div .search-results {
+    div ul.search-results {
       display:none;
     }
-    div:focus-within .search-results {
+    div:focus-within ul.search-results {
       display: unset;
     }
-    div .search-results span.start-typing {
-      opacity: .5;
-      font-style: italic;
+
+    div#search-menu {
+      ul.search-results li span#search-results-status {
+        opacity: .5;
+        font-style: italic;
+      }
+
+      li {
+        width: 100%;
+        white-space: normal;
+      }
+
+      ul {
+        width: 100%;
+      }
+
+      .search-results a::after {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 100%;
+      }
+      .search-results a::before {
+        opacity: 0;
+        content: ">";
+        position: absolute;
+        left: -.75em;
+        padding-left: .5em;
+        transition: all .2s;
+        width: 0;
+        overflow: hidden;
+      }
+      .search-results a.selected::before {
+        padding-left: 0;
+        opacity: 1;
+        width: 1em;
+      }
+
+      li {
+        position: relative;
+      }
     }
 
     // Prevent focused elements from appearing as focused
@@ -480,6 +521,16 @@ header[role="banner"] {
 
         input[type=search] {
           width: 100%;
+
+          &,
+          &:focus {
+            &::-ms-clear,
+            &::-webkit-search-decoration,
+            &::-webkit-search-cancel-button {
+              display: none;
+              -webkit-appearance: none;
+            }
+          }
         }
       }
 

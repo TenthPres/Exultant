@@ -2,7 +2,7 @@
 /**
  * Search results page
  *
- * Methods for TimberHelper can be found in the /lib sub-directory
+ * Methods for TimberHelper can be found in the /lib subdirectory
  *
  * @package  WordPress
  * @subpackage  Timber
@@ -15,7 +15,7 @@ use tp\TenthTemplate\PostQuery;
 use tp\TenthTheme;
 
 add_action('wp_ajax_load_search_results', 'ajaxSearchResults' );
-add_action( 'wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
+add_action('wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
 
 $templates = array( 'search.twig', 'archive.twig', 'index.twig' );
 
