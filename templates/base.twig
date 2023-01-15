@@ -18,7 +18,7 @@
 				{% if post.thumbnail %}
 					<header class="page-header" style="background-image:url('{{ post.thumbnail.src('tenth-header') }}');">
 						{% block feature_header %}
-							{%  include 'partials/singleHeader.twig' with { 'includeByline': includeByline or includeByline is empty } %}
+							{{ include('partials/singleHeader.twig', { includeByline: typeInfo.includeByline }) }}
 						{% endblock %}
 					</header>
 				{% endif %}
@@ -30,7 +30,7 @@
 		{% block breadcrumbs %}
 			{%- with { bc: breadcrumbs(object) } -%}
 				{%- if bc -%}
-					<nav id="breadcrumbs" class="{{ has_feature ? "with-feature" : "without-feature" }}">
+					<nav id="breadcrumbs" class="{{ has_feature ? 'with-feature' : 'without-feature' }}">
 						<a href="{{ site.url }}" class="home" aria-label="home"></a>
 						{% for crumb in bc %}
 							<span>&rsaquo;</span><a href="{{ site.url }}{{ crumb.url }}">{{ crumb.title }}</a>
@@ -48,7 +48,7 @@
 						{% block article_header %}
 							{% if not has_feature %}
 								{% block content_header %}
-									{% include 'partials/singleHeader.twig' with { 'includeByline': includeByline or includeByline is empty } %}
+									{{ include('partials/singleHeader.twig', { includeByline: typeInfo.includeByline }) }}
 								{% endblock %}
 							{% endif %}
 						{% endblock %}

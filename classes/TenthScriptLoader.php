@@ -21,7 +21,7 @@ class TenthScriptLoader
      *
      * @return string The HTML string.
      */
-    public function filterByTag($tag, $handle)
+    public function filterByTag($tag, $handle): string
     {
         if (strpos($tag, 'async') !== false &&
             strpos($handle, '-async') > 0) {

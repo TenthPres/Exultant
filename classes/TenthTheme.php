@@ -186,6 +186,7 @@ class TenthTheme extends Site
         $twig->addFunction(new Twig_Function('byline', [self::class, 'byline']));
         $twig->addFunction(new Twig_Function('breadcrumbs', [self::class, 'breadcrumbs']));
         $twig->addFunction(new Twig_Function('trim', 'trim'));
+        $twig->addFunction(new Twig_Function('option', 'get_option'));
 
         return $twig;
     }

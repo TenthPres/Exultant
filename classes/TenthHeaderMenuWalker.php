@@ -3,6 +3,8 @@
 namespace tp\TenthTemplate;
 
 
+use WP_Post;
+
 class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 
 	/**
@@ -14,7 +16,7 @@ class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 	 *
 	 * @param string   $output Used to append additional content (passed by reference).
 	 * @param int      $depth  Depth of menu item. Used for padding.
-	 * @param stdClass $args   An object of wp_nav_menu() arguments.
+	 * @param ?object  $args   An object of wp_nav_menu() arguments.
 	 */
 	public function start_lvl(&$output, $depth = 0, $args = null) {
 		if ($depth === 0) {
@@ -44,7 +46,7 @@ class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 	 *
 	 * @param string   $output Used to append additional content (passed by reference).
 	 * @param int      $depth  Depth of menu item. Used for padding.
-	 * @param stdClass $args   An object of wp_nav_menu() arguments.
+	 * @param ?object  $args   An object of wp_nav_menu() arguments.
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = null ) {
 		self::newlineAndIndent($output, ($depth+1)*2, $args);
@@ -67,7 +69,7 @@ class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 	 * @param string   $output Used to append additional content (passed by reference).
 	 * @param WP_Post  $item   Menu item data object.
 	 * @param int      $depth  Depth of menu item. Used for padding.
-	 * @param stdClass $args   An object of wp_nav_menu() arguments.
+	 * @param object   $args   An object of wp_nav_menu() arguments.
 	 * @param int      $id     Current item ID.
 	 */
 	public function start_el(&$output, $item, $depth=0, $args=null, $id = 0) {
@@ -123,7 +125,7 @@ class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 	 * @param string   $output Used to append additional content (passed by reference).
 	 * @param WP_Post  $item   Page data object. Not used.
 	 * @param int      $depth  Depth of page. Not Used.
-	 * @param stdClass $args   An object of wp_nav_menu() arguments.
+	 * @param object   $args   An object of wp_nav_menu() arguments.
 	 */
 	public function end_el( &$output, $item, $depth = 0, $args = null ) {
 		self::newlineAndIndent($output, $depth*2 + ($depth < 1 ? 0 : 1), $args);
@@ -132,7 +134,7 @@ class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
 
 
 	/**
-	 *  Adds newlines and tabs in a nice, standardized, way.
+	 * Adds newlines and tabs in a nice, standardized, way.
 	 *
 	 * @param $output
 	 * @param int $depth

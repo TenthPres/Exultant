@@ -9,7 +9,7 @@
         <header class="page-header" style="background-image:url('{{ map_background }}');">
             {{ map_rendered }}
             {% block content_header %}
-                {% include 'partials/singleHeader.twig' with { 'includeByline': includeByline or includeByline is empty } %}
+                {{ include('partials/singleHeader.twig', { includeByline: typeInfo.includeByline }) }}
             {% endblock %}
         </header>
     {% endif %}
@@ -17,7 +17,7 @@
 
 {% block article_precontent %}
 <div>
-    {{ object.getActionButtons("single-template") }}
+    {{ object.getActionButtons('single-template') }}
 </div>
 {% endblock %}
 
