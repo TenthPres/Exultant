@@ -1,8 +1,11 @@
 {% extends "single.twig" %}
 
-{% set map_rendered %}
-{% block map %}{% endblock %}
-{% endset %}
+{# the block map is set by the extending templates. #}
+{%- set map_rendered -%}
+    {%- if object.hasGeo() -%}
+        {%- block map %}{% endblock -%}
+    {%- endif -%}
+{%- endset -%}
 
 {% block feature %}
     {% if not post.thumbnail and object.hasGeo() %}
@@ -23,6 +26,8 @@
 
 {% block article_postcontent %}
     {% if post.thumbnail and object.hasGeo() %}
+        <div style="height: 30vh; position: relative">
         {{ map_rendered }}
+        </div>
     {% endif %}
 {% endblock %}

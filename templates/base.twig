@@ -13,8 +13,11 @@
 		{% endblock %}
 
 		{# page feature header (image, video, etc).  Not rendered here, but assembled for later render and reference by other blocks. #}
-		{% set feature_rendered %}
-			{% block feature %}
+		{% set feature_rendered -%}
+			{%- block feature -%}{%- endblock -%}
+		{%- endset %}
+		{% if (trim(feature_rendered) == "") %}
+			{% set feature_rendered %}
 				{% if post.thumbnail %}
 					<header class="page-header" style="background-image:url('{{ post.thumbnail.src('tenth-header') }}');">
 						{% block feature_header %}
@@ -22,8 +25,8 @@
 						{% endblock %}
 					</header>
 				{% endif %}
-			{% endblock %}
-		{% endset %}
+			{% endset %}
+		{% endif %}
 		{% set has_feature = (trim(feature_rendered) != "") %}
 		{% set has_breadcrumbs = breadcrumbs() ? true : false %}
 
@@ -66,6 +69,8 @@
 					</section>
 					{% block article_footer %}{% endblock %}
 				</article>
+
+				{% block postarticle %}{% endblock %}
 
 				{% if post.comment_status == "open" or post.comments.count > 0 %}
 					<section class="comments-container">
