@@ -21,7 +21,7 @@ if (!!document.getElementById('search-input')) {
         xhr = null;
 
     document.addEventListener('keyup', function(event) {
-        if (event.key = "/" &&
+        if (event.key === "/" &&
             document.activeElement?.tagName.toString().toUpperCase() !== "INPUT" &&
             document.activeElement?.tagName.toString().toUpperCase() !== "TEXTAREA") {
             input.focus();
