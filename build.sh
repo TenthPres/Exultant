@@ -2,6 +2,8 @@
 
 # Assumes PHP CLI, curl, and zip are already installed.
 
+composer install
+
 # assume NPM is already installed
 
 npm update
