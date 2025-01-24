@@ -22,11 +22,13 @@ cd ./build || exit
 cd ..
 
 # run lessc and copy to build
+echo $(npm install -g less)
 lessc style.less > style.css --source-map-map-inline
 cp style.less > build/style.less
 cp style.css build/style.css
 
 # use csso to minify the css and create a sourcemap
+echo $(npm install -g csso)
 csso style.css -o build/style.min.css -s file
 
 
