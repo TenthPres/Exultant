@@ -1,11 +1,11 @@
 <?php
 
-namespace tp;
+namespace tp\TenthTemplate;
 
 use tp\TenthTemplate\Post;
 use Timber\Site;
 use Timber\Timber;
-use Timber\Twig_Function;
+use Twig\TwigFunction;
 use tp\TenthTemplate\TenthHeaderMenuWalker;
 use tp\TenthTemplate\TenthMenu;
 use tp\TouchPointWP\Person;
@@ -20,32 +20,80 @@ use WP_MatchesMapRegex;
 use WP_Post;
 use WP_Query;
 
-if (!is_admin()) {
-    require_once "Post.php";
-    require_once "PostQuery.php";
-    require_once "PostPreview.php";
-}
-
-class TenthTheme extends Site
+class Exultant extends Site
 {
-    /** Add timber support. */
-    public function __construct()
+    protected static $singleton = null;
+
+
+    public static $joiner = "  &sdot;  ";
+
+    /**
+     * Get the singleton.
+     *
+     * @return Exultant
+     */
+    public static function instance(): Exultant
     {
-        add_action('after_setup_theme', [$this, 'theme_supports']);
+        if (self::$singleton === null) {
+            self::$singleton = new Exultant();
+        }
+        return self::$singleton;
+    }
+
+    public function customizeCustomizer($wp_customize): void
+    {
+
+        // remove front page options
+        $wp_customize->remove_control('show_on_front');
+        $wp_customize->remove_control('page_on_front');
+        $wp_customize->remove_control('page_for_posts');
+        $wp_customize->remove_section('static_front_page');
+
+        // Remove the Additional CSS section
+        $wp_customize->remove_section('custom_css');
+
+
+        // Add a new section for the header navigation
+        $wp_customize->add_section('navigation_section', [
+            'title'       => __('Navigation', 'TenthTemplate'),
+            'priority'    => 30,
+            'description' => __('Settings for the navigation.', 'TenthTemplate'),
+        ]);
+
+        // Add a new setting for enabling/disabling the header navigation
+        $wp_customize->add_setting('enable_header_nav', [
+            'default'           => true,
+            'sanitize_callback' => 'wp_validate_boolean',
+        ]);
+
+        // Add a new control for the header navigation setting
+        $wp_customize->add_control('enable_header_nav_control', [
+            'label'    => __('Enable Header Navigation', 'TenthTemplate'),
+            'section'  => 'navigation_section',
+            'settings' => 'enable_header_nav',
+            'type'     => 'checkbox',
+        ]);
+    }
+
+    protected function __construct()
+    {
+        add_action('after_setup_theme', [$this, 'themeSupports']);
+        add_action('customize_register', [$this, 'customizeCustomizer']);
         add_filter('timber/context', [$this, 'add_to_context']);
         add_filter('timber/twig', [$this, 'addTwigRuntimeAndExtensions']);
-        add_action('init', [$this, 'register_post_types']);
-        add_action('init', [$this, 'register_taxonomies']);
+        add_action('init', [$this, 'registerPostTypes']);
+        add_action('init', [$this, 'registerTaxonomies']);
+
         parent::__construct();
     }
 
     /** This is where you can register custom post types. */
-    public function register_post_types()
+    public function registerPostTypes()
     {
     }
 
     /** This is where you can register custom taxonomies. */
-    public function register_taxonomies()
+    public function registerTaxonomies()
     {
     }
 
@@ -107,8 +155,26 @@ class TenthTheme extends Site
         return $context;
     }
 
-    public function theme_supports()
+    public function themeSupports(): void
     {
+        $menus = [
+           'primary' => __('Primary Menu', 'TenthTemplate'),
+           'quick'   => __('Quick Menu', 'TenthTemplate'),
+           'footer'  => __('Footer Menu', 'TenthTemplate'),
+           'social'  => __('Social Menu', 'TenthTemplate'),
+        ];
+
+        foreach ($menus as $key => $description) {
+            if (!has_nav_menu($key)) {
+                $menu_id = wp_create_nav_menu($description);
+                if (!is_wp_error($menu_id)) {
+                    set_theme_mod('nav_menu_locations', array_merge(get_theme_mod('nav_menu_locations', []), [$location => $menu_id]));
+                }
+            }
+        }
+
+        register_nav_menus($menus);
+
         // Add default posts and comments RSS feed links to head.
         add_theme_support('automatic-feed-links');
 
@@ -153,6 +219,7 @@ class TenthTheme extends Site
                 'image',
                 'video',
                 'quote',
+                'status',
                 'link',
                 'gallery',
                 'audio',
@@ -183,10 +250,10 @@ class TenthTheme extends Site
             }
         });
 
-        $twig->addFunction(new Twig_Function('byline', [self::class, 'byline']));
-        $twig->addFunction(new Twig_Function('breadcrumbs', [self::class, 'breadcrumbs']));
-        $twig->addFunction(new Twig_Function('trim', 'trim'));
-        $twig->addFunction(new Twig_Function('option', 'get_option'));
+        $twig->addFunction(new TwigFunction('byline', [self::class, 'byline']));
+        $twig->addFunction(new TwigFunction('breadcrumbs', [self::class, 'breadcrumbs']));
+        $twig->addFunction(new TwigFunction('trim', 'trim'));
+        $twig->addFunction(new TwigFunction('option', 'get_option'));
 
         return $twig;
     }
@@ -202,7 +269,7 @@ class TenthTheme extends Site
 
             if ($author) {
                 $items[] = $author;
-            } elseif ($p->author->ID !== 0) {
+            } elseif ($p->author && $p->author->ID !== 0) {
                 $items[] = __('By ') . "<a href=\"{$p->author->path}\">{$p->author->name}</a>";
             }
         }
@@ -224,7 +291,7 @@ class TenthTheme extends Site
             $edit = __('Edit');
             $items[] = "<a href=\"$editLink\">$edit</a>";
         }
-        return implode(TouchPointWP\TouchPointWP::$joiner, $items);
+        return implode(Exultant::$joiner, $items);
     }
 
     /**
@@ -238,19 +305,21 @@ class TenthTheme extends Site
      *                                 Default false.
      * @param string       $cache_mode Optional. Any of the cache mode constants defined in TimberLoader.
      *
-     * @return bool|string The echoed output.
+     * @return void
      *
      * @see \Timber\Timber::render
      */
-    public static function render( $filenames, array $data = [], $expires = false, string $cache_mode = \Timber\Loader::CACHE_USE_DEFAULT )
+    public static function render( $filenames, array $data = [], $expires = false, string $cache_mode = \Timber\Loader::CACHE_USE_DEFAULT ): void
     {
+        self::instance();
+
+        // TODO what is the purpose of this?
         if (in_array('administrator',  wp_get_current_user()->roles)) {
-            $caller = \Timber\LocationManager::get_calling_script_dir(1);
-            $loader = new \Timber\Loader($caller);
+            $loader = new \Timber\Loader();
             $file = $loader->choose_template($filenames);
             self::$renderedFilename = $file;
         }
-        return Timber::render($filenames, $data, $expires, $cache_mode);
+        Timber::render($filenames, $data, $expires, $cache_mode);
     }
 
     public static $renderedFilename = null;
