@@ -15,10 +15,10 @@ mkdir build/assets
 mkdir build/assets/js
 
 # install uglify and uglify the JS files.
-echo $(npm install -g uglify-js)
+echo $(npm install uglifyjs-folder -g)
 
 # uglify all files in assets/js
-uglifyjs assets/js/*.js -o build/assets/js/
+uglifyjs-folder assets/js -o build/assets/js/
 cp -r assets build
 cd ./build || exit
 cd ..
