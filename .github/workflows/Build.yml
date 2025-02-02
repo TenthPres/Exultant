@@ -1,0 +1,26 @@
+# create a wordpress theme build.
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: bash build.sh
+
+    - name: Archive production artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Exultant
+        path: build
