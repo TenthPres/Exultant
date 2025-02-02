@@ -47,9 +47,9 @@ main {
     padding-top: 2.5em;
   }
 
-  min-height: calc(~"100vh - " (@headerHeight + @footerMinHeight));
+  min-height: calc(~"100vh - " calc(@headerHeight + @footerMinHeight));
   @media (max-width: @reallyNarrow) {
-    min-height: calc(~"100vh - " (@headerHeight_reallyNarrow + @footerMinHeight));
+    min-height: calc(~"100vh - " calc(@headerHeight_reallyNarrow + @footerMinHeight));
   }
 
   & > * {
