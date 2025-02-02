@@ -11,17 +11,16 @@
 
 
 use Timber\Timber;
-use tp\TenthTemplate\PostQuery;
-use tp\TenthTheme;
+use tp\TenthTemplate\Exultant;
 
 add_action('wp_ajax_load_search_results', 'ajaxSearchResults' );
 add_action('wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
 
-$templates = array( 'search.twig', 'archive.twig', 'index.twig' );
+$templates = ['templates/search.twig', 'templates/archive.twig', 'templates/index.twig'];
 
 $context          = Timber::context();
 require 'commonContext.php';
-$context['title'] = __('Search: ') . get_search_query();
-$context['posts'] = new PostQuery();
+$context['title'] = __('Search: ', 'TenthTemplate') . get_search_query();  // TODO i18n correctly.
+$context['posts'] = Timber::get_posts();
 
-TenthTheme::render( $templates, $context );
+Exultant::render($templates, $context);

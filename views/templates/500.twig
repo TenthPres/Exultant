@@ -1,0 +1,10 @@
+{% extends "layouts/base.twig" %}
+
+{% set main_class = 'error' %}
+
+{% block corset %}
+    <div>
+        <h1>{{ _e( 'Maintenance', 'TenthTemplate') }}</h1>
+        <div><p>{{ _e( "The site is currently down for maintenance. Try again in a few minutes.", 'TenthTemplate' ) }}</p></div>
+    </div>
+{% endblock %}

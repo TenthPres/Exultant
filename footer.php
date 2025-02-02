@@ -5,7 +5,7 @@
  * @package Tenth_Template
  */
 
-use tp\TenthTheme;
+use tp\TenthTemplate\Exultant;
 
 $timberContext = $GLOBALS['timberContext'];
 if ( ! isset( $timberContext ) ) {
@@ -13,6 +13,5 @@ if ( ! isset( $timberContext ) ) {
 }
 $timberContext['content'] = ob_get_contents();
 ob_end_clean();
-$templates = [ 'page-plugin.twig' ];
-TenthTheme::render( $templates, $timberContext );
-
+$templates = ['templates/plugin.twig'];
+Exultant::render( $templates, $timberContext );

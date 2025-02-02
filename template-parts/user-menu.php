@@ -2,7 +2,7 @@
 
 /* Icon or Profile Picture */
 
-use tp\TenthTheme;
+use tp\TenthTemplate\Exultant;
 
 if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
     echo "<label><img src=\"" . get_avatar_url(get_current_user_id(), ['size' => 64]) . "\" /></label>";
@@ -56,7 +56,7 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
                     <li>
                         <span><?php _e("Twig Template", "TenthTemplate") ?></span>
                         <ul>
-                            <li><span><?php echo TenthTheme::$renderedFilename; ?></span></li>
+                            <li><span><?php echo Exultant::$renderedFilename; ?></span></li>
                         </ul>
                     </li>
                     <li>

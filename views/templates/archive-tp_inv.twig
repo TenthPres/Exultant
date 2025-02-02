@@ -3,9 +3,7 @@
 {% block feature %}
     {% if use_geo %}
     <header class="page-header tall-50" style="background-image:url('{{ context.dir~'/assets/images/localmap.jpg' }}');">
-        {% filter shortcodes %}
-            [TP-Inv-Map]
-        {% endfilter %}
+        {{ '[TP-Inv-Map]'|shortcodes }}
         <div class="page-header-content">
             <h1 class="article-h1">{{ title }}</h1>
         </div>
@@ -19,14 +17,10 @@
         {% if not use_geo %}
             <h1 class="archive-h1">{{ title }}</h1>
         {% endif %}
-        {% filter shortcodes %}
-            [TP-Inv-Filters]
-        {% endfilter %}
+        {{ '[TP-Inv-Filters]'|shortcodes }}
     </div>
 {% endblock %}
 
 {% block article_content_body %}
-    {% filter shortcodes %}
-        [TP-Inv-List]
-    {% endfilter %}
+    {{ '[TP-Inv-List]'|shortcodes }}
 {% endblock %}

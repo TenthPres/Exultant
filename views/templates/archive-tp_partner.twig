@@ -2,9 +2,7 @@
 
 {% block feature %}
     <header class="page-header tall-50" style="background-image:url('{{ context.dir~'/assets/images/worldmap-sat.jpg' }}');">
-        {% filter shortcodes %}
-            [TP-Partner-Map]
-        {% endfilter %}
+        {{ '[TP-Partner-Map]'|shortcodes }}
         <div class="page-header-content">
             <h1 class="article-h1">{{ title }}</h1>
         </div>
@@ -13,14 +11,10 @@
 
 {% block article_content_header %}
     <div class="archiveHeader">
-        {% filter shortcodes %}
-            [TP-Partner-Filters]
-        {% endfilter %}
+        {{ '[TP-Partner-Filters]'|shortcodes }}
     </div>
 {% endblock %}
 
 {% block article_content_body %}
-    {% filter shortcodes %}
-        [TP-Partner-List]
-    {% endfilter %}
+    {{ '[TP-Partner-List]'|shortcodes }}
 {% endblock %}

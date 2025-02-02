@@ -18,11 +18,11 @@
  *
  */
 
-use tp\TenthTheme;
+use tp\TenthTemplate\Exultant;
 
 $context = Timber\Timber::context();
 require 'commonContext.php';
-$timber_post     = new Timber\Post();
+$timber_post     = Timber::get_post();
 $context['post'] = $timber_post;
 $context['typeInfo']['includeByline'] = false;
-TenthTheme::render( [ 'page-' . $timber_post->post_name . '.twig', 'page.twig' ], $context );
+Exultant::render( [ 'page-' . $timber_post->post_name . '.twig', 'page.twig' ], $context );

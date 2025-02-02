@@ -11,19 +11,19 @@
  *
  */
 
-use tp\TenthTemplate\PostQuery;
-use tp\TenthTheme;
+use tp\TenthTemplate\Exultant;
 use tp\TouchPointWP\Involvement;
+use Timber\Timber;
 
-$templates = [ 'archive.twig', 'index.twig' ];
+$templates = [ 'templates/archive.twig', 'templates/index.twig' ];
 
-$context = Timber\Timber::context();
+$context = Timber::context();
 require 'commonContext.php';
 
 $context['title'] = 'Archive';
 $context['type'] = null;
 if ( is_day() ) {
-    $ordinalDate = TenthTheme::addOrdinalIndicator(get_the_date( 'j' ));
+    $ordinalDate = Exultant::addOrdinalIndicator(get_the_date( 'j' ));
     $context['title'] = str_replace("%", $ordinalDate, get_the_date( 'F %, Y' ));
     $context['type'] = "Date";
 } elseif ( is_month() ) {
@@ -46,13 +46,13 @@ if ( is_day() ) {
     if (substr(get_post_type(), 0, 7) == "tp_inv_") {
         $settings = Involvement::getSettingsForPostType(get_post_type());
         $context['use_geo'] = $settings->useGeo;
-        $addTemplates[] = "archive-" . get_post_type() . ".twig";
-        $addTemplates[] = "archive-tp_inv.twig";
+        $addTemplates[] = "templates/archive-" . get_post_type() . ".twig";
+        $addTemplates[] = "templates/archive-tp_inv.twig";
     }
-    $addTemplates[] = 'archive-' . get_post_type() . '.twig';
+    $addTemplates[] = 'templates/archive-' . get_post_type() . '.twig';
     array_unshift( $templates, ...$addTemplates);
 }
 
-$context['posts'] = new PostQuery();
+$context['posts'] = Timber::get_posts();
 
-TenthTheme::render( $templates, $context );
+Exultant::render( $templates, $context );
