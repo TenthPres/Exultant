@@ -6,9 +6,8 @@
  */
 
 use Timber\Timber;
-use tp\TenthTheme;
+use tp\TenthTemplate\Exultant;
 
 $context = Timber::context();
 require 'commonContext.php';
-TenthTheme::render('404.twig', $context );
-
+Exultant::render('templates/404.twig', $context );

@@ -7,6 +7,8 @@
  * @see footer.php
  */
 
+require_once 'vendor/autoload.php';
+
 $GLOBALS['timberContext'] = Timber\Timber::context();
 require 'commonContext.php';
 ob_start();

@@ -7,15 +7,14 @@
  */
 
 use Timber\Timber;
-use tp\TenthTheme;
-use tp\TenthTemplate\PostQuery;
+use tp\TenthTemplate\Exultant;
 use tp\TouchPointWP\Person;
 
 global $wp_query;
 
 $context          = Timber::context();
 require 'commonContext.php';
-$context['posts'] = new PostQuery();
+$context['posts'] = Timber::get_posts();
 $context['type']  = "Person";
 if ( isset( $wp_query->query_vars['author'] ) ) {
     $person = Person::fromId($wp_query->query_vars['author']);
@@ -23,10 +22,10 @@ if ( isset( $wp_query->query_vars['author'] ) ) {
         $context['person'] = $person;
         $context['title']  = $person->display_name;
 
-        TenthTheme::render(['person.twig', 'archive.twig'], $context);
+        Exultant::render(['templates/person.twig', 'archive.twig'], $context);
     } else {
-        TenthTheme::render(['404.twig'], $context);
+        Exultant::render(['templates/404.twig'], $context);
     }
 } else {
-    TenthTheme::render(['404.twig'], $context);
+    Exultant::render(['templates/404.twig'], $context);
 }

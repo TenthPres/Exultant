@@ -8,7 +8,7 @@
 		{{ function('wp_body_open') }}
 		{% block site_banner %}
 			<header role="banner" >
-				{% include 'site-banner.twig' %}
+				{% include 'partials/site-banner.twig' %}
 			</header>
 		{% endblock %}
 
@@ -81,7 +81,7 @@
 						<div class="comments">
 							{% if post.comments %}
 								{% for cmt in post.comments %}
-									{% include "comment.twig" with {comment:cmt} %}
+									{% include "partials/comment.twig" with {comment:cmt} %}
 								{% endfor %}
 							{% else %}
 								<p class="nocomments">No comments yet.</p>
@@ -105,7 +105,7 @@
 		<div id="site-footer">
 		{% block page_footer %}
 			<footer id="footer">
-				{% include 'footer.twig' %}
+				{% include 'partials/footer.twig' %}
 			</footer>
 		{% endblock %}
 		</div>

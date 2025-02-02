@@ -4,7 +4,5 @@
 {% set map_background = context.dir ~ '/assets/images/localmap.jpg' %}
 
 {% block map %}
-    {% filter shortcodes %}
-        [TP-Inv-Map]
-    {% endfilter %}
+    {{ '[TP-Inv-Map]'|shortcodes }}
 {% endblock %}

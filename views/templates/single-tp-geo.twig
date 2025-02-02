@@ -2,13 +2,13 @@
 
 {# the block map is set by the extending templates. #}
 {%- set map_rendered -%}
-    {%- if object.hasGeo() -%}
+    {%- if use_geo -%}
         {%- block map %}{% endblock -%}
     {%- endif -%}
 {%- endset -%}
 
 {% block feature %}
-    {% if not post.thumbnail and object.hasGeo() %}
+    {% if not post.thumbnail and use_geo %}
         <header class="page-header" style="background-image:url('{{ map_background }}');">
             {{ map_rendered }}
             {% block content_header %}

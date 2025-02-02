@@ -4,7 +4,5 @@
 {% set map_background = context.dir ~ '/assets/images/worldmap-sat.jpg' %}
 
 {% block map %}
-    {% filter shortcodes %}
-        [TP-Partner-Map]
-    {% endfilter %}
+    {{ '[TP-Partner-Map]'|shortcodes }}
 {% endblock %}
