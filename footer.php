@@ -5,7 +5,7 @@
  * @package Tenth_Template
  */
 
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 
 $timberContext = $GLOBALS['timberContext'];
 if ( ! isset( $timberContext ) ) {

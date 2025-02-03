@@ -1,6 +1,6 @@
 <?php
 
-namespace tp\TenthTemplate;
+namespace tp\Exultant;
 
 use tp\TouchPointWP\Involvement;
 use tp\TouchPointWP\Partner;

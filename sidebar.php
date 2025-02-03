@@ -6,6 +6,6 @@
  * @subpackage  Timber
  */
 
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 
 Exultant::render('sidebar.twig', []);

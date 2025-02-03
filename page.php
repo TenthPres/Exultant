@@ -18,10 +18,9 @@
  *
  */
 
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 
 $context = Timber\Timber::context();
-require 'commonContext.php';
 $timber_post     = Timber::get_post();
 $context['post'] = $timber_post;
 $context['typeInfo']['includeByline'] = false;

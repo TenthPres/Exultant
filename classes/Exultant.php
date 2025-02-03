@@ -1,13 +1,14 @@
 <?php
 
-namespace tp\TenthTemplate;
+namespace tp;
 
-use tp\TenthTemplate\Post;
+use tp\Exultant\AdminMenu;
+use tp\Exultant\Post;
 use Timber\Site;
 use Timber\Timber;
 use Twig\TwigFunction;
-use tp\TenthTemplate\TenthHeaderMenuWalker;
-use tp\TenthTemplate\TenthMenu;
+use tp\Exultant\HeaderMenuWalker;
+use tp\Exultant\Menu;
 use tp\TouchPointWP\Person;
 use Twig\Environment;
 use Twig\Extension\StringLoaderExtension;
@@ -79,10 +80,13 @@ class Exultant extends Site
     {
         add_action('after_setup_theme', [$this, 'themeSupports']);
         add_action('customize_register', [$this, 'customizeCustomizer']);
-        add_filter('timber/context', [$this, 'add_to_context']);
+        add_filter('timber/context', [$this, 'commonContext']);
         add_filter('timber/twig', [$this, 'addTwigRuntimeAndExtensions']);
         add_action('init', [$this, 'registerPostTypes']);
         add_action('init', [$this, 'registerTaxonomies']);
+
+        // use our own admin menu, integrated into the nav.
+        add_action('admin_bar_init', [AdminMenu::class, 'adminBarMenuHandler']);
 
         parent::__construct();
     }
@@ -101,23 +105,31 @@ class Exultant extends Site
      *
      * @param array $context context['this'] Being the Twig's {{ this }}.
      */
-    public function add_to_context(array $context)
-    {  // TODO remove?
+    public function commonContext(array $context): array
+    {
+        $context['context'] = [
+            'dir'               => get_template_directory_uri(),
+        ];
+
+        $context['typeInfo'] = [
+            'includeByline'     => true
+        ];
+
         $context['menus'] = [];
         if (has_nav_menu('primary')) {
-            $context['menus']['primary'] = new TenthMenu(
+            $context['menus']['primary'] = new Menu(
                 'primary', [
                              'menu_id'     => 'menu-primary',
                              'container'   => false,
                              'fallback_cb' => false,
                              'depth'       => 5,
 //                         'item_spacing' => 'discard', // remove to add newlines and spaces to nav html
-                             'walker'      => new TenthHeaderMenuWalker()
+                             'walker'      => new HeaderMenuWalker()
                          ]
             );
         }
         if (has_nav_menu('quick')) {
-            $context['menus']['quick'] = new TenthMenu(
+            $context['menus']['quick'] = new Menu(
                 'quick', [
                            'menu_id'     => 'menu-quick',
                            'container'   => false,
@@ -128,7 +140,7 @@ class Exultant extends Site
             );
         }
         if (has_nav_menu('footer')) {
-            $context['menus']['footer'] = new TenthMenu(
+            $context['menus']['footer'] = new Menu(
                 'footer', [
                             'container'      => '',
                             'depth'          => 2,
@@ -138,7 +150,7 @@ class Exultant extends Site
             );
         }
         if (has_nav_menu('social')) {
-            $context['menus']['social'] = new TenthMenu(
+            $context['menus']['social'] = new Menu(
                 'social', [
                             'theme_location' => 'social',
                             'container'      => '',
@@ -168,7 +180,7 @@ class Exultant extends Site
             if (!has_nav_menu($key)) {
                 $menu_id = wp_create_nav_menu($description);
                 if (!is_wp_error($menu_id)) {
-                    set_theme_mod('nav_menu_locations', array_merge(get_theme_mod('nav_menu_locations', []), [$location => $menu_id]));
+                    set_theme_mod('nav_menu_locations', array_merge(get_theme_mod('nav_menu_locations', []), [$key => $menu_id]));
                 }
             }
         }

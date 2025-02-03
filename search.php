@@ -11,7 +11,7 @@
 
 
 use Timber\Timber;
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 
 add_action('wp_ajax_load_search_results', 'ajaxSearchResults' );
 add_action('wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
@@ -19,7 +19,6 @@ add_action('wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
 $templates = ['templates/search.twig', 'templates/archive.twig', 'templates/index.twig'];
 
 $context          = Timber::context();
-require 'commonContext.php';
 $context['title'] = __('Search: ', 'TenthTemplate') . get_search_query();  // TODO i18n correctly.
 $context['posts'] = Timber::get_posts();
 

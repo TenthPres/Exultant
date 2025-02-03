@@ -7,13 +7,12 @@
  */
 
 use Timber\Timber;
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 use tp\TouchPointWP\Person;
 
 global $wp_query;
 
 $context          = Timber::context();
-require 'commonContext.php';
 $context['posts'] = Timber::get_posts();
 $context['type']  = "Person";
 if ( isset( $wp_query->query_vars['author'] ) ) {

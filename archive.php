@@ -11,14 +11,13 @@
  *
  */
 
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 use tp\TouchPointWP\Involvement;
 use Timber\Timber;
 
 $templates = [ 'templates/archive.twig', 'templates/index.twig' ];
 
 $context = Timber::context();
-require 'commonContext.php';
 
 $context['title'] = 'Archive';
 $context['type'] = null;

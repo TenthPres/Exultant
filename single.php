@@ -9,12 +9,11 @@
  */
 
 use Timber\Timber;
-use tp\TenthTemplate\Post;
-use tp\TenthTemplate\Exultant;
+use tp\Exultant\Post;
+use tp\Exultant;
 use tp\TouchPointWP\Involvement;
 
 $context         = Timber::context();
-require 'commonContext.php';
 /** @var Post $timber_post */
 $timber_post     = Timber::get_post();
 $context['post'] = $timber_post;

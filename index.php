@@ -9,10 +9,9 @@
 require_once 'vendor/autoload.php';
 
 use Timber\Timber;
-use tp\TenthTemplate\Exultant;
+use tp\Exultant;
 
 $context          = Timber::context();
-require 'commonContext.php';
 $context['posts'] = Timber::get_posts();
 $templates        = ['templates/index.twig'];
 if ( is_home() ) {

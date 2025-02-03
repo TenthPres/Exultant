@@ -1,8 +1,8 @@
 <?php
 
-namespace tp\TenthTemplate;
+namespace tp\Exultant;
 
-class TenthMenu {
+class Menu {
 
     private string $menuLocation;
     private array $params;

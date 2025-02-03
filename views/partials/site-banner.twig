@@ -11,6 +11,9 @@
     <div>
         {{ function('get_template_part', 'template-parts/user-menu') }}
     </div>
+    <div>
+        {{ function('get_template_part', 'template-parts/language-menu') }}
+    </div>
 </nav>
 {% endif %}
 {% if function('get_theme_mod', 'enable_header_nav', true) and menus.quick %}

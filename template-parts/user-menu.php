@@ -2,10 +2,14 @@
 
 /* Icon or Profile Picture */
 
-use tp\TenthTemplate\Exultant;
+use tp\Exultant\AdminMenu;
+use tp\Exultant;
 
-if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
-    echo "<label><img src=\"" . get_avatar_url(get_current_user_id(), ['size' => 64]) . "\" /></label>";
+$userId = get_current_user_id();
+if ($userId > 0 && !!get_avatar_url($userId)) {
+    $usersName = wp_get_current_user()->first_name;
+    $avatar    = get_avatar_url($userId, ['size' => 64]);
+    echo "<label><img src=\"$avatar\" alt=\"$usersName\" /></label>";
 } else {
     echo "<label class=\"las la-user\"></label>";
 } ?>
@@ -13,20 +17,19 @@ if (get_current_user_id() > 0 && get_avatar_url(get_current_user_id()) !== "") {
 <ul>
     <li>
         <?php
-        if (get_current_user_id() === 0) {
+        if ($userId === 0) {
             echo "<a href=\"" . wp_login_url(get_permalink()) . "\">" . __('Sign In', 'TenthTemplate') . "</a>";
         } else {
             $current_user = wp_get_current_user();
             if ($current_user->first_name . $current_user->last_name === "") {
-                echo "<span>" . $current_user->user_nicename . "</span>";
+                $userPrettyName = $current_user->user_nicename;
             } else {
-                echo "<span>" . trim($current_user->first_name . " " . $current_user->last_name) . "</span>";
+                $userPrettyName = trim($current_user->first_name . " " . $current_user->last_name);
             }
+            echo "<span>$userPrettyName</span>";
             echo "<div id=\"userMenu\">";
 
-            if (class_exists(TenthAdminMenu::class)) {
-                TenthAdminMenu::renderSingleton(true);
-            }
+            AdminMenu::renderSingleton(true);
             ?>
             <ul>
                 <li><?php

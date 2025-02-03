@@ -29,7 +29,8 @@
     },
     "autoload": {
         "psr-4": {
-            "tp\\TenthTemplate\\": "classes/"
+            "tp\\": "classes/",
+            "tp\\Exultant\\": "classes/"
         }
     }
 }

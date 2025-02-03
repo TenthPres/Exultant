@@ -1,11 +1,11 @@
 <?php
 
-namespace tp\TenthTemplate;
+namespace tp\Exultant;
 
 
 use WP_Post;
 
-class TenthHeaderMenuWalker extends \Walker_Nav_Menu {
+class HeaderMenuWalker extends \Walker_Nav_Menu {
 
 	/**
 	 * Starts the list before the elements are added.
