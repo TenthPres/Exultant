@@ -5,6 +5,8 @@
 use tp\Exultant\AdminMenu;
 use tp\Exultant;
 
+try {
+
 $userId = get_current_user_id();
 if ($userId > 0 && !!get_avatar_url($userId)) {
     $usersName = wp_get_current_user()->first_name;
@@ -29,7 +31,9 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
             echo "<span>$userPrettyName</span>";
             echo "<div id=\"userMenu\">";
 
-            AdminMenu::renderSingleton(true);
+            if (!is_customize_preview()) {
+                AdminMenu::renderSingleton(true);
+            }
             ?>
             <ul>
                 <li><?php
@@ -75,3 +79,7 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
         } ?>
     </li>
 </ul>
+
+<?php } catch (Exception $e) {
+    var_dump($e);
+} ?>
