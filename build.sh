@@ -29,6 +29,11 @@ npm install -g csso-cli
 lessc style.less style.css --source-map-include-source --source-map=style.css.map
 csso -i style.css -o style.min.css -s style.min.css.map --input-source-map style.css.map
 
+if [ ! -f style.min.css ]; then
+    echo "CSS generation failed."
+    exit 1
+fi
+
 cp style.min.css build/style.css
 cp style.min.css.map build/style.min.css.map
 
