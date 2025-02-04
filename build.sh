@@ -24,9 +24,10 @@ cd ./build || exit
 cd ..
 
 # run lessc and copy to build
-npm install
+npm install -g less
+npm install -g csso
 lessc style.less style.css --source-map-include-source --source-map=style.css.map
-cleancss style.css -o style.min.css --input-source-map=style.css.map
+csso -i style.css -o style.min.css -s style.min.css.map --input-source-map style.css.map
 
 cp style.min.css build/style.css
 cp style.min.css.map build/style.min.css.map
