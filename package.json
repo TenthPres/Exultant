@@ -1,0 +1,24 @@
+{
+  "name": "exultant",
+  "version": "1.0.0",
+  "description": "WordPress theme for Tenth Presbyterian Church",
+  "homepage": "https://github.com/TenthPres/WebTemplate#readme",
+  "bugs": {
+    "url": "https://github.com/TenthPres/WebTemplate/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TenthPres/WebTemplate.git"
+  },
+  "license": "MIT",
+  "author": "James Kurtz",
+  "type": "WordPress Theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "less": "^4",
+    "clean-css-cli": "^4"
+  }
+}
