@@ -9,13 +9,13 @@ composer install
 npm update
 
 rm -r build
-rm exultant.zip
+#rm exultant.zip
 mkdir build
 mkdir build/assets
 mkdir build/assets/js
 
 # install uglify and uglify the JS files.
-echo $(npm install uglifyjs-folder -g)
+npm install uglifyjs-folder -g
 
 # uglify all files in assets/js
 uglifyjs-folder assets/js -o build/assets/js/
@@ -24,34 +24,30 @@ cd ./build || exit
 cd ..
 
 # run lessc and copy to build
-echo $(npm install -g less)
-lessc style.less > style.css --source-map-map-inline
-cp style.less > build/style.less
-cp style.css build/style.css
+npm install
+lessc style.less style.css --source-map-include-source --source-map=style.css.map
+cleancss style.css -o style.min.css --input-source-map=style.css.map
 
-# use csso to minify the css and create a sourcemap
-echo $(npm install -g csso)
-csso style.css -o build/style.min.css -s file
-
+cp style.min.css build/style.css
+cp style.min.css.map build/style.min.css.map
 
 # compile translations
-if [ ! -f wp-cli.phar ]; then
-    wget -O wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-fi
+#if [ ! -f wp-cli.phar ]; then
+#    wget -O wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+#fi
+#
+#cp -r ./i18n ./build/i18n
+#
+#php ./wp-cli.phar i18n make-json ./build/i18n
+#php ./wp-cli.phar i18n make-mo ./build/i18n
+#cp ./wpml-config.xml ./build/wpml-config.xml
+#cp ./composer.json ./build/composer.json
 
-cp -r ./i18n ./build/i18n
 
-php ./wp-cli.phar i18n make-json ./build/i18n
-php ./wp-cli.phar i18n make-mo ./build/i18n
-cp ./wpml-config.xml ./build/wpml-config.xml
-cp ./composer.json ./build/composer.json
-
-cp -r ./ext ./build/ext
-cp -r ./src ./build/src
 cp -r ./classes ./build/classes
 cp -r ./views ./build/views
 cp -r ./template-parts ./build/template-parts
-cp -r ./vendor ./build/vendor  # check that this is really what we want to do
+cp -r ./vendor ./build/vendor
 
 find . -maxdepth 1 -iname "*.php" -exec cp {} build/ \;
 find . -maxdepth 1 -iname "*.md" -exec cp {} build/ \;
