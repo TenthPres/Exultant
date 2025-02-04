@@ -25,7 +25,7 @@ cd ..
 
 # run lessc and copy to build
 npm install -g less
-npm install -g csso
+npm install -g csso-cli
 lessc style.less style.css --source-map-include-source --source-map=style.css.map
 csso -i style.css -o style.min.css -s style.min.css.map --input-source-map style.css.map
 
