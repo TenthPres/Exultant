@@ -15,8 +15,11 @@ jobs:
       with:
         node-version: 'latest'
 
-    - name: Install dependencies
+    - name: Install NPM dependencies
       run: npm install
+
+    - name: Install Composer dependencies
+      run: composer install
 
     - name: Build
       run: npm run build
