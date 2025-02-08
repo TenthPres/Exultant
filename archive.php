@@ -40,15 +40,15 @@ if ( is_day() ) {
     array_unshift( $templates, 'archive-' . get_query_var( 'cat' ) . '.twig' );
 } elseif ( is_post_type_archive() ) {
     $context['title'] = post_type_archive_title( '', false );
-    $context['type'] = get_post_type();
+    $type = get_post_type();
+    $context['type'] = $type;
     $addTemplates = [];
-    if (substr(get_post_type(), 0, 7) == "tp_inv_") {
-        $settings = Involvement::getSettingsForPostType(get_post_type());
+    $addTemplates[] = 'templates/archive-' . $type . '.twig';
+    if (Involvement::postTypeMatches($type)) {
+        $settings = Involvement::getSettingsForPostType($type);
         $context['use_geo'] = $settings->useGeo;
-        $addTemplates[] = "templates/archive-" . get_post_type() . ".twig";
         $addTemplates[] = "templates/archive-tp_inv.twig";
     }
-    $addTemplates[] = 'templates/archive-' . get_post_type() . '.twig';
     array_unshift( $templates, ...$addTemplates);
 }
 
