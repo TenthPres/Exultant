@@ -4,7 +4,7 @@ namespace tp\Exultant;
 
 use tp\TouchPointWP\Involvement;
 use tp\TouchPointWP\Partner;
-use tp\TouchPointWP\TouchPointWP;
+use tp\TouchPointWP\PostTypeCapable;
 use tp\TouchPointWP\TouchPointWP_Exception;
 
 class Post extends \Timber\Post
@@ -41,15 +41,15 @@ class Post extends \Timber\Post
      *
      * @throws TouchPointWP_Exception
      */
-    public function toObject()
+    public function toObject(): ?PostTypeCapable
     {
         $post = get_post($this->id);
 
-        if ($this->post_type == "tp_partner") {
+        if (Partner::postIsType($post)) {
             return Partner::fromPost($post);
         }
 
-        if (substr($this->post_type, 0, 7) == "tp_inv_") {
+        if (Involvement::postIsType($post)) {
             return Involvement::fromPost($post);
         }
 

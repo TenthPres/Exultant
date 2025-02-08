@@ -26,19 +26,19 @@ if (post_password_required($timber_post->ID)) {
     $context['object'] = $timber_post->toObject();
 
     $templates = [
-        'templates/single-' . $timber_post->ID . '.twig',
-        'templates/single-' . $timber_post->post_type . '.twig',
-        'templates/single-' . $timber_post->slug . '.twig',
-        'templates/single.twig'
+        "templates/single-$timber_post->ID.twig",
+        "templates/single-$timber_post->slug.twig",
+        "templates/single-$timber_post->post_type.twig",
+        "templates/single.twig"
     ];
 
-    if (str_starts_with(get_post_type(), "tp_inv_")) {
-        $settings = Involvement::getSettingsForPostType(get_post_type());
+    $type = get_post_type();
+    $addTemplates[] = "templates/single-$type.twig";
+    if (Involvement::postTypeMatches($type)) {
+        $settings = Involvement::getSettingsForPostType($type);
         $context['use_geo'] = $settings->useGeo;
-        $addTemplates[] = "templates/single-" . get_post_type() . ".twig";
         $addTemplates[] = "templates/single-tp_inv.twig";
     }
-    $addTemplates[] = 'templates/single-' . get_post_type() . '.twig';
 
     array_unshift( $templates, ...$addTemplates);
 
