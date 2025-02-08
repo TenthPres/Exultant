@@ -2,6 +2,14 @@
 
 {% set main_class = 'error' %}
 
+{% block head %}
+<script>
+    setTimeout(function(){
+        window.location.reload();
+    }, 30000);
+</script>
+{% endblock %}
+
 {% block corset %}
     <div>
         <h1>{{ _e( 'Maintenance', 'TenthTemplate') }}</h1>
