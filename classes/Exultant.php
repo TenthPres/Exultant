@@ -2,6 +2,7 @@
 
 namespace tp;
 
+use Timber\Loader;
 use tp\Exultant\AdminMenu;
 use tp\Exultant\Post;
 use Timber\Site;
@@ -23,10 +24,10 @@ use WP_Query;
 
 class Exultant extends Site
 {
-    protected static $singleton = null;
+    protected static ?self $singleton = null;
 
 
-    public static $joiner = "  &sdot;  ";
+    public static string $joiner = "  &sdot;  ";
 
     /**
      * Get the singleton.
@@ -80,8 +81,17 @@ class Exultant extends Site
     {
         add_action('after_setup_theme', [$this, 'themeSupports']);
         add_action('customize_register', [$this, 'customizeCustomizer']);
+
         add_filter('timber/context', [$this, 'commonContext']);
         add_filter('timber/twig', [$this, 'addTwigRuntimeAndExtensions']);
+        add_filter('timber/post/classmap', function ($classMap) {
+            // make all post types use our custom Post class
+            foreach (get_post_types() as $postType) {
+                $classMap[$postType] = Post::class;
+            }
+            return $classMap;
+        });
+
         add_action('init', [$this, 'registerPostTypes']);
         add_action('init', [$this, 'registerTaxonomies']);
 
@@ -265,24 +275,34 @@ class Exultant extends Site
         $twig->addFunction(new TwigFunction('byline', [self::class, 'byline']));
         $twig->addFunction(new TwigFunction('breadcrumbs', [self::class, 'breadcrumbs']));
         $twig->addFunction(new TwigFunction('trim', 'trim'));
-        $twig->addFunction(new TwigFunction('option', 'get_option'));
+//        $twig->addFunction(new TwigFunction('option', 'get_option'));
 
         return $twig;
     }
 
-    public static function byline($p): string
+    /**
+     * Get the byline for a given post, or the current post if none is provided.
+     *
+     * TODO this should be completely reworked to work better with TouchPoint and not include authors on post types where they don't belong.
+     *
+     * @param $p
+     * @return string
+     */
+    public static function byline($p = null): string
     {
         /** @var Post $p */
 
         $items = [];
+        $author = null;
+
+        if ($p === null) {
+            $p = Timber::get_post();
+            $author = $p->author();
+        }
 
         if (!is_author()) {
-            $author = get_the_author();
-
-            if ($author) {
-                $items[] = $author;
-            } elseif ($p->author && $p->author->ID !== 0) {
-                $items[] = __('By ') . "<a href=\"{$p->author->path}\">{$p->author->name}</a>";
+            if ($author && $author->ID !== 0) {
+                $items[] = __('By ') . "<a href=\"{$author->path()}\">{$author->name()}</a>";
             }
         }
 
@@ -312,29 +332,29 @@ class Exultant extends Site
      * @param array|string $filenames  Name of the Twig file to render. If this is an array of files, Timber will
      *                                 render the first file that exists.
      * @param array        $data       Optional. An array of data to use in Twig template.
-     * @param bool|int     $expires    Optional. In seconds. Use false to disable cache altogether. When passed an
+     * @param bool|int $expires    Optional. In seconds. Use false to disable cache altogether. When passed an
      *                                 array, the first value is used for non-logged in visitors, the second for users.
      *                                 Default false.
      * @param string       $cache_mode Optional. Any of the cache mode constants defined in TimberLoader.
      *
      * @return void
      *
-     * @see \Timber\Timber::render
+     * @see Timber::render
      */
-    public static function render( $filenames, array $data = [], $expires = false, string $cache_mode = \Timber\Loader::CACHE_USE_DEFAULT ): void
+    public static function render(array|string $filenames, array $data = [], bool|int $expires = false, string $cache_mode = Loader::CACHE_USE_DEFAULT ): void
     {
         self::instance();
 
         // TODO what is the purpose of this?
         if (in_array('administrator',  wp_get_current_user()->roles)) {
-            $loader = new \Timber\Loader();
+            $loader = new Loader();
             $file = $loader->choose_template($filenames);
             self::$renderedFilename = $file;
         }
         Timber::render($filenames, $data, $expires, $cache_mode);
     }
 
-    public static $renderedFilename = null;
+    public static ?string $renderedFilename = null;
 
     /**
      * Provides a time to read as a human-readable string.
@@ -400,7 +420,8 @@ class Exultant extends Site
         return $words / $speed_wpm;
     }
 
-    private static $_breadcrumbs = null;
+    /** @var ?object[]  */
+    private static ?array $_breadcrumbs = null;
 
     /**
      * Generate an array of info to be used for breadcrumbs.
@@ -461,7 +482,7 @@ class Exultant extends Site
      *
      * TODO i18n
      */
-    public static function addOrdinalIndicator($num): string
+    public static function addOrdinalIndicator(float|int|string $num): string
     {
         $num = intval($num);
         $ind = $num % 100;
@@ -516,7 +537,7 @@ class Exultant extends Site
             $url = str_replace($wp_rewrite->index . '/', '', $url);
         }
 
-        if (false !== strpos(trailingslashit($url), home_url('/'))) {
+        if (str_contains(trailingslashit($url), home_url('/'))) {
             // Chop off http://domain.com/[path].
             $url = str_replace(home_url(), '', $url);
         } else {
@@ -543,7 +564,7 @@ class Exultant extends Site
         foreach ((array)$rewrite as $match => $query) {
             if (preg_match("#^$match#", $request_match, $matches)) {
                 if ($wp_rewrite->use_verbose_page_rules && preg_match(
-                        '/pagename=\$matches\[([0-9]+)\]/',
+                        '/pagename=\$matches\[([0-9]+)]/',
                         $query,
                         $varMatch
                     )) {
@@ -573,7 +594,7 @@ class Exultant extends Site
                 $query = [
                     'posts_per_page' => 2
                 ];
-                foreach ((array)$query_vars as $key => $value) {
+                foreach ($query_vars as $key => $value) {
                     if (in_array((string)$key, $wp->public_query_vars, true)) {
                         $query[$key] = $value;
                         if (isset($post_type_query_vars[$key])) {

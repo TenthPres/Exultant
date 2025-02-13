@@ -36,7 +36,7 @@ if (post_password_required($timber_post->ID)) {
     $addTemplates[] = "templates/single-$type.twig";
     if (Involvement::postTypeMatches($type)) {
         $settings = Involvement::getSettingsForPostType($type);
-        $context['use_geo'] = $settings->useGeo;
+        $context['use_geo'] = ($settings->useGeo && $context['object']?->hasGeo());
         $addTemplates[] = "templates/single-tp_inv.twig";
     }
 
