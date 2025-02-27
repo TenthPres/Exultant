@@ -42,6 +42,12 @@ class Exultant extends Site
         return self::$singleton;
     }
 
+    /**
+     * Adjust the Customizer to reflect actual options.
+     *
+     * @param $wp_customize
+     * @return void
+     */
     public function customizeCustomizer($wp_customize): void
     {
 
@@ -77,6 +83,82 @@ class Exultant extends Site
         ]);
     }
 
+    /**
+     * Disable unwanted default WordPress things -- emojis, admin bar, etc.
+     *
+     * @return void
+     */
+    public function disableUnwantedDefaultWordPressThings_init(): void
+    {
+        remove_action('wp_head', 'print_emoji_detection_script', 7);
+        remove_action('admin_print_scripts', 'print_emoji_detection_script');
+        remove_action('wp_print_styles', 'print_emoji_styles');
+        remove_action('admin_print_styles', 'print_emoji_styles');
+        remove_filter('the_content_feed', 'wp_staticize_emoji');
+        remove_filter('comment_text_rss', 'wp_staticize_emoji');
+        remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+    }
+
+    /**
+     * Disable unwanted default WordPress things -- specifically scripts
+     *
+     * @return void
+     */
+    public function disableUnwantedDefaultWordPressThings_scripts(): void
+    {
+        wp_dequeue_script('admin-bar');
+        wp_dequeue_script('hoverintent-js');
+        wp_dequeue_script('jquery');
+        wp_dequeue_script('jquery-core');
+        wp_dequeue_script('jquery-migrate');
+
+        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('classic-theme-styles');
+        wp_dequeue_style('global-styles');
+        wp_dequeue_style('wpml-blocks');
+        wp_dequeue_style('core-block-supports' );
+        wp_dequeue_style('core-block-supports-duotone');
+        wp_dequeue_style('core-block-supports');
+    }
+
+    /**
+     * Filter out unwanted prefetch domains.
+     *
+     * @param array $urls
+     * @param string $relation_type
+     *
+     * @return array
+     * @noinspection PhpMissingReturnTypeInspection
+     * @noinspection PhpMissingParamTypeInspection
+     */
+    public function filterPrefetchDomains($urls, $relation_type)
+    {
+        if ('dns-prefetch' === $relation_type) {
+            $emoji_url = apply_filters('emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/');
+            $urls = array_diff($urls, [$emoji_url]);
+        }
+
+        return $urls;
+    }
+
+    /**
+     * Remove emojis from TinyMCE
+     *
+     * @param $plugins
+     * @return array
+     */
+    public function handleTinyMceInclusions($plugins)
+    {
+        if (is_array($plugins)) {
+            return array_diff($plugins, ['wpemoji']);
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * Exultant constructor.  Establishes most timber-related filters.
+     */
     protected function __construct()
     {
         add_action('after_setup_theme', [$this, 'themeSupports']);
@@ -84,16 +166,16 @@ class Exultant extends Site
 
         add_filter('timber/context', [$this, 'commonContext']);
         add_filter('timber/twig', [$this, 'addTwigRuntimeAndExtensions']);
-        add_filter('timber/post/classmap', function ($classMap) {
-            // make all post types use our custom Post class
-            foreach (get_post_types() as $postType) {
-                $classMap[$postType] = Post::class;
-            }
-            return $classMap;
-        });
+        add_filter('timber/post/classmap', [Post::class, 'classMap']);
 
         add_action('init', [$this, 'registerPostTypes']);
         add_action('init', [$this, 'registerTaxonomies']);
+
+        // Remove unwanted default WordPress things
+        add_action('init', [$this, 'disableUnwantedDefaultWordPressThings_init']);
+        add_filter('tiny_mce_plugins', [$this, 'handleTinyMceInclusions']);
+        add_filter('wp_resource_hints', [$this, 'filterPrefetchDomains'], 10, 2);
+        add_action('wp_enqueue_scripts', [$this, 'disableUnwantedDefaultWordPressThings_scripts'], 99);
 
         // use our own admin menu, integrated into the nav.
         add_action('admin_bar_init', [AdminMenu::class, 'adminBarMenuHandler']);
