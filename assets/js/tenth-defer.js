@@ -86,7 +86,7 @@ if (!!document.getElementById('search-input')) {
         while (ul.lastChild !== statusLi) {
             ul.removeChild(ul.lastChild)
         }
-        statusSpan.innerText = "Start Typing..." // TODO i18n
+        statusSpan.innerText = __("Start Typing...", "Exultant");
         statusLi.style.display = "";
     }
 

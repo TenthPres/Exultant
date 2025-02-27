@@ -171,7 +171,7 @@ function tenthTemplate_get_post_meta($post_id = null, $location = 'single-top')
                         <?php
                         printf(
                         /* translators: %s: Author name. */ // TODO integrate multi-author
-                            __('By %s', 'tenthTemplate'),
+                            __('By %s', 'Exultant'),
                             '<a href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(
                                 get_the_author_meta('display_name')
                             ) . '</a>'
@@ -313,7 +313,7 @@ add_filter( 'page_css_class', 'twentytwenty_filter_wp_list_pages_item_classes', 
 //			$toggle_target_string = '.menu-modal .menu-item-' . $item->ID . ' > .sub-menu';
 //
 //			// Add the sub menu toggle.
-//			$args->after .= '<button class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" aria-expanded="false"><span class="screen-reader-text">' . __( 'Show sub menu', 'tenthtemplate' ) . '</span>' . twentytwenty_get_theme_svg( 'chevron-down' ) . '</button>';
+//			$args->after .= '<button class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" aria-expanded="false"><span class="screen-reader-text">' . __( 'Show sub menu', 'Exultant' ) . '</span>' . twentytwenty_get_theme_svg( 'chevron-down' ) . '</button>';
 //
 //		}
 //

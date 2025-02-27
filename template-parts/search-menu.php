@@ -10,7 +10,7 @@ $searchResultsId = 'search-results-list';
         <?php
         get_search_form(
             [
-                'placeholder' => __('Search', 'TenthTemplate'),
+                'placeholder' => __('Search', 'Exultant'),
                 'id'          => $searchId,
                 'resultsId'   => $searchResultsId
             ]
@@ -18,7 +18,7 @@ $searchResultsId = 'search-results-list';
         ?>
         <div>
             <ul id="<?php echo $searchResultsId; ?>" class="search-results">
-                <li><span class="start-typing" id="search-results-status"><?php _e("Start Typing...", 'TenthTemplate'); ?></span></li>
+                <li><span class="start-typing" id="search-results-status"><?php _e("Start Typing...", 'Exultant'); ?></span></li>
             </ul>
         </div>
     </div>

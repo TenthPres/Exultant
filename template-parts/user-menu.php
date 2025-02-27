@@ -18,7 +18,7 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
     <li>
         <?php
         if ($userId === 0) {
-            echo "<a href=\"" . wp_login_url(get_permalink()) . "\">" . __('Sign In', 'TenthTemplate') . "</a>";
+            echo "<a href=\"" . wp_login_url(get_permalink()) . "\">" . __('Sign In', 'Exultant') . "</a>";
         } else {
             $current_user = wp_get_current_user();
             if ($current_user->first_name . $current_user->last_name === "") {
@@ -36,12 +36,12 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
             <ul>
                 <li><?php
                     echo "<a href=\"" . get_edit_profile_url() . "\">";
-                    echo __("My Profile", "TenthTemplate");
+                    echo __("My Profile", "Exultant");
                     echo "</a>"; ?>
                     <ul>
                         <li><?php
                             echo "<a href=\"" . wp_logout_url(get_permalink()) . "\">";
-                            echo __("Logout", "TenthTemplate");
+                            echo __("Logout", "Exultant");
                             echo "</a>"; ?>
                         </li>
                     </ul>
@@ -53,19 +53,19 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
                     $postType     = get_post_type(get_queried_object());
                     ?>
                     <li>
-                        <span><?php _e("PHP Template", "TenthTemplate") ?></span>
+                        <span><?php _e("PHP Template", "Exultant") ?></span>
                         <ul>
                             <li><span><?php echo $phpTemplate; ?></span></li>
                         </ul>
                     </li>
                     <li>
-                        <span><?php _e("Twig Template", "TenthTemplate") ?></span>
+                        <span><?php _e("Twig Template", "Exultant") ?></span>
                         <ul>
                             <li><span><?php echo Exultant::$renderedFilename; ?></span></li>
                         </ul>
                     </li>
                     <li>
-                        <span><?php _e("Post Type", "TenthTemplate") ?></span>
+                        <span><?php _e("Post Type", "Exultant") ?></span>
                         <ul>
                             <li><span><?php echo $postType; ?></span></li>
                         </ul>

@@ -19,7 +19,8 @@ add_action('wp_ajax_nopriv_load_search_results', 'ajaxSearchResults' );
 $templates = ['templates/search.twig', 'templates/archive.twig', 'templates/index.twig'];
 
 $context          = Timber::context();
-$context['title'] = __('Search: ', 'TenthTemplate') . get_search_query();  // TODO i18n correctly.
+// translators: %s is the search query string
+$context['title'] = sprintf(__('Search: %s', 'Exultant'), get_search_query());
 $context['posts'] = Timber::get_posts();
 
 Exultant::render($templates, $context);

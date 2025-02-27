@@ -63,9 +63,9 @@ class Exultant extends Site
 
         // Add a new section for the header navigation
         $wp_customize->add_section('navigation_section', [
-            'title'       => __('Navigation', 'TenthTemplate'),
+            'title'       => __('Navigation', 'Exultant'),
             'priority'    => 30,
-            'description' => __('Settings for the navigation.', 'TenthTemplate'),
+            'description' => __('Settings for the navigation.', 'Exultant'),
         ]);
 
         // Add a new setting for enabling/disabling the header navigation
@@ -76,7 +76,7 @@ class Exultant extends Site
 
         // Add a new control for the header navigation setting
         $wp_customize->add_control('enable_header_nav_control', [
-            'label'    => __('Enable Header Navigation', 'TenthTemplate'),
+            'label'    => __('Enable Header Navigation', 'Exultant'),
             'section'  => 'navigation_section',
             'settings' => 'enable_header_nav',
             'type'     => 'checkbox',
@@ -262,10 +262,10 @@ class Exultant extends Site
     public function themeSupports(): void
     {
         $menus = [
-           'primary' => __('Primary Menu', 'TenthTemplate'),
-           'quick'   => __('Quick Menu', 'TenthTemplate'),
-           'footer'  => __('Footer Menu', 'TenthTemplate'),
-           'social'  => __('Social Menu', 'TenthTemplate'),
+           'primary' => __('Primary Menu', 'Exultant'),
+           'quick'   => __('Quick Menu', 'Exultant'),
+           'footer'  => __('Footer Menu', 'Exultant'),
+           'social'  => __('Social Menu', 'Exultant'),
         ];
 
         foreach ($menus as $key => $description) {
@@ -449,38 +449,21 @@ class Exultant extends Site
         $mins  = self::timeToRead_min($content);
         /** @noinspection SpellCheckingInspection */
         $rmins = round($mins * 2) / 2;
-        $pre   = __('Read Time: ', 'tenthtemplate');
 
-        if ($rmins === 0 || $mins * 60 < 27.5) {
+        if ($rmins === 0.0) { // exclude things that round to zero
             return null;
         }
-        if ($rmins < 1) {
+        if ($mins < 1) {
             $secs = round($mins * 12) * 5;
-            return $pre . sprintf(
-            /* translators: %s: number of seconds. */
-                __( '%s seconds', 'tenthtemplate'),
-                $secs
-            );
+
+            // translators: %s: number of seconds
+            $s = sprintf(_n('%s second', '%s seconds', $secs, 'Exultant'), number_format_i18n($secs));
+        } else {
+            // translators: %s: number of minutes
+            $s = sprintf(_n('%s minute', '%s minutes', $rmins, 'Exultant'), number_format_i18n($rmins));
         }
-        if ($rmins === 1.0) {
-            return $pre . sprintf(
-            /* translators: %s: 1 */
-                __( '%s minute', 'tenthtemplate' ),
-                $rmins
-            );
-        }
-        if ($rmins < 4) {
-            return $pre . sprintf(
-            /* translators: %s: number of minutes. */
-                __( '%s minutes', 'tenthtemplate' ),
-                $rmins
-            );
-        }
-        return $pre . sprintf(
-        /* translators: %s: number of minutes. */
-            __( '%s minutes', 'tenthtemplate' ),
-            round($mins)
-        );
+        // translators: %s: a string like "8 minutes" or "30 seconds"
+        return sprintf(__('Read Time: %s', 'Exultant'), $s);
     }
 
     /**

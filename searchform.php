@@ -1,7 +1,7 @@
 <?php
 /**
  * The searchform.php template.
- *
+ * TODO this needs to be simplified, since most of this enev
  * Used any time that get_search_form() is called.
  *
  * Optional arguments:
@@ -15,8 +15,8 @@
 
 
 $search_elt_id = $args['id'] ?? wp_unique_id('search-form-');
-$placeholder   = $args['placeholder'] ?? esc_attr_x( 'Search&hellip;', 'placeholder', 'tenthtemplate' );
-$submit        = $args['submit'] ?? esc_attr_x( 'Search', 'submit button', 'tenthtemplate' );
+$placeholder   = $args['placeholder'] ?? esc_attr_x( 'Search', 'placeholder', 'Exultant' );
+$submit        = $args['submit'] ?? esc_attr_x( 'Search', 'submit button', 'Exultant' );
 ?>
 <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
     <?php if (!empty($args['label'])) { ?>

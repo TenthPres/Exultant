@@ -4,3 +4,7 @@ vendor/*
 */node_modules
 */package-lock.json
 build
+
+i18n/*.php
+i18n/*.mo
+i18n/*.json
