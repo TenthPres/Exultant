@@ -9,7 +9,10 @@ if (!(test-path $pharFile -newerThan $compareDt))
 
 Remove-Item "i18n/*.json"
 Remove-Item "i18n/*.mo"
+Remove-Item "i18n/*.php"
 
 php .\wp-cli.phar i18n make-json i18n --no-purge
 php .\wp-cli.phar i18n make-mo i18n
 php .\wp-cli.phar i18n make-php i18n
+
+xcopy /E /Y /I i18n build\i18n

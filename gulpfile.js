@@ -4,7 +4,7 @@ import uglify from "gulp-uglify";
 import less from "gulp-less";
 import csso from "gulp-csso";
 import sourcemaps from "gulp-sourcemaps";
-import { exec as execCb } from "node:child_process";
+import { exec as execCb, spawn } from "node:child_process";
 // import imagemin from "gulp-imagemin";  // maybe someday when imagemin doesn't have a ton of deprecated dependencies
 
 // Paths
@@ -35,11 +35,26 @@ gulp.task("clean", function () {
 
 // Build i18n
 gulp.task("i18n", function (cb) {
-    execCb("./build_i18n.sh", function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+    if (process.platform === "win32") {
+        let child = spawn("powershell.exe",[".\\generateI18n_2forPublish.ps1"]);
+        child.stdout.on("data",function(data){
+            console.log("Powershell Data: " + data);
+        });
+        child.stderr.on("data",function(data){
+            console.log("Powershell Errors: " + data);
+        });
+        child.on("exit",function(){
+            console.log("Powershell Script finished");
+            cb();
+        });
+        child.stdin.end(); //end input
+    } else {
+        execCb("./build_i18n.sh", function (err, stdout, stderr) {
+            console.log(stdout);
+            console.log(stderr);
+            cb(err);
+        });
+    }
 });
 
 // Copy and minify JavaScript

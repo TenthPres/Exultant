@@ -3,10 +3,10 @@
 vendor/*
 */node_modules
 */package-lock.json
-build
+build/*
 
 i18n/*.php
 i18n/*.mo
 i18n/*.json
 
-/wp-cli.phar
+*.phar
