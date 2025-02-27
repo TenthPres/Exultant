@@ -427,12 +427,10 @@ class Exultant extends Site
     {
         self::instance();
 
-        // TODO what is the purpose of this?
-        if (in_array('administrator',  wp_get_current_user()->roles)) {
-            $loader = new Loader();
-            $file = $loader->choose_template($filenames);
-            self::$renderedFilename = $file;
-        }
+        $loader = new Loader();
+        $file = $loader->choose_template($filenames);
+        self::$renderedFilename = $file;  // makes filename available to the user menu partial
+
         Timber::render($filenames, $data, $expires, $cache_mode);
     }
 
