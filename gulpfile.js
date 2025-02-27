@@ -35,12 +35,7 @@ gulp.task("clean", function () {
 
 // Build i18n
 gulp.task("i18n", function (cb) {
-    execCb("cd", function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        // cb(err);
-    });
-    execCb("build_i18n.sh", function (err, stdout, stderr) {
+    execCb("./build_i18n.sh", function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
