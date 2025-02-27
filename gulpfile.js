@@ -4,6 +4,7 @@ import uglify from "gulp-uglify";
 import less from "gulp-less";
 import csso from "gulp-csso";
 import sourcemaps from "gulp-sourcemaps";
+import { exec as execCb } from "node:child_process";
 // import imagemin from "gulp-imagemin";  // maybe someday when imagemin doesn't have a ton of deprecated dependencies
 
 // Paths
@@ -30,6 +31,20 @@ const paths = {
 // Clean build directory
 gulp.task("clean", function () {
     return gulp.src(paths.build, { allowEmpty: true, read: false }).pipe(clean());
+});
+
+// Build i18n
+gulp.task("i18n", function (cb) {
+    execCb("cd", function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        // cb(err);
+    });
+    execCb("build_i18n.sh", function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
 });
 
 // Copy and minify JavaScript
@@ -74,5 +89,5 @@ gulp.task("copy-dirs", function () {
 // Default task sequence
 export default gulp.task(
     "default",
-    gulp.series("clean", gulp.parallel("images", "minify-js", "styles"), "copy-files", "copy-dirs")
+    gulp.series("clean", "i18n", gulp.parallel("images", "minify-js", "styles"), "copy-files", "copy-dirs")
 );
