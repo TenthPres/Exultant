@@ -4,11 +4,13 @@
  *
  * Allow `async` and `defer` while enqueuing Javascript.
  *
- * @package Tenth_Template
- * @since Tenth Template 1.0
+ * @package Exultant
+ * @since Exultant 1.0
  */
 
-class TenthScriptLoader
+namespace tp\Exultant;
+
+class ExultantScriptLoader
 {
     /**
      * Adds async/defer attributes to enqueued / registered scripts.  If -defer or -async is present in the script's
@@ -21,13 +23,14 @@ class TenthScriptLoader
      *
      * @return string The HTML string.
      */
-    public function filterByTag($tag, $handle): string
+    public static function filterByTag($tag, $handle): string
     {
-        if (strpos($tag, 'async') !== false &&
-            strpos($handle, '-async') > 0) {
+        if (!str_contains($tag, ' async') &&
+            strpos($handle, '-async') > 0
+        ) {
             $tag = str_replace(' src=', ' async="async" src=', $tag);
         }
-        if (strpos($tag, 'defer') !== false &&
+        if (!str_contains($tag, ' defer') &&
             strpos($handle, '-defer') > 0
         ) {
             $tag = str_replace('<script ', '<script defer ', $tag);

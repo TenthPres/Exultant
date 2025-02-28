@@ -1,3 +1,4 @@
+@import "_mixins";
 
 nav.pagination-block {
   max-width: fit-content;
@@ -20,6 +21,12 @@ nav.pagination-block {
     list-style: none;
     border-right: 1px dotted #ddd;
 
+    &.narrow-hide {
+      @media (max-width: @reallyNarrow) {
+        display: none;
+      }
+    }
+
     &:last-child {
       border-right: none;
     }
@@ -39,6 +46,9 @@ nav.pagination-block {
       right: 0;
       bottom: -.25em;
       box-shadow: @tenthGreen 0 0 5px;
+      @media (max-width: @reallyNarrow) {
+        content: none;
+      }
     }
   }
 
@@ -54,6 +64,9 @@ nav.pagination-block {
 
     &.current {
       color: @contentBackgroundColor;
+      @media (max-width: @reallyNarrow) {
+        color: unset;
+      }
     }
   }
 

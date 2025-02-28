@@ -1,4 +1,13 @@
 {% if posts.pagination.pages is not empty %}
+    <script class="infiniteScrollTarget">
+        tpvm.infiniteScrollTargets = tpvm.infiniteScrollTargets ?? [];
+        tpvm.infiniteScrollTargets.push({
+            target: this,
+            next: {{ posts.pagination.next.link ? posts.pagination.next.link|json_encode : 'null' }},
+        });
+
+    </script>
+
     <nav class="pagination-block">
         <ul class="pagination">
 
@@ -30,11 +39,11 @@
             {# Pages #}
             {% for page in posts.pagination.pages %}
                 {% if page.link %}
-                    <li>
+                    <li class="narrow-hide">
                         <a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
                     </li>
                 {% elseif page.class == 'dots' %}
-                    <li class="dots disabled">
+                    <li class="dots disabled narrow-hide">
                         <span class="disabled las la-ellipsis-h"></span>
                     </li>
                 {% else %}

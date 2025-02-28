@@ -38,50 +38,50 @@ msgstr "James Kurtz"
 msgid "https://kurtz.es/work"
 msgstr "https://kurtz.es/work"
 
-#: classes/Exultant.php:66
+#: classes/Exultant.php:67
 msgid "Navigation"
 msgstr "Navegación"
 
-#: classes/Exultant.php:68
+#: classes/Exultant.php:69
 msgid "Settings for the navigation."
 msgstr "Configuraciones de navegación."
 
-#: classes/Exultant.php:79
+#: classes/Exultant.php:80
 msgid "Enable Header Navigation"
 msgstr "Habilitar navegación en el encabezado"
 
-#: classes/Exultant.php:265
+#: classes/Exultant.php:281
 msgid "Primary Menu"
 msgstr "Menú principal"
 
-#: classes/Exultant.php:266
+#: classes/Exultant.php:282
 msgid "Quick Menu"
 msgstr "Menú rápido"
 
-#: classes/Exultant.php:267
+#: classes/Exultant.php:283
 msgid "Footer Menu"
 msgstr "Menú del pie de página"
 
-#: classes/Exultant.php:268
+#: classes/Exultant.php:284
 msgid "Social Menu"
 msgstr "Menú social"
 
 #. translators: %s: number of seconds
-#: classes/Exultant.php:460
+#: classes/Exultant.php:476
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] "%s segundo"
 msgstr[1] "%s segundos"
 
 #. translators: %s: number of minutes
-#: classes/Exultant.php:463
+#: classes/Exultant.php:479
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] "%s minuto"
 msgstr[1] "%s minutos"
 
 #. translators: %s: a string like "8 minutes" or "30 seconds"
-#: classes/Exultant.php:466
+#: classes/Exultant.php:482
 msgid "Read Time: %s"
 msgstr "Tiempo de lectura: %s"
 
@@ -110,7 +110,7 @@ msgid "Search"
 msgstr "Buscar"
 
 #: template-parts/search-menu.php:21
-#: assets/js/tenth-defer.js:89
+#: assets/js/exultant-defer.js:89
 msgid "Start Typing..."
 msgstr "Empieza a escribir..."
 
@@ -137,3 +137,15 @@ msgstr "Plantilla Twig"
 #: template-parts/user-menu.php:68
 msgid "Post Type"
 msgstr "Tipo de publicación"
+
+#: classes/Exultant.php:270
+msgid "Built with ❤️ in Philadelphia"
+msgstr "Creado con ❤️ en Filadelfia"
+
+#: assets/js/exultant-defer.js:99
+msgid "No Results"
+msgstr "No hay resultados"
+
+#: assets/js/exultant-defer.js:122
+msgid "Loading..."
+msgstr "Cargando..."

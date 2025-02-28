@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-27T22:51:32+00:00\n"
+"POT-Creation-Date: 2025-02-28T01:48:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: Exultant\n"
@@ -39,50 +39,54 @@ msgstr ""
 msgid "https://kurtz.es/work"
 msgstr ""
 
-#: classes/Exultant.php:66
+#: classes/Exultant.php:67
 msgid "Navigation"
 msgstr ""
 
-#: classes/Exultant.php:68
+#: classes/Exultant.php:69
 msgid "Settings for the navigation."
 msgstr ""
 
-#: classes/Exultant.php:79
+#: classes/Exultant.php:80
 msgid "Enable Header Navigation"
 msgstr ""
 
-#: classes/Exultant.php:265
+#: classes/Exultant.php:270
+msgid "Built with ❤️ in Philadelphia"
+msgstr ""
+
+#: classes/Exultant.php:281
 msgid "Primary Menu"
 msgstr ""
 
-#: classes/Exultant.php:266
+#: classes/Exultant.php:282
 msgid "Quick Menu"
 msgstr ""
 
-#: classes/Exultant.php:267
+#: classes/Exultant.php:283
 msgid "Footer Menu"
 msgstr ""
 
-#: classes/Exultant.php:268
+#: classes/Exultant.php:284
 msgid "Social Menu"
 msgstr ""
 
 #. translators: %s: number of seconds
-#: classes/Exultant.php:460
+#: classes/Exultant.php:476
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of minutes
-#: classes/Exultant.php:463
+#: classes/Exultant.php:479
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: a string like "8 minutes" or "30 seconds"
-#: classes/Exultant.php:466
+#: classes/Exultant.php:482
 msgid "Read Time: %s"
 msgstr ""
 
@@ -111,7 +115,7 @@ msgid "Search"
 msgstr ""
 
 #: template-parts/search-menu.php:21
-#: assets/js/tenth-defer.js:89
+#: assets/js/exultant-defer.js:89
 msgid "Start Typing..."
 msgstr ""
 
@@ -137,4 +141,12 @@ msgstr ""
 
 #: template-parts/user-menu.php:68
 msgid "Post Type"
+msgstr ""
+
+#: assets/js/exultant-defer.js:99
+msgid "No Results"
+msgstr ""
+
+#: assets/js/exultant-defer.js:122
+msgid "Loading..."
 msgstr ""

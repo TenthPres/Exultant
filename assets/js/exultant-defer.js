@@ -1,10 +1,11 @@
+const { __, _x, _n, _nx } = wp.i18n;
 
 // scrolling progress bar
 if (!!document.getElementById('pageProgressBarProgress')) {
     window.addEventListener('scroll', function () {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop,
+            height = document.documentElement.scrollHeight - document.documentElement.clientHeight,
+            scrolled = (winScroll / height) * 100;
         document.getElementById("pageProgressBarProgress").style.width = scrolled + "%";
     })
 }
@@ -96,7 +97,7 @@ if (!!document.getElementById('search-input')) {
         clearSearchResults();
 
         if (data.length === 0 && lastSearchedValue.trim().length > 0) {
-            statusSpan.innerText = "No Results" // TODO i18n
+            statusSpan.innerText = __("No Results", "Exultant");
         } else {
             statusLi.style.display = "none";
         }
@@ -119,7 +120,7 @@ if (!!document.getElementById('search-input')) {
         if (searchTerm === lastSearchedValue || debounceTimer !== null) {
             return;
         }
-        statusSpan.innerText = "Loading..." // TODO i18n
+        statusSpan.innerText = __("Loading...", "Exultant");
         statusLi.style.display = "";
         if (xhr !== null) {
             xhr.abort();

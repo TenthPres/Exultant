@@ -4,6 +4,7 @@ namespace tp;
 
 use Timber\Loader;
 use tp\Exultant\AdminMenu;
+use tp\Exultant\ExultantScriptLoader;
 use tp\Exultant\Post;
 use Timber\Site;
 use Timber\Timber;
@@ -170,6 +171,7 @@ class Exultant extends Site
 
         add_action('init', [$this, 'registerPostTypes']);
         add_action('init', [$this, 'registerTaxonomies']);
+        add_action('init', [$this, 'registerScriptsAndStyles']);
 
         // Remove unwanted default WordPress things
         add_action('init', [$this, 'disableUnwantedDefaultWordPressThings_init']);
@@ -191,6 +193,15 @@ class Exultant extends Site
     /** This is where you can register custom taxonomies. */
     public function registerTaxonomies()
     {
+    }
+
+    public function registerScriptsAndStyles()
+    {
+        add_filter('script_loader_tag', [ExultantScriptLoader::class, 'filterByTag'], 10, 2);
+
+        wp_register_script('exultant-defer', get_template_directory_uri() . "/assets/js/exultant-defer.js", ['wp-i18n']);
+        wp_set_script_translations('exultant-defer', 'Exultant');
+        wp_enqueue_script('exultant-defer');
     }
 
     /** This is where you add some context
@@ -256,11 +267,16 @@ class Exultant extends Site
         }
         $context['site'] = $this;
 
+        $context['poweredBy'] = __("Built with ❤️ in Philadelphia", "Exultant");
+
         return $context;
     }
 
     public function themeSupports(): void
     {
+        load_theme_textdomain( 'Exultant', get_template_directory() . '/i18n' );
+
+
         $menus = [
            'primary' => __('Primary Menu', 'Exultant'),
            'quick'   => __('Quick Menu', 'Exultant'),

@@ -15,4 +15,8 @@ php .\wp-cli.phar i18n make-json i18n --no-purge
 php .\wp-cli.phar i18n make-mo i18n
 php .\wp-cli.phar i18n make-php i18n
 
+Get-ChildItem -Path . -Filter 'i18n\Exultant-*.json' | Rename-Item -NewName { $_.Name -replace '^Exultant-', '' }
+Get-ChildItem -Path . -Filter 'i18n\Exultant-*.mo' | Rename-Item -NewName { $_.Name -replace '^Exultant-', '' }
+Get-ChildItem -Path . -Filter 'i18n\Exultant-*.php' | Rename-Item -NewName { $_.Name -replace '^Exultant-', '' }
+
 xcopy /E /Y /I i18n build\i18n
