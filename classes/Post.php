@@ -37,8 +37,14 @@ class Post extends \Timber\Post
     {
         $posts = get_post_types();
         foreach ($posts as $postType) {
-            $classMap[$postType] = Post::class;
+            if (!array_key_exists($postType, $classMap) && str_starts_with($postType, 'tp_')) {
+                $classMap[$postType] = Post::class;
+            }
         }
+
+        $classMap['post'] = Post::class;
+        $classMap['page'] = Post::class;
+
         return $classMap;
     }
 }
