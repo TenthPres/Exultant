@@ -12,6 +12,7 @@ use Timber\Timber;
 use tp\Exultant\Post;
 use tp\Exultant;
 use tp\TouchPointWP\Involvement;
+use tp\TouchPointWP\Meeting;
 
 $context         = Timber::context();
 /** @var Post $timber_post */
@@ -36,6 +37,11 @@ if (post_password_required($timber_post->ID)) {
     $addTemplates[] = "templates/single-$type.twig";
     if (Involvement::postTypeMatches($type)) {
         $settings = Involvement::getSettingsForPostType($type);
+        $context['use_geo'] = ($settings->useGeo && $context['object']?->hasGeo());
+        $addTemplates[] = "templates/single-tp_inv.twig";
+    }
+    if (Meeting::postTypeMatches($type)) {
+        $settings = Meeting::getTypeSettings();
         $context['use_geo'] = ($settings->useGeo && $context['object']?->hasGeo());
         $addTemplates[] = "templates/single-tp_inv.twig";
     }
