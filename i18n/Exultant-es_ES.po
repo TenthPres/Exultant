@@ -110,7 +110,7 @@ msgid "Search"
 msgstr "Buscar"
 
 #: template-parts/search-menu.php:21
-#: assets/js/exultant-defer.js:89
+#: assets/js/exultant-defer.js:87
 msgid "Start Typing..."
 msgstr "Empieza a escribir..."
 
@@ -142,7 +142,7 @@ msgstr "Tipo de publicación"
 msgid "Built with ❤️ in Philadelphia"
 msgstr "Creado con ❤️ en Filadelfia"
 
-#: assets/js/exultant-defer.js:99
+#: assets/js/exultant-defer.js:102
 msgid "No Results"
 msgstr "No hay resultados"
 

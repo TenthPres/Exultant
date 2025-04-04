@@ -15,5 +15,6 @@ php ./wp-cli.phar i18n make-mo ./build/i18n
 php ./wp-cli.phar i18n make-php ./build/i18n
 
 for file in ./build/i18n/Exultant-*.php; do mv "$file" "${file#Exultant-}"; done
+for file in ./build/i18n/Exultant-*.mo; do mv "$file" "${file#Exultant-}"; done
 
 #cp ./wpml-config.xml ./build/wpml-config.xml

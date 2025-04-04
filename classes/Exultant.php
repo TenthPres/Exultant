@@ -200,7 +200,7 @@ class Exultant extends Site
         add_filter('script_loader_tag', [ExultantScriptLoader::class, 'filterByTag'], 10, 2);
 
         wp_register_script('exultant-defer', get_template_directory_uri() . "/assets/js/exultant-defer.js", ['wp-i18n']);
-        wp_set_script_translations('exultant-defer', 'Exultant');
+        wp_set_script_translations('exultant-defer', 'Exultant', get_template_directory() . "/i18n");
         wp_enqueue_script('exultant-defer');
     }
 
@@ -418,7 +418,7 @@ class Exultant extends Site
 
         $editLink = get_edit_post_link($p);
         if ($editLink) {
-            $edit = __('Edit');
+            $edit = __('Edit'); // Used wordpress default
             $items[] = "<a href=\"$editLink\">$edit</a>";
         }
         return implode(Exultant::$joiner, $items);
