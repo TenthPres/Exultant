@@ -51,6 +51,7 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
                     global $template;
                     $phpTemplate  = str_replace(get_template_directory(), "", $template);
                     $postType     = get_post_type(get_queried_object());
+                    $postId = get_queried_object_id();
                     ?>
                     <li>
                         <span><?php _e("PHP Template", "Exultant") ?></span>
@@ -68,6 +69,12 @@ if ($userId > 0 && !!get_avatar_url($userId)) {
                         <span><?php _e("Post Type", "Exultant") ?></span>
                         <ul>
                             <li><span><?php echo $postType; ?></span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span><?php _e("Post ID", "Exultant") ?></span>
+                        <ul>
+                            <li><span><?php echo $postId; ?></span></li>
                         </ul>
                     </li>
                 <?php } ?>
