@@ -455,13 +455,16 @@ class Exultant extends Site
     /**
      * Provides a time to read as a human-readable string.
      *
-     * @param string $content
+     * @param ?string $content
      *
      * @return ?string
      */
-    public static function timeToRead_str(string $content): ?string
+    public static function timeToRead_str(?string $content): ?string
     {
-        /** @noinspection SpellCheckingInspection */
+        if ($content === null || $content === '') {
+            return null;
+        }
+
         $mins  = self::timeToRead_min($content);
         /** @noinspection SpellCheckingInspection */
         $rmins = round($mins * 2) / 2;
