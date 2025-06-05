@@ -1,4 +1,4 @@
-const { __, _x, _n, _nx } = wp.i18n;
+const { __, _x, _n, _nx, sprintf } = typeof __ === "undefined" ? wp.i18n : { __, _x, _n, _nx, sprintf };
 
 // scrolling progress bar
 if (!!document.getElementById('pageProgressBarProgress')) {
