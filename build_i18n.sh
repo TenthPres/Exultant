@@ -14,7 +14,22 @@ php ./wp-cli.phar i18n make-json ./build/i18n
 php ./wp-cli.phar i18n make-mo ./build/i18n
 php ./wp-cli.phar i18n make-php ./build/i18n
 
-for file in ./build/i18n/Exultant-*.php; do mv "$file" "${file#Exultant-}"; done
-for file in ./build/i18n/Exultant-*.mo; do mv "$file" "${file#Exultant-}"; done
+# Only rename files that actually start with 'Exultant-' in the filename
+for file in ./build/i18n/Exultant-*.php; do
+    base=$(basename "$file")
+    dir=$(dirname "$file")
+    newname="${base#Exultant-}"
+    if [ "$base" != "$newname" ]; then
+        mv "$file" "$dir/$newname"
+    fi
+done
+for file in ./build/i18n/Exultant-*.mo; do
+    base=$(basename "$file")
+    dir=$(dirname "$file")
+    newname="${base#Exultant-}"
+    if [ "$base" != "$newname" ]; then
+        mv "$file" "$dir/$newname"
+    fi
+done
 
 #cp ./wpml-config.xml ./build/wpml-config.xml
