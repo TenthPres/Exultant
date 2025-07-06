@@ -82,6 +82,13 @@ gulp.task("images", function () {
         .pipe(gulp.dest(paths.buildAssets + "images/"));
 });
 
+gulp.task("branding", function () {
+    return gulp
+        .src("assets/branding/**/*", {encoding: false})
+        // .pipe(imagemin())
+        .pipe(gulp.dest(paths.buildAssets + "branding/"));
+});
+
 // Copy files
 gulp.task("copy-files", function () {
     return gulp
@@ -99,5 +106,5 @@ gulp.task("copy-dirs", function () {
 // Default task sequence
 export default gulp.task(
     "default",
-    gulp.series("clean", "i18n", gulp.parallel("images", "minify-js", "styles"), "copy-files", "copy-dirs")
+    gulp.series("clean", "i18n", gulp.parallel("images", "branding", "minify-js", "styles"), "copy-files", "copy-dirs")
 );
