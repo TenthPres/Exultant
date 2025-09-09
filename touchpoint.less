@@ -46,6 +46,10 @@ main#site-content.TouchPoint {
 		color: @tenthRed;
 	}
 
+	h1, header h1 {
+		font-size: unset;
+	}
+
 	input.input-validation-error {
 		color: @tenthRed;
 		border: 2px solid @tenthRed;
@@ -97,7 +101,7 @@ main#site-content.TouchPoint {
 		& >.panel-heading {
 			background: transparent;
 			border: none;
-			font-family: 'adobe-garamond-pro';
+			font-family: 'adobe-garamond-pro', Garamond, serif;
 			font-size: 1.2em;
 		}
 	}
@@ -124,7 +128,7 @@ main#site-content.TouchPoint {
 		display: unset;
 	}
 	.editable-click,
-	a.editable-click
+	a.editable-click,
 	a.editable:not(.btn):not(.dropdown-item)
 	{
 		border-color: @tenthGreen;
@@ -150,10 +154,6 @@ main#site-content.TouchPoint {
 
 	.list-group-item {
 		border-width: 1px 0;
-
-		&:last-item {
-			border: none;
-		}
 	}
 
 	div#main.giving,
@@ -280,11 +280,15 @@ tr,
 th,
 td {
 	border: none;
-	font-size: inherit;
-	font-wieght: normal;
+	font-size: unset;
+	font-weight: normal;
 	line-height: inherit;
 	margin: 0;
 	padding: 0;
 	text-align: inherit;
 }
 
+body {
+	margin-bottom: 0 !important;
+	padding-top: 0 !important;
+}

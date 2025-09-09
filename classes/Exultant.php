@@ -179,6 +179,9 @@ class Exultant extends Site
         add_filter('wp_resource_hints', [$this, 'filterPrefetchDomains'], 10, 2);
         add_action('wp_enqueue_scripts', [$this, 'disableUnwantedDefaultWordPressThings_scripts'], 99);
 
+        // Add needed Rest hooks
+        Rest::init();
+
         // use our own admin menu, integrated into the nav.
         add_action('admin_bar_init', [AdminMenu::class, 'adminBarMenuHandler']);
 

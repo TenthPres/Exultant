@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-04T20:13:14+00:00\n"
+"POT-Creation-Date: 2025-09-09T01:04:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: Exultant\n"
 
 #. Theme Name of the theme
@@ -51,52 +51,57 @@ msgstr ""
 msgid "Enable Header Navigation"
 msgstr ""
 
-#: classes/Exultant.php:270
+#: classes/Exultant.php:273
 msgid "Built with ❤️ in Philadelphia"
 msgstr ""
 
-#: classes/Exultant.php:281
+#: classes/Exultant.php:284
 msgid "Primary Menu"
 msgstr ""
 
-#: classes/Exultant.php:282
+#: classes/Exultant.php:285
 msgid "Quick Menu"
 msgstr ""
 
-#: classes/Exultant.php:283
+#: classes/Exultant.php:286
 msgid "Footer Menu"
 msgstr ""
 
-#: classes/Exultant.php:284
+#: classes/Exultant.php:287
 msgid "Social Menu"
 msgstr ""
 
 #. translators: %s: number of seconds
-#: classes/Exultant.php:476
+#: classes/Exultant.php:482
+#, php-format
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of minutes
-#: classes/Exultant.php:479
+#: classes/Exultant.php:485
+#, php-format
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: a string like "8 minutes" or "30 seconds"
-#: classes/Exultant.php:482
+#: classes/Exultant.php:488
+#, php-format
 msgid "Read Time: %s"
 msgstr ""
 
 #. translators: %s: Author name.
 #: inc/template-tags.php:174
+#, php-format
 msgid "By %s"
 msgstr ""
 
 #. translators: %s is the search query string
 #: search.php:23
+#, php-format
 msgid "Search: %s"
 msgstr ""
 
@@ -115,7 +120,7 @@ msgid "Search"
 msgstr ""
 
 #: template-parts/search-menu.php:21
-#: assets/js/exultant-defer.js:87
+#: assets/js/exultant-defer.js:92
 msgid "Start Typing..."
 msgstr ""
 
@@ -131,22 +136,26 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: template-parts/user-menu.php:56
+#: template-parts/user-menu.php:57
 msgid "PHP Template"
 msgstr ""
 
-#: template-parts/user-menu.php:62
+#: template-parts/user-menu.php:63
 msgid "Twig Template"
 msgstr ""
 
-#: template-parts/user-menu.php:68
+#: template-parts/user-menu.php:69
 msgid "Post Type"
 msgstr ""
 
-#: assets/js/exultant-defer.js:102
+#: template-parts/user-menu.php:75
+msgid "Post ID"
+msgstr ""
+
+#: assets/js/exultant-defer.js:107
 msgid "No Results"
 msgstr ""
 
-#: assets/js/exultant-defer.js:122
+#: assets/js/exultant-defer.js:127
 msgid "Loading..."
 msgstr ""
