@@ -1,6 +1,6 @@
 (function() {
 
-    const {__, _x, _n, _nx, sprintf} = wp.i18n;
+    const {__} = wp.i18n;
 
 // scrolling progress bar
     if (!!document.getElementById('pageProgressBarProgress')) {
@@ -16,6 +16,9 @@
 // xhr Search
     function initSearch() {
         const input = document.getElementById('search-input');
+        if (!input) {
+            return;
+        }
         const ul = document.getElementById('search-results-list');
         const statusSpan = document.getElementById('search-results-status');
         const statusLi = statusSpan.parentElement;
