@@ -12,7 +12,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        submodules: 'true'
+        submodules: 'recursive'
+        token: ${{ secrets.SUBMODULE_PAT }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
